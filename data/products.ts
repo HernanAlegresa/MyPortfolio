@@ -40,6 +40,13 @@ export const products: Product[] = [
       "Short sleeve raglan polo with contrast panels and a relaxed silhouette. Designed for everyday streetwear with a sport-inspired feel.",
     price: 44,
     images: [
+      "/products/raglan-shrt-charcoal/raglan-shrt-charcoal-3.jpeg",
+      "/products/raglan-shrt-charcoal/raglan-shrt-charcoal-4.jpeg",
+      "/products/raglan-shrt-charcoal/raglan-shrt-charcoal-5.jpeg",
+      "/products/raglan-shrt-charcoal/raglan-shrt-charcoal-6.jpeg",
+      "/products/raglan-shrt-butter/raglan-shrt-butter-3.jpeg",
+      "/products/raglan-shrt-butter/raglan-shrt-butter-4.jpeg",
+      "/products/raglan-shrt-butter/raglan-shrt-butter-5.jpeg",
       "/products/raglan-shrt-charcoal/raglan-shrt-charcoal-1.jpg",
       "/products/raglan-shrt-charcoal/raglan-shrt-charcoal-2.jpg",
       "/products/raglan-shrt-butter/raglan-shrt-butter-1.jpg",
@@ -68,6 +75,9 @@ export const products: Product[] = [
       "Long sleeve flannel shirt with a relaxed fit and timeless plaid pattern. An easy everyday layer for casual streetwear looks.",
     price: 49,
     images: [
+      "/products/classic-flannel-shrt/classic-flannel-shrt-3.jpeg",
+      "/products/classic-flannel-shrt/classic-flannel-shrt-4.jpeg",
+      "/products/classic-flannel-shrt/classic-flannel-shrt-5.jpeg",
       "/products/classic-flannel-shrt/classic-flannel-shrt-1.png",
       "/products/classic-flannel-shrt/classic-flannel-shrt-2.png",
     ],
@@ -86,7 +96,10 @@ export const products: Product[] = [
     description:
       "Heavy long sleeve flannel shirt with raw, distressed details. Workwear-inspired piece designed for layering and durability.",
     price: 52,
-    images: ["/products/raw-flannel-shrt/raw-flannel-shrt-1.jpg"],
+    images: [
+      "/products/raw-flannel-shrt/raw-flannel-shrt-2.jpeg",
+      "/products/raw-flannel-shrt/raw-flannel-shrt-1.jpg",
+    ],
     category: getCategory("flannel-long-sleeve"),
     collection: getCollection("work-shrt"),
     sizes: standardSizes,
@@ -103,6 +116,8 @@ export const products: Product[] = [
       "Oversized long sleeve flannel built from mixed plaid panels. A bold patchwork piece with a strong workwear and street identity.",
     price: 58,
     images: [
+      "/products/patchwork-shrt-long-sleeve-blue-yellow/patchwork-shrt-long-sleeve-blue-yellow-4.jpeg",
+      "/products/patchwork-shrt-long-sleeve-blue-yellow/patchwork-shrt-long-sleeve-blue-yellow-5.jpeg",
       "/products/patchwork-shrt-long-sleeve-blue-yellow/patchwork-shrt-long-sleeve-blue-yellow-1.jpg",
       "/products/patchwork-shrt-long-sleeve-blue-yellow/patchwork-shrt-long-sleeve-blue-yellow-2.jpg",
       "/products/patchwork-shrt-long-sleeve-blue-yellow/patchwork-shrt-long-sleeve-blue-yellow-3.jpg",
@@ -142,6 +157,7 @@ export const products: Product[] = [
       "Oversized long sleeve flannel built from mixed plaid panels. A bold patchwork piece with a strong workwear and street identity.",
     price: 58,
     images: [
+      "/products/patchwork-shrt-long-sleeve-multi-plaid/patchwork-shrt-long-sleeve-multi-plaid-3.jpeg",
       "/products/patchwork-shrt-long-sleeve-multi-plaid/patchwork-shrt-long-sleeve-multi-plaid-1.jpg",
       "/products/patchwork-shrt-long-sleeve-multi-plaid/patchwork-shrt-long-sleeve-multi-plaid-2.jpg",
     ],
@@ -164,7 +180,12 @@ export const products: Product[] = [
     description:
       "Short sleeve flannel shirt with a relaxed, boxy fit. Designed for warm weather and casual street styling.",
     price: 42,
-    images: ["/products/short-flannel-shrt/short-flannel-shrt-1.jpg"],
+    images: [
+      "/products/short-flannel-shrt/short-flannel-shrt-2.jpeg",
+      "/products/short-flannel-shrt/short-flannel-shrt-3.jpeg",
+      "/products/short-flannel-shrt/short-flannel-shrt-4.jpeg",
+      "/products/short-flannel-shrt/short-flannel-shrt-1.jpg",
+    ],
     category: getCategory("flannel-short-sleeve"),
     collection: getCollection("core-shrt"),
     sizes: standardSizes,
@@ -181,6 +202,9 @@ export const products: Product[] = [
       "Short sleeve patchwork flannel featuring mixed plaid panels. Lightweight and relaxed for summer streetwear looks.",
     price: 46,
     images: [
+      "/products/patchwork-shrt-short-sleeve/patchwork-shrt-short-sleeve-4.jpeg",
+      "/products/patchwork-shrt-short-sleeve/patchwork-shrt-short-sleeve-5.jpeg",
+      "/products/patchwork-shrt-short-sleeve/patchwork-shrt-short-sleeve-6.jpeg",
       "/products/patchwork-shrt-short-sleeve/patchwork-shrt-short-sleeve-1.jpg",
       "/products/patchwork-shrt-short-sleeve/patchwork-shrt-short-sleeve-2.jpg",
       "/products/patchwork-shrt-short-sleeve/patchwork-shrt-short-sleeve-3.jpg",
@@ -205,9 +229,9 @@ export const products: Product[] = [
       "Canvas workwear jacket with a boxy, relaxed fit. Inspired by classic chore jackets, designed for everyday use and durability.",
     price: 78,
     images: [
+      "/products/work-shrt-jacket/work-shrt-jacket-3.jpeg",
       "/products/work-shrt-jacket/work-shrt-jacket-1.jpg",
       "/products/work-shrt-jacket/work-shrt-jacket-2.jpg",
-      "/products/work-shrt-jacket/work-shrt-jacket-3.jpg",
     ],
     category: getCategory("jackets"),
     collection: getCollection("work-shrt"),
@@ -229,6 +253,8 @@ export const products: Product[] = [
       "Corduroy 5-panel cap with a short brim and relaxed fit. A versatile everyday accessory with a workwear-inspired look.",
     price: 28,
     images: [
+      "/products/corduroy-cap/corduroy-cap-5.jpeg",
+      "/products/corduroy-cap/corduroy-cap-6.jpeg",
       "/products/corduroy-cap/corduroy-cap-1.jpg",
       "/products/corduroy-cap/corduroy-cap-2.jpg",
       "/products/corduroy-cap/corduroy-cap-3.jpg",

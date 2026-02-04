@@ -26,7 +26,7 @@ export function BrandStory() {
           >
             {!imageError ? (
               <Image
-                src="/lifestyle/brand-story.jpg"
+                src="/lifestyle/lifestyle-1.jpeg"
                 alt="Premium t-shirt craftsmanship and quality"
                 fill
                 className="object-cover"
