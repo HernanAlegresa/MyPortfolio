@@ -1,0 +1,98 @@
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { getProduct, getRelatedProducts } from "@/lib/products/getProduct";
+import { ProductGallery } from "@/components/pdp/ProductGallery";
+import { ProductInfo } from "@/components/pdp/ProductInfo";
+import { CompleteTheLook } from "@/components/pdp/CompleteTheLook";
+import { WaitlistModal } from "@/components/waitlist/WaitlistModal";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await getProduct(slug);
+
+  if (!product) {
+    return {
+      title: "Product Not Found - Oh Sh!rt",
+    };
+  }
+
+  return {
+    title: `${product.name} - Oh Sh!rt`,
+    description: product.description,
+    openGraph: {
+      title: product.name,
+      description: product.description,
+      images: product.images.length > 0 ? [product.images[0]] : [],
+    },
+  };
+}
+
+export default async function ProductPage({ params }: Props) {
+  const { slug } = await params;
+  const product = await getProduct(slug);
+
+  if (!product) {
+    notFound();
+  }
+
+  const relatedProducts = getRelatedProducts(product, 4);
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ohshrt.com";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: product.images[0] ? `${siteUrl}${product.images[0]}` : undefined,
+    offers: {
+      "@type": "Offer",
+      price: product.price,
+      priceCurrency: "USD",
+      availability: product.inStock
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+    },
+  };
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Shop", href: "/shop" },
+          { label: product.name },
+        ]}
+      />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        {/* Product Gallery */}
+        <div>
+          <ProductGallery images={product.images} productName={product.name} />
+        </div>
+
+        {/* Product Info */}
+        <div>
+          <ProductInfo product={product} />
+        </div>
+      </div>
+
+      {/* Complete the Look */}
+      <CompleteTheLook
+        products={relatedProducts}
+        currentProductId={product.id}
+      />
+
+      {/* Waitlist Modal - will be controlled by ProductInfo */}
+      <WaitlistModal productId={product.id} productName={product.name} />
+    </div>
+  );
+}
