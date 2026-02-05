@@ -2,8 +2,10 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -12,12 +14,22 @@ interface MobileNavProps {
 
 const navLinks = [
   { href: "/shop", label: "Shop" },
-  { href: "/about", label: "About" },
+  { href: "/collections", label: "Collections" },
+  { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
-  { href: "/shipping", label: "Shipping" },
 ];
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
+  const pathname = usePathname();
+
+  // Check if a nav link is active
+  const isLinkActive = (href: string) => {
+    if (href === "/shop") {
+      return pathname === "/shop" || pathname.startsWith("/shop/");
+    }
+    return pathname === href || pathname.startsWith(href + "/");
+  };
+
   // Lock body scroll when open
   useEffect(() => {
     if (isOpen) {
@@ -72,25 +84,33 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
               {/* Links */}
               <div className="flex-1 px-6 py-8">
                 <ul className="space-y-1">
-                  {navLinks.map((link, index) => (
-                    <motion.li
-                      key={link.href}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{
-                        delay: 0.1 + index * 0.05,
-                        duration: 0.3,
-                      }}
-                    >
-                      <Link
-                        href={link.href}
-                        onClick={onClose}
-                        className="block rounded-md px-3 py-3 text-lg font-medium text-gray-900 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                  {navLinks.map((link, index) => {
+                    const isActive = isLinkActive(link.href);
+                    return (
+                      <motion.li
+                        key={link.href}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                          delay: 0.1 + index * 0.05,
+                          duration: 0.3,
+                        }}
                       >
-                        {link.label}
-                      </Link>
-                    </motion.li>
-                  ))}
+                        <Link
+                          href={link.href}
+                          onClick={onClose}
+                          className={cn(
+                            "block rounded-md px-3 py-3 text-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2",
+                            isActive
+                              ? "bg-black text-white"
+                              : "text-gray-900 hover:bg-gray-50"
+                          )}
+                        >
+                          {link.label}
+                        </Link>
+                      </motion.li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>

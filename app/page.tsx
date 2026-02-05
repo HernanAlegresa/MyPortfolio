@@ -14,8 +14,8 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <CategoryShowcase />
       <FeaturedProducts />
+      <CategoryShowcase />
       <BrandStory />
     </>
   );

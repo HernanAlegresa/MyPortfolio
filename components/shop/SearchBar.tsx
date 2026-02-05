@@ -1,37 +1,39 @@
 "use client";
 
-import { useShopSearch } from "@/hooks/useShopSearch";
-import { Input } from "@/components/ui/input";
-import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { ShopSearchModal } from "./ShopSearchModal";
 
 export function SearchBar() {
-  const { searchQuery, updateSearch, clearSearch } = useShopSearch();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
-    <div className="relative w-full max-w-md">
-      <Input
-        type="text"
-        placeholder="Search products..."
-        value={searchQuery}
-        onChange={(e) => updateSearch(e.target.value)}
-        className="pr-10"
-        aria-label="Search products"
-      />
-      {searchQuery && (
-        <button
-          onClick={clearSearch}
-          className={cn(
-            "absolute right-3 top-1/2 -translate-y-1/2 p-1",
-            "hover:bg-gray-100 rounded-sm",
-            "focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2",
-            "transition-colors"
-          )}
-          aria-label="Clear search"
+    <>
+      {/* Search Trigger Button */}
+      <button
+        onClick={() => setIsSearchOpen(true)}
+        className="w-full flex items-center gap-3 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors text-left"
+      >
+        <svg
+          className="w-5 h-5 text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
         >
-          <X className="h-4 w-4" />
-        </button>
-      )}
-    </div>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+        <span className="text-gray-500">Search products...</span>
+      </button>
+
+      {/* Search Modal */}
+      <ShopSearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
+    </>
   );
 }

@@ -2,22 +2,48 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { categories } from "@/data/categories";
-import { getProductsByCategory } from "@/data/products";
-import { ScrollToNext } from "@/components/ui/scroll-to-next";
+import { motion, AnimatePresence } from "framer-motion";
+import { collections } from "@/data/collections";
+import { getProductsByCollection } from "@/data/products";
+import { useState, useEffect } from "react";
 
-function CategoryCard({
-  category,
+// Define the exact order and layout for homepage
+const homepageLayout = {
+  topRow: ["polos", "flannel-short-sleeve", "jackets"],
+  featured: "flannel-patchwork-long-sleeve",
+  bottomRowLeft: "accessories", // 2 images, spans 2 columns
+  bottomRowRight: "flannel-long-sleeve", // 1 column
+};
+
+// Global image index for synchronized transitions
+function useSynchronizedImageIndex(intervalMs: number = 4000) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => prev + 1);
+    }, intervalMs);
+
+    return () => clearInterval(interval);
+  }, [intervalMs]);
+
+  return index;
+}
+
+// Regular collection card (single image)
+function CollectionCard({
+  collection,
   index,
+  globalImageIndex,
 }: {
-  category: (typeof categories)[0];
+  collection: (typeof collections)[0];
   index: number;
+  globalImageIndex: number;
 }) {
-  const products = getProductsByCategory(category.slug);
-  const firstProduct = products[0];
-  const displayImage = firstProduct?.images[0];
+  const products = getProductsByCollection(collection.slug);
+  const allImages = products.flatMap((product) => product.images);
+  const currentImageIndex = allImages.length > 0 ? globalImageIndex % allImages.length : 0;
+  const displayImage = allImages[currentImageIndex];
 
   return (
     <motion.div
@@ -25,40 +51,186 @@ function CategoryCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
-      className="shrink-0 sm:shrink"
     >
       <Link
-        href={`/shop?category=${category.slug}`}
-        className="group block w-44 sm:w-auto"
+        href={`/shop?collection=${collection.slug}`}
+        className="group block"
       >
-        <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-gray-100">
-          {/* Static Product Image with hover zoom */}
-          {displayImage ? (
-            <Image
-              src={displayImage}
-              alt={category.name}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              sizes="(max-width: 640px) 176px, (max-width: 1024px) 33vw, 20vw"
-            />
-          ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200" />
-          )}
+        <div className="relative overflow-hidden rounded-xl bg-gray-100 aspect-[3/4]">
+          <AnimatePresence mode="wait">
+            {displayImage ? (
+              <motion.div
+                key={displayImage}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={displayImage}
+                  alt={collection.name}
+                  fill
+                  quality={95}
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                />
+              </motion.div>
+            ) : (
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200" />
+            )}
+          </AnimatePresence>
 
           {/* Gradient overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
-          {/* Category info */}
-          <div className="absolute inset-0 flex items-end p-4">
-            <div className="w-full">
-              <h3 className="text-sm font-semibold text-white drop-shadow-md">
-                {category.name}
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="px-4 py-2 bg-black/30 backdrop-blur-[2px] rounded-lg">
+              <h3 className="font-semibold text-white text-center text-lg tracking-wide" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+                {collection.name}
               </h3>
-              <span className="mt-1 flex items-center gap-1 text-xs text-white/80 transition-colors group-hover:text-white">
-                Shop Now
-                <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
-              </span>
-            </div>
+            </span>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
+// Featured collection with 3 images side by side (title only)
+function FeaturedCollectionCard({
+  collection,
+  index,
+}: {
+  collection: (typeof collections)[0];
+  index: number;
+}) {
+  const products = getProductsByCollection(collection.slug);
+  const productImages = products.map((product) => product.images[0]).filter(Boolean);
+
+  const displayImages: string[] = [];
+  for (let i = 0; i < 3; i++) {
+    if (productImages.length > 0) {
+      displayImages.push(productImages[i % productImages.length]);
+    }
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
+      className="col-span-2 sm:col-span-3"
+    >
+      <Link
+        href={`/shop?collection=${collection.slug}`}
+        className="group block"
+      >
+        <div className="relative overflow-hidden rounded-xl bg-gray-100">
+          <div className="flex">
+            {displayImages.map((image, imgIndex) => (
+              <div
+                key={imgIndex}
+                className="relative flex-1 aspect-[3/4]"
+              >
+                <Image
+                  src={image}
+                  alt={`${collection.name} ${imgIndex + 1}`}
+                  fill
+                  quality={95}
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="33vw"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Gradient overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" />
+
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="px-6 py-3 bg-black/30 backdrop-blur-[2px] rounded-lg">
+              <h3 className="font-semibold text-white text-center text-2xl sm:text-3xl tracking-wide" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+                {collection.name}
+              </h3>
+            </span>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
+// Double-width collection with 2 images side by side
+function DoubleCollectionCard({
+  collection,
+  index,
+}: {
+  collection: (typeof collections)[0];
+  index: number;
+}) {
+  // Specific images for accessories collection
+  const accessoriesImages = [
+    "/products/corduroy-cap/corduroy-cap-6.jpeg",
+    "/products/corduroy-cap/corduroy-cap-1.jpg",
+  ];
+
+  let displayImages: string[];
+
+  if (collection.slug === "accessories") {
+    displayImages = accessoriesImages;
+  } else {
+    const products = getProductsByCollection(collection.slug);
+    const productImages = products.map((product) => product.images[0]).filter(Boolean);
+    displayImages = [];
+    for (let i = 0; i < 2; i++) {
+      if (productImages.length > 0) {
+        displayImages.push(productImages[i % productImages.length]);
+      }
+    }
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
+      className="col-span-2"
+    >
+      <Link
+        href={`/shop?collection=${collection.slug}`}
+        className="group block"
+      >
+        <div className="relative overflow-hidden rounded-xl bg-gray-100">
+          <div className="flex">
+            {displayImages.map((image, imgIndex) => (
+              <div
+                key={imgIndex}
+                className="relative flex-1 aspect-[3/4]"
+              >
+                <Image
+                  src={image}
+                  alt={`${collection.name} ${imgIndex + 1}`}
+                  fill
+                  quality={95}
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="33vw"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Gradient overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="px-4 py-2 bg-black/30 backdrop-blur-[2px] rounded-lg">
+              <h3 className="font-semibold text-white text-center text-lg tracking-wide" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+                {collection.name}
+              </h3>
+            </span>
           </div>
         </div>
       </Link>
@@ -67,43 +239,59 @@ function CategoryCard({
 }
 
 export function CategoryShowcase() {
-  return (
-    <section id="category-showcase" className="relative min-h-screen flex flex-col justify-center py-20 sm:py-28">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 flex items-end justify-between"
-        >
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Shop by Category
-            </h2>
-            <p className="mt-2 text-gray-600">
-              Find your style across our collections.
-            </p>
-          </div>
-          <Link
-            href="/shop"
-            className="hidden items-center gap-1 text-sm font-medium transition-colors hover:text-gray-600 sm:flex"
-          >
-            View All
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </motion.div>
+  const globalImageIndex = useSynchronizedImageIndex(7000);
 
-        {/* Horizontal scrolling row on mobile, grid on desktop */}
-        <div className="flex gap-4 overflow-x-auto pb-4 sm:grid sm:grid-cols-3 sm:overflow-visible sm:pb-0 lg:grid-cols-5">
-          {categories.map((category, index) => (
-            <CategoryCard key={category.id} category={category} index={index} />
+  const getCollection = (slug: string) => collections.find((c) => c.slug === slug);
+
+  const topRowCollections = homepageLayout.topRow
+    .map(getCollection)
+    .filter((c): c is NonNullable<typeof c> => c !== undefined);
+
+  const featuredCollection = getCollection(homepageLayout.featured);
+  const bottomLeftCollection = getCollection(homepageLayout.bottomRowLeft);
+  const bottomRightCollection = getCollection(homepageLayout.bottomRowRight);
+
+  return (
+    <section id="collection-showcase" className="relative pt-2 pb-8 sm:pt-3 sm:pb-10">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+          {/* Top Row - 3 collections */}
+          {topRowCollections.map((collection, index) => (
+            <CollectionCard
+              key={collection.id}
+              collection={collection}
+              index={index}
+              globalImageIndex={globalImageIndex}
+            />
           ))}
+
+          {/* Middle Row - Featured full-width collection with 3 images */}
+          {featuredCollection && (
+            <FeaturedCollectionCard
+              key={featuredCollection.id}
+              collection={featuredCollection}
+              index={3}
+            />
+          )}
+
+          {/* Bottom Row - Accessories (2 images, 2 cols) + Flannel Long Sleeve (1 col) */}
+          {bottomLeftCollection && (
+            <DoubleCollectionCard
+              key={bottomLeftCollection.id}
+              collection={bottomLeftCollection}
+              index={4}
+            />
+          )}
+          {bottomRightCollection && (
+            <CollectionCard
+              key={bottomRightCollection.id}
+              collection={bottomRightCollection}
+              index={5}
+              globalImageIndex={globalImageIndex}
+            />
+          )}
         </div>
       </div>
-
-      {/* Scroll to next section */}
-      <ScrollToNext targetId="featured-products" label="Featured Products" />
     </section>
   );
 }

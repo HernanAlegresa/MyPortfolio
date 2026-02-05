@@ -5,8 +5,8 @@ export function parseFiltersFromSearchParams(
 ): ShopFilters {
   const filters: ShopFilters = {};
 
-  // Category
-  const category = searchParams.get("category");
+  // Category (also accept "collection" parameter for the same filter)
+  const category = searchParams.get("category") || searchParams.get("collection");
   if (category) {
     filters.category = category.split(",").filter(Boolean);
   }

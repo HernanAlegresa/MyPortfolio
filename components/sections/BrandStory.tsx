@@ -16,7 +16,7 @@ export function BrandStory() {
   const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <section id="brand-story" ref={sectionRef} className="min-h-screen flex items-center overflow-hidden bg-gray-50 py-20 sm:py-28">
+    <section id="brand-story" ref={sectionRef} className="overflow-hidden bg-gray-50 py-8 sm:py-10">
       <div className="container mx-auto px-4">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Image with parallax */}
@@ -29,6 +29,7 @@ export function BrandStory() {
                 src="/lifestyle/lifestyle-1.jpeg"
                 alt="Premium t-shirt craftsmanship and quality"
                 fill
+                quality={95}
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 onError={() => setImageError(true)}

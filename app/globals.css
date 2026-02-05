@@ -14,6 +14,12 @@
   * {
     @apply border-border;
   }
+
+  /* Remove focus outlines site-wide for cleaner UI */
+  *:focus,
+  *:focus-visible {
+    @apply outline-none ring-0;
+  }
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;

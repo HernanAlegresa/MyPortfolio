@@ -14,14 +14,16 @@ export function filterProducts(
       (product) =>
         product.name.toLowerCase().includes(query) ||
         product.description.toLowerCase().includes(query) ||
-        product.category.name.toLowerCase().includes(query)
+        product.category?.name?.toLowerCase().includes(query) ||
+        product.collection?.name?.toLowerCase().includes(query)
     );
   }
 
-  // Category filter
+  // Category/Collection filter
   if (filters.category && filters.category.length > 0) {
     filtered = filtered.filter((product) =>
-      filters.category!.includes(product.category.slug)
+      filters.category!.includes(product.category?.slug) ||
+      filters.category!.includes(product.collection?.slug)
     );
   }
 
@@ -107,7 +109,10 @@ export function getAvailableFilters(products: Product[]): {
   let maxPrice = -Infinity;
 
   products.forEach((product) => {
-    categories.add(product.category.slug);
+    // Use collection slug (category and collection are now the same)
+    if (product.collection?.slug) {
+      categories.add(product.collection.slug);
+    }
     product.sizes.forEach((size) => sizes.add(size));
     product.colors.forEach((color) => colors.add(color.name));
     minPrice = Math.min(minPrice, product.price);

@@ -28,19 +28,8 @@ const contactInfo = [
 
 export default function ContactPage() {
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 pt-24 pb-16">
       <div className="mx-auto max-w-4xl">
-        {/* Header */}
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            Get in Touch
-          </h1>
-          <p className="mt-4 text-lg text-gray-600">
-            Have a question, feedback, or just want to say hi? We&apos;d love to
-            hear from you.
-          </p>
-        </div>
-
         <div className="grid gap-12 lg:grid-cols-5">
           {/* Contact Form */}
           <div className="lg:col-span-3">

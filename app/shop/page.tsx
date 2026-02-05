@@ -10,7 +10,6 @@ import { ProductGrid } from "@/components/shop/ProductGrid";
 import { EmptyState } from "@/components/shop/EmptyState";
 import { MobileFilterTrigger } from "@/components/shop/MobileFilterTrigger";
 import { ProductGridSkeleton } from "@/components/shop/ProductGridSkeleton";
-import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import type { SortOption } from "@/lib/types/product";
 
 type Props = {
@@ -51,14 +50,21 @@ async function ShopPageContent({ searchParams }: Props) {
   const sortedProducts = sortProducts(filteredProducts, sortOption, searchQuery);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Shop" }]} />
-
+    <div className="container mx-auto px-4 pt-20 pb-8">
       {/* Header Section */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">Shop</h1>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <SearchBar />
+      <div className="mb-6">
+        <div className="flex items-center justify-between gap-4">
+          {/* Left spacer for balance */}
+          <div className="hidden md:block w-32" />
+
+          {/* Centered search bar */}
+          <div className="flex-1 flex justify-center">
+            <div className="w-full max-w-md">
+              <SearchBar />
+            </div>
+          </div>
+
+          {/* Right side controls */}
           <div className="flex items-center gap-3">
             <MobileFilterTrigger resultCount={sortedProducts.length} />
             <SortDropdown />

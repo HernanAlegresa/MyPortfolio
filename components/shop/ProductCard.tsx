@@ -1,112 +1,123 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { ProductImage } from "@/components/ui/product-image";
-import { motion } from "framer-motion";
-import { Eye } from "lucide-react";
+import { Check } from "lucide-react";
 import type { Product } from "@/lib/types/product";
 import { cn } from "@/lib/utils";
-import { QuickView } from "@/components/shop/QuickView";
+import { useCart } from "@/contexts/CartContext";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const [quickViewOpen, setQuickViewOpen] = useState(false);
-  const mainImage = product.images[0];
+  const [isHovered, setIsHovered] = useState(false);
+  const [addedSize, setAddedSize] = useState<string | null>(null);
+  const { addToCart } = useCart();
+
   const hasDiscount = product.compareAtPrice && product.compareAtPrice > product.price;
+  const hasSecondImage = product.images.length > 1;
+
+  // Preload second image for instant swap
+  useEffect(() => {
+    if (hasSecondImage) {
+      const img = new Image();
+      img.src = product.images[1];
+    }
+  }, [product.images, hasSecondImage]);
+
+  // Handle quick add to cart with feedback
+  const handleQuickAdd = useCallback((e: React.MouseEvent, size: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const defaultColor = product.colors[0];
+    addToCart(product, size as any, defaultColor, 1);
+    setAddedSize(size);
+    setTimeout(() => setAddedSize(null), 1000);
+  }, [product, addToCart]);
+
+  // Simple hover swap: main image → second image
+  const displayImage = isHovered && hasSecondImage ? product.images[1] : product.images[0];
 
   return (
-    <>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5 }}
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Link
+        href={`/shop/${product.slug}`}
+        className="group block"
       >
-        <Link
-          href={`/shop/${product.slug}`}
-          className={cn(
-            "group block",
-            "focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 rounded-lg"
-          )}
-        >
-          <div className="relative aspect-square overflow-hidden rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 mb-4">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-full h-full"
-            >
-              <ProductImage
-                src={mainImage}
-                alt={product.name}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                loading="lazy"
-              />
-            </motion.div>
-            {hasDiscount && (
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="absolute top-3 right-3 bg-black text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg"
-              >
-                -{Math.round(((product.compareAtPrice! - product.price) / product.compareAtPrice!) * 100)}%
-              </motion.div>
-            )}
-            {!product.inStock && (
-              <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
-                <span className="text-sm font-semibold text-gray-900 uppercase tracking-wide">
-                  Out of Stock
-                </span>
-              </div>
-            )}
+        <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-gray-100 mb-3">
+          {/* Image - instant swap on hover */}
+          <ProductImage
+            src={displayImage}
+            alt={product.name}
+            fill
+            quality={95}
+            className="object-cover"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            loading="lazy"
+          />
 
-            {/* Quick View button (desktop only) */}
-            {product.inStock && (
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setQuickViewOpen(true);
-                }}
-                className="absolute bottom-3 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-1.5 rounded-full bg-white/90 px-4 py-2 text-xs font-medium shadow-md backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 hover:bg-white focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
-                aria-label={`Quick view ${product.name}`}
-              >
-                <Eye className="h-3.5 w-3.5" />
-                Quick View
-              </button>
-            )}
-          </div>
-          <div className="space-y-2">
-            <h3 className="font-semibold text-gray-900 group-hover:text-gray-600 transition-colors text-lg">
-              {product.name}
-            </h3>
-            <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
-              {product.description}
-            </p>
-            <div className="flex items-baseline gap-2 pt-1">
-              <span className="text-xl font-bold text-gray-900">
-                ${product.price.toFixed(2)}
-              </span>
-              {hasDiscount && (
-                <span className="text-sm text-gray-500 line-through">
-                  ${product.compareAtPrice!.toFixed(2)}
-                </span>
-              )}
+          {/* Discount badge */}
+          {hasDiscount && (
+            <div className="absolute top-2 right-2 bg-black text-white text-xs font-bold px-2 py-1 rounded-full">
+              -{Math.round(((product.compareAtPrice! - product.price) / product.compareAtPrice!) * 100)}%
             </div>
-          </div>
-        </Link>
-      </motion.div>
+          )}
 
-      <QuickView
-        product={product}
-        open={quickViewOpen}
-        onOpenChange={setQuickViewOpen}
-      />
-    </>
+          {/* Out of stock overlay */}
+          {!product.inStock && (
+            <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
+              <span className="text-sm font-semibold text-gray-900 uppercase tracking-wide">
+                Out of Stock
+              </span>
+            </div>
+          )}
+
+          {/* Quick size selector */}
+          {product.inStock && isHovered && (
+            <div className="absolute bottom-0 left-0 right-0 p-2 bg-white/95">
+              <div className="flex justify-center gap-0.5">
+                {product.sizes.map((size) => (
+                  <button
+                    key={size}
+                    onClick={(e) => handleQuickAdd(e, size)}
+                    className={cn(
+                      "w-8 h-7 text-xs font-medium transition-all",
+                      addedSize === size
+                        ? "bg-black text-white"
+                        : "hover:bg-black hover:text-white"
+                    )}
+                  >
+                    {addedSize === size ? <Check className="h-3 w-3 mx-auto" /> : size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Product info */}
+        <div className="space-y-0.5">
+          <h3 className="font-medium text-gray-900 text-sm leading-tight">
+            {product.name}
+          </h3>
+          <div className="flex items-baseline gap-2">
+            <span className="font-semibold text-gray-900 text-sm">
+              ${product.price.toFixed(2)}
+            </span>
+            {hasDiscount && (
+              <span className="text-xs text-gray-500 line-through">
+                ${product.compareAtPrice!.toFixed(2)}
+              </span>
+            )}
+          </div>
+        </div>
+      </Link>
+    </div>
   );
 }

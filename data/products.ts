@@ -1,17 +1,15 @@
 import type { Product, Size } from "@/lib/types/product";
-import { categories } from "./categories";
 import { collections } from "./collections";
 
 // Standard sizes for apparel
 const standardSizes: Size[] = ["XS", "S", "M", "L", "XL"];
 
-// Helper to get category and collection by id
-const getCategory = (id: string) => categories.find((c) => c.id === id)!;
+// Helper to get collection by id
 const getCollection = (id: string) => collections.find((c) => c.id === id)!;
 
 export const products: Product[] = [
   // ============================================
-  // CATEGORY: Polos (Collection: Core Sh!rt)
+  // COLLECTION: Polos
   // ============================================
   {
     id: "rugby-stripe-shrt",
@@ -24,12 +22,12 @@ export const products: Product[] = [
       "/products/rugby-stripe-shrt/rugby-stripe-shrt-1.jpg",
       "/products/rugby-stripe-shrt/rugby-stripe-shrt-2.jpg",
     ],
-    category: getCategory("polos"),
-    collection: getCollection("core-shrt"),
+    category: getCollection("polos"),
+    collection: getCollection("polos"),
     sizes: standardSizes,
     colors: [{ name: "Stripe", hex: "#2C3E50" }],
     inStock: true,
-    featured: true,
+    featured: false,
     createdAt: "2025-01-15T00:00:00Z",
   },
   {
@@ -52,8 +50,8 @@ export const products: Product[] = [
       "/products/raglan-shrt-butter/raglan-shrt-butter-1.jpg",
       "/products/raglan-shrt-butter/raglan-shrt-butter-2.jpg",
     ],
-    category: getCategory("polos"),
-    collection: getCollection("core-shrt"),
+    category: getCollection("polos"),
+    collection: getCollection("polos"),
     sizes: standardSizes,
     colors: [
       { name: "Charcoal", hex: "#36454F" },
@@ -65,7 +63,7 @@ export const products: Product[] = [
   },
 
   // ============================================
-  // CATEGORY: Flannel Shirts – Long Sleeve
+  // COLLECTION: Flannel Shirts – Long Sleeve (Classic)
   // ============================================
   {
     id: "classic-flannel-shrt",
@@ -79,14 +77,13 @@ export const products: Product[] = [
       "/products/classic-flannel-shrt/classic-flannel-shrt-4.jpeg",
       "/products/classic-flannel-shrt/classic-flannel-shrt-5.jpeg",
       "/products/classic-flannel-shrt/classic-flannel-shrt-1.png",
-      "/products/classic-flannel-shrt/classic-flannel-shrt-2.png",
     ],
-    category: getCategory("flannel-long-sleeve"),
-    collection: getCollection("core-shrt"),
+    category: getCollection("flannel-long-sleeve"),
+    collection: getCollection("flannel-long-sleeve"),
     sizes: standardSizes,
     colors: [{ name: "Classic Plaid", hex: "#8B4513" }],
     inStock: true,
-    featured: true,
+    featured: false,
     createdAt: "2025-01-20T00:00:00Z",
   },
   {
@@ -100,14 +97,18 @@ export const products: Product[] = [
       "/products/raw-flannel-shrt/raw-flannel-shrt-2.jpeg",
       "/products/raw-flannel-shrt/raw-flannel-shrt-1.jpg",
     ],
-    category: getCategory("flannel-long-sleeve"),
-    collection: getCollection("work-shrt"),
+    category: getCollection("flannel-long-sleeve"),
+    collection: getCollection("flannel-long-sleeve"),
     sizes: standardSizes,
     colors: [{ name: "Raw Indigo", hex: "#3D5A80" }],
     inStock: true,
     featured: false,
     createdAt: "2025-01-25T00:00:00Z",
   },
+
+  // ============================================
+  // COLLECTION: Flannel Patchwork Shirts – Long Sleeve (NEW)
+  // ============================================
   {
     id: "patchwork-shrt-long-sleeve-blue-yellow",
     name: "Patchwork Sh!rt (Long Sleeve) – Blue Yellow",
@@ -122,8 +123,8 @@ export const products: Product[] = [
       "/products/patchwork-shrt-long-sleeve-blue-yellow/patchwork-shrt-long-sleeve-blue-yellow-2.jpg",
       "/products/patchwork-shrt-long-sleeve-blue-yellow/patchwork-shrt-long-sleeve-blue-yellow-3.jpg",
     ],
-    category: getCategory("flannel-long-sleeve"),
-    collection: getCollection("work-shrt"),
+    category: getCollection("flannel-patchwork-long-sleeve"),
+    collection: getCollection("flannel-patchwork-long-sleeve"),
     sizes: standardSizes,
     colors: [{ name: "Blue / Yellow", hex: "#4A90A4" }],
     inStock: true,
@@ -141,8 +142,8 @@ export const products: Product[] = [
       "/products/patchwork-shrt-long-sleeve-earth-tones/patchwork-shrt-long-sleeve-earth-tones-1.jpg",
       "/products/patchwork-shrt-long-sleeve-earth-tones/patchwork-shrt-long-sleeve-earth-tones-2.jpg",
     ],
-    category: getCategory("flannel-long-sleeve"),
-    collection: getCollection("work-shrt"),
+    category: getCollection("flannel-patchwork-long-sleeve"),
+    collection: getCollection("flannel-patchwork-long-sleeve"),
     sizes: standardSizes,
     colors: [{ name: "Earth Tones", hex: "#8B7355" }],
     inStock: true,
@@ -161,8 +162,8 @@ export const products: Product[] = [
       "/products/patchwork-shrt-long-sleeve-multi-plaid/patchwork-shrt-long-sleeve-multi-plaid-1.jpg",
       "/products/patchwork-shrt-long-sleeve-multi-plaid/patchwork-shrt-long-sleeve-multi-plaid-2.jpg",
     ],
-    category: getCategory("flannel-long-sleeve"),
-    collection: getCollection("work-shrt"),
+    category: getCollection("flannel-patchwork-long-sleeve"),
+    collection: getCollection("flannel-patchwork-long-sleeve"),
     sizes: standardSizes,
     colors: [{ name: "Multi Plaid", hex: "#704214" }],
     inStock: true,
@@ -171,7 +172,7 @@ export const products: Product[] = [
   },
 
   // ============================================
-  // CATEGORY: Flannel Shirts – Short Sleeve
+  // COLLECTION: Flannel Shirts – Short Sleeve
   // ============================================
   {
     id: "short-flannel-shrt",
@@ -186,8 +187,8 @@ export const products: Product[] = [
       "/products/short-flannel-shrt/short-flannel-shrt-4.jpeg",
       "/products/short-flannel-shrt/short-flannel-shrt-1.jpg",
     ],
-    category: getCategory("flannel-short-sleeve"),
-    collection: getCollection("core-shrt"),
+    category: getCollection("flannel-short-sleeve"),
+    collection: getCollection("flannel-short-sleeve"),
     sizes: standardSizes,
     colors: [{ name: "Summer Plaid", hex: "#C19A6B" }],
     inStock: true,
@@ -209,8 +210,8 @@ export const products: Product[] = [
       "/products/patchwork-shrt-short-sleeve/patchwork-shrt-short-sleeve-2.jpg",
       "/products/patchwork-shrt-short-sleeve/patchwork-shrt-short-sleeve-3.jpg",
     ],
-    category: getCategory("flannel-short-sleeve"),
-    collection: getCollection("work-shrt"),
+    category: getCollection("flannel-short-sleeve"),
+    collection: getCollection("flannel-short-sleeve"),
     sizes: standardSizes,
     colors: [{ name: "Mixed Patchwork", hex: "#8B7355" }],
     inStock: true,
@@ -219,7 +220,7 @@ export const products: Product[] = [
   },
 
   // ============================================
-  // CATEGORY: Jackets
+  // COLLECTION: Jackets
   // ============================================
   {
     id: "work-shrt-jacket",
@@ -229,12 +230,12 @@ export const products: Product[] = [
       "Canvas workwear jacket with a boxy, relaxed fit. Inspired by classic chore jackets, designed for everyday use and durability.",
     price: 78,
     images: [
-      "/products/work-shrt-jacket/work-shrt-jacket-3.jpeg",
       "/products/work-shrt-jacket/work-shrt-jacket-1.jpg",
+      "/products/work-shrt-jacket/work-shrt-jacket-3.jpeg",
       "/products/work-shrt-jacket/work-shrt-jacket-2.jpg",
     ],
-    category: getCategory("jackets"),
-    collection: getCollection("work-shrt"),
+    category: getCollection("jackets"),
+    collection: getCollection("jackets"),
     sizes: standardSizes,
     colors: [{ name: "Black", hex: "#1A1A1A" }],
     inStock: true,
@@ -243,7 +244,7 @@ export const products: Product[] = [
   },
 
   // ============================================
-  // CATEGORY: Accessories
+  // COLLECTION: Accessories
   // ============================================
   {
     id: "corduroy-cap",
@@ -253,15 +254,15 @@ export const products: Product[] = [
       "Corduroy 5-panel cap with a short brim and relaxed fit. A versatile everyday accessory with a workwear-inspired look.",
     price: 28,
     images: [
-      "/products/corduroy-cap/corduroy-cap-5.jpeg",
       "/products/corduroy-cap/corduroy-cap-6.jpeg",
+      "/products/corduroy-cap/corduroy-cap-5.jpeg",
       "/products/corduroy-cap/corduroy-cap-1.jpg",
       "/products/corduroy-cap/corduroy-cap-2.jpg",
       "/products/corduroy-cap/corduroy-cap-3.jpg",
       "/products/corduroy-cap/corduroy-cap-4.jpg",
     ],
-    category: getCategory("accessories"),
-    collection: getCollection("work-shrt"),
+    category: getCollection("accessories"),
+    collection: getCollection("accessories"),
     sizes: ["One Size"],
     colors: [
       { name: "Earth Brown", hex: "#8B6914" },
@@ -270,7 +271,7 @@ export const products: Product[] = [
       { name: "Rust / Sage", hex: "#B7410E" },
     ],
     inStock: true,
-    featured: false,
+    featured: true,
     createdAt: "2025-02-20T00:00:00Z",
   },
 ];
@@ -292,11 +293,11 @@ export function getFeaturedProducts(): Product[] {
 }
 
 export function getProductsByCategory(categorySlug: string): Product[] {
-  return products.filter((product) => product.category.slug === categorySlug);
+  return products.filter((product) => product.category?.slug === categorySlug);
 }
 
 export function getProductsByCollection(collectionSlug: string): Product[] {
   return products.filter(
-    (product) => product.collection.slug === collectionSlug
+    (product) => product.collection?.slug === collectionSlug
   );
 }

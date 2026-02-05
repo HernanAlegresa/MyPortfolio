@@ -15,7 +15,7 @@ export function CartWidget() {
         onClick={toggleCart}
         className={cn(
           "relative p-2 rounded-full transition-colors",
-          "hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2",
+          "hover:opacity-70",
           "flex items-center justify-center"
         )}
         aria-label="Shopping cart"

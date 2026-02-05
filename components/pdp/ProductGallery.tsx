@@ -56,7 +56,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
               className="object-cover"
               priority
               sizes="(max-width: 768px) 100vw, 50vw"
-              quality={90}
+              quality={95}
             />
           </motion.div>
         </AnimatePresence>
@@ -119,8 +119,9 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                 src={image}
                 alt={`${productName} thumbnail ${index + 1}`}
                 fill
+                quality={90}
                 className="object-cover"
-                sizes="(max-width: 768px) 25vw, 12.5vw"
+                sizes="(max-width: 768px) 25vw, 15vw"
               />
             </motion.button>
           ))}
