@@ -7,6 +7,7 @@ import { CartProvider } from "@/contexts/CartContext";
 import { ToastProvider } from "@/contexts/ToastContext";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { BackToTop } from "@/components/ui/back-to-top";
+import { PreviewBanner } from "@/components/layout/PreviewBanner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -64,6 +65,7 @@ export default function RootLayout({
             >
               Skip to content
             </a>
+            <PreviewBanner />
             <Header />
             <main id="main-content" className="flex-1">{children}</main>
             <Footer />

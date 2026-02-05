@@ -68,7 +68,7 @@ export function Header() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
+          "fixed top-9 left-0 right-0 z-50 transition-all duration-300 border-b",
           showSolidHeader
             ? "bg-white/70 backdrop-blur-sm border-gray-200"
             : "bg-transparent border-transparent"

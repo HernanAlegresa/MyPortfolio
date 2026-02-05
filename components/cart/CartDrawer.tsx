@@ -338,6 +338,9 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       Checkout
                     </Button>
                   </Link>
+                  <p className="text-center text-xs text-gray-400">
+                    Preview mode — checkout coming soon
+                  </p>
                   <Link href="/shop" onClick={onClose} className="block">
                     <Button variant="outline" className="w-full h-10">
                       Continue Shopping

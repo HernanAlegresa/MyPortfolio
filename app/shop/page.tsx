@@ -3,7 +3,6 @@ import { getAllProducts } from "@/data/products";
 import { filterProducts, sortProducts } from "@/lib/shop/filters";
 import { parseFiltersFromSearchParams } from "@/lib/shop/normalize";
 import { FilterPanel } from "@/components/shop/FilterPanel";
-import { SearchBar } from "@/components/shop/SearchBar";
 import { SortDropdown } from "@/components/shop/SortDropdown";
 import { FilterChips } from "@/components/shop/FilterChips";
 import { ProductGrid } from "@/components/shop/ProductGrid";
@@ -51,25 +50,9 @@ async function ShopPageContent({ searchParams }: Props) {
 
   return (
     <div className="container mx-auto px-4 pt-20 pb-8">
-      {/* Header Section */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between gap-4">
-          {/* Left spacer for balance */}
-          <div className="hidden md:block w-32" />
-
-          {/* Centered search bar */}
-          <div className="flex-1 flex justify-center">
-            <div className="w-full max-w-md">
-              <SearchBar />
-            </div>
-          </div>
-
-          {/* Right side controls */}
-          <div className="flex items-center gap-3">
-            <MobileFilterTrigger resultCount={sortedProducts.length} />
-            <SortDropdown />
-          </div>
-        </div>
+      {/* Mobile Filter Trigger */}
+      <div className="mb-4 md:hidden">
+        <MobileFilterTrigger resultCount={sortedProducts.length} />
       </div>
 
       {/* Filter Chips */}
@@ -88,8 +71,11 @@ async function ShopPageContent({ searchParams }: Props) {
         <div className="flex-1">
           {sortedProducts.length > 0 ? (
             <>
-              <div className="mb-4 text-sm text-gray-600">
-                Showing {sortedProducts.length} product{sortedProducts.length !== 1 ? "s" : ""}
+              <div className="mb-4 flex items-center justify-between">
+                <SortDropdown />
+                <span className="text-sm text-gray-600">
+                  Showing {sortedProducts.length} product{sortedProducts.length !== 1 ? "s" : ""}
+                </span>
               </div>
               <ProductGrid products={sortedProducts} />
             </>
