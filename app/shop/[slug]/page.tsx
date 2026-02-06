@@ -6,6 +6,7 @@ import { ProductInfo } from "@/components/pdp/ProductInfo";
 import { CompleteTheLook } from "@/components/pdp/CompleteTheLook";
 import { WaitlistModal } from "@/components/waitlist/WaitlistModal";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { siteConfig } from "@/config/site";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -17,12 +18,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!product) {
     return {
-      title: "Product Not Found - Oh Sh!rt",
+      title: "Product Not Found",
     };
   }
 
   return {
-    title: `${product.name} - Oh Sh!rt`,
+    title: product.name,
     description: product.description,
     openGraph: {
       title: product.name,
@@ -42,18 +43,16 @@ export default async function ProductPage({ params }: Props) {
 
   const relatedProducts = getRelatedProducts(product, 4);
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ohshrt.com";
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
     description: product.description,
-    image: product.images[0] ? `${siteUrl}${product.images[0]}` : undefined,
+    image: product.images[0] ? `${siteConfig.url}${product.images[0]}` : undefined,
     offers: {
       "@type": "Offer",
       price: product.price,
-      priceCurrency: "USD",
+      priceCurrency: siteConfig.currency,
       availability: product.inStock
         ? "https://schema.org/InStock"
         : "https://schema.org/OutOfStock",

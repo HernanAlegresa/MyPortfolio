@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { CheckoutContent } from "@/components/checkout/CheckoutContent";
 
 export const metadata: Metadata = {
-  title: "Checkout - Oh Sh!rt",
-  description: "Complete your purchase",
+  title: "Checkout",
+  description: "Complete your purchase.",
 };
 
 export default function CheckoutPage() {

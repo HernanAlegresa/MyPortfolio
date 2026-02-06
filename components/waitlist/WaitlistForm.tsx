@@ -40,10 +40,10 @@ export function WaitlistForm({
     return (
       <div className="text-center py-4">
         <p className="text-green-600 font-medium mb-2">
-          ✓ You've been added to the waitlist!
+          You&apos;ve been added to the waitlist!
         </p>
         <p className="text-sm text-gray-600">
-          We'll notify you when this product is available.
+          We&apos;ll notify you when this product is available.
         </p>
       </div>
     );

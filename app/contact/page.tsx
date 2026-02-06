@@ -2,27 +2,28 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactFAQ } from "@/components/contact/ContactFAQ";
 import { Mail, MapPin, Clock } from "lucide-react";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with Oh Sh!rt. We'd love to hear from you.",
+  description: `Get in touch with ${siteConfig.name}. We'd love to hear from you.`,
 };
 
 const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@ohshrt.com",
+    value: siteConfig.email,
   },
   {
     icon: MapPin,
     label: "Location",
-    value: "Miami, FL",
+    value: siteConfig.location,
   },
   {
     icon: Clock,
     label: "Response Time",
-    value: "Within 24 hours",
+    value: siteConfig.responseTime,
   },
 ];
 

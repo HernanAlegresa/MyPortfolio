@@ -1,12 +1,12 @@
 "use client";
 
 import { Accordion } from "@/components/ui/accordion";
+import { siteConfig } from "@/config/site";
 
 const faqItems = [
   {
     title: "What is your return policy?",
-    content:
-      "We offer a 30-day return policy on all unworn items with original tags attached. Simply contact us at hello@ohshrt.com with your order number and we'll send you a return label.",
+    content: `We offer a 30-day return policy on all unworn items with original tags attached. Simply contact us at ${siteConfig.email} with your order number and we'll send you a return label.`,
   },
   {
     title: "How long does shipping take?",

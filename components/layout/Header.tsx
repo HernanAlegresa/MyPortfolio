@@ -4,19 +4,20 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { CartWidget } from "@/components/cart/CartWidget";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { SearchModal } from "@/components/layout/SearchModal";
+import { siteConfig } from "@/config/site";
 
-const leftNavLinks = [
-  { href: "/shop", label: "Shop" },
-  { href: "/collections", label: "Collections" },
-] as const;
+// Only import CartWidget when store feature is enabled
+const CartWidget = siteConfig.features.store
+  ? require("@/components/cart/CartWidget").CartWidget
+  : null;
 
-const rightNavLinks = [
-  { href: "/about", label: "About Us" },
-  { href: "/contact", label: "Contact" },
-] as const;
+// Split nav items for desktop layout (left/right of center search)
+const navItems = siteConfig.mainNav;
+const midpoint = Math.ceil(navItems.length / 2);
+const leftNavLinks = navItems.slice(0, midpoint);
+const rightNavLinks = navItems.slice(midpoint);
 
 // Scroll threshold in pixels
 const SCROLL_THRESHOLD = 50;
@@ -84,7 +85,7 @@ export function Header() {
                 showSolidHeader ? "text-black" : "text-white"
               )}
             >
-              Oh Sh!rt
+              {siteConfig.name}
             </Link>
 
             {/* Navigation - Desktop */}
@@ -200,12 +201,14 @@ export function Header() {
                 </svg>
               </button>
 
-              <div className={cn(
-                "transition-colors duration-300",
-                showSolidHeader ? "text-black" : "text-white"
-              )}>
-                <CartWidget />
-              </div>
+              {CartWidget && (
+                <div className={cn(
+                  "transition-colors duration-300",
+                  showSolidHeader ? "text-black" : "text-white"
+                )}>
+                  <CartWidget />
+                </div>
+              )}
 
               {/* Mobile menu button */}
               <button

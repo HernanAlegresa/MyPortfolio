@@ -1,44 +1,37 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { siteConfig } from "@/config/site";
+
+// ============================================
+// HERO SECTION — Customize for your project
+// ============================================
+// Option A (Store): Full-bleed product image with CTA
+// Option B (Portfolio): Text-based hero with tagline
+// Option C (Business): Split layout with image + copy
+//
+// Replace the placeholder below with your hero image:
+//   /public/hero/hero-image.jpeg (desktop)
+//   /public/hero/hero_mobile.jpeg (mobile)
 
 export function Hero() {
   return (
     <section id="hero" className="relative w-full">
-      {/*
-        MOBILE - Ajustes (cambia y guarda para ver con hot reload):
-        - Altura del bloque: min-h-[56vh] → cambia 56 (ej: 60, 70, 80).
-        - Posición de la imagen: en la clase object-[...] del Image mobile (abajo).
-          Ejemplo: object-[50%_40%] = 50% horizontal, 40% vertical (0=arriba/izq, 100=abajo/der).
-      */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="relative w-full min-h-[57vh] md:min-h-0"
+        className="relative w-full min-h-[60vh] md:min-h-[70vh] bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 flex items-center justify-center"
       >
-        {/* Desktop image */}
-        <Image
-          src="/hero/hero-image.jpeg"
-          alt="Oh Sh!rt"
-          width={1920}
-          height={1080}
-          quality={95}
-          priority
-          className="w-full h-auto hidden md:block"
-          sizes="100vw"
-        />
-        {/* Mobile image - fills at least 60vh, covers without distortion */}
-        <Image
-          src="/hero/hero_mobile.jpeg"
-          alt="Oh Sh!rt"
-          fill
-          quality={95}
-          priority
-          className="object-cover md:hidden"
-          sizes="100vw"
-        />
+        {/* Placeholder hero — replace with Image component when you have images */}
+        <div className="text-center px-4">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">
+            {siteConfig.name}
+          </h1>
+          <p className="text-lg sm:text-xl text-white/70 max-w-xl mx-auto">
+            {siteConfig.tagline}
+          </p>
+        </div>
       </motion.div>
     </section>
   );

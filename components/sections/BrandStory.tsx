@@ -1,14 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
+
+// ============================================
+// BRAND STORY SECTION — Edit copy for your brand
+// ============================================
+// This section appears on the homepage below featured products.
+// Customize the heading, body text, and CTA link.
+// Replace the gradient placeholder with a lifestyle image.
 
 export function BrandStory() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [imageError, setImageError] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -24,21 +29,9 @@ export function BrandStory() {
             style={{ y: imageY }}
             className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gradient-to-br from-gray-200 to-gray-300"
           >
-            {!imageError ? (
-              <Image
-                src="/lifestyle/lifestyle-1.jpeg"
-                alt="Premium t-shirt craftsmanship and quality"
-                fill
-                quality={95}
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                onError={() => setImageError(true)}
-              />
-            ) : (
-              <div className="flex h-full items-center justify-center text-gray-400">
-                <span className="text-sm">Lifestyle image</span>
-              </div>
-            )}
+            <div className="flex h-full items-center justify-center text-gray-400">
+              <span className="text-sm">Replace with lifestyle image</span>
+            </div>
           </motion.div>
 
           {/* Text */}
@@ -59,7 +52,7 @@ export function BrandStory() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl"
             >
-              Less hype.
+              Less noise.
               <br />
               More substance.
             </motion.h2>
@@ -70,9 +63,9 @@ export function BrandStory() {
               transition={{ duration: 0.5, delay: 0.15 }}
               className="mb-4 text-lg leading-relaxed text-gray-600"
             >
-              We believe the best clothing doesn&apos;t need to shout. Every
-              piece in our collection is designed to be versatile, durable,
-              and effortlessly styled.
+              We believe the best products don&apos;t need to shout. Every
+              detail is designed to be purposeful, durable, and effortlessly
+              functional.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -81,8 +74,8 @@ export function BrandStory() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mb-8 text-lg leading-relaxed text-gray-600"
             >
-              Premium fabrics, clean silhouettes, and a commitment to quality
-              that you can feel from the first wear.
+              Quality materials, clean design, and a commitment to craft
+              that you can feel from the first interaction.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

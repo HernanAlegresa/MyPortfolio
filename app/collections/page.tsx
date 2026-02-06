@@ -5,8 +5,8 @@ import { collections } from "@/data/collections";
 import { getProductsByCollection } from "@/data/products";
 
 export const metadata: Metadata = {
-  title: "Collections | Oh Sh!rt",
-  description: "Browse our curated collections of premium shirts.",
+  title: "Collections",
+  description: "Browse our curated collections.",
 };
 
 export default function CollectionsPage() {

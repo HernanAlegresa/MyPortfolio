@@ -6,18 +6,14 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
 
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const navLinks = [
-  { href: "/shop", label: "Shop" },
-  { href: "/collections", label: "Collections" },
-  { href: "/about", label: "About Us" },
-  { href: "/contact", label: "Contact" },
-];
+const navLinks = siteConfig.mainNav;
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const pathname = usePathname();
@@ -70,7 +66,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
               {/* Header */}
               <div className="flex items-center justify-between border-b px-6 py-5">
                 <span className="text-xl font-bold tracking-tight">
-                  Oh Sh!rt
+                  {siteConfig.name}
                 </span>
                 <button
                   onClick={onClose}

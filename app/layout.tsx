@@ -7,7 +7,8 @@ import { CartProvider } from "@/contexts/CartContext";
 import { ToastProvider } from "@/contexts/ToastContext";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { BackToTop } from "@/components/ui/back-to-top";
-import { PreviewBanner } from "@/components/layout/PreviewBanner";
+// import { PreviewBanner } from "@/components/layout/PreviewBanner"; // Uncomment if you need a preview/coming-soon popup
+import { siteConfig } from "@/config/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,24 +18,24 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Oh Sh!rt - Premium T-Shirts",
-    template: "%s | Oh Sh!rt",
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description: "Discover our collection of high-quality, comfortable premium t-shirts designed for everyday wear.",
-  keywords: ["t-shirts", "premium t-shirts", "clothing", "fashion", "apparel"],
-  authors: [{ name: "Oh Sh!rt" }],
+  description: siteConfig.description,
+  keywords: [...siteConfig.keywords],
+  authors: [...siteConfig.authors],
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "https://ohshrt.com",
-    siteName: "Oh Sh!rt",
-    title: "Oh Sh!rt - Premium T-Shirts",
-    description: "Discover our collection of high-quality, comfortable premium t-shirts designed for everyday wear.",
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Oh Sh!rt - Premium T-Shirts",
-    description: "Discover our collection of high-quality, comfortable premium t-shirts designed for everyday wear.",
+    title: siteConfig.name,
+    description: siteConfig.description,
   },
   robots: {
     index: true,
@@ -65,7 +66,7 @@ export default function RootLayout({
             >
               Skip to content
             </a>
-            <PreviewBanner />
+            <AnnouncementBar />
             <Header />
             <main id="main-content" className="flex-1">{children}</main>
             <Footer />

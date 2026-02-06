@@ -1,23 +1,16 @@
 import { MetadataRoute } from "next";
-import { getAllProducts } from "@/data/products";
-import { categories } from "@/data/categories";
+import { siteConfig } from "@/config/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ohshrt.com";
+  const baseUrl = siteConfig.url;
 
-  // Static pages
+  // Static pages (always present)
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,
-    },
-    {
-      url: `${baseUrl}/shop`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.9,
     },
     {
       url: `${baseUrl}/about`,
@@ -31,30 +24,68 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    {
-      url: `${baseUrl}/shipping`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
   ];
 
-  // Category pages
-  const categoryPages: MetadataRoute.Sitemap = categories.map((category) => ({
-    url: `${baseUrl}/shop?category=${category.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: 0.8,
-  }));
+  // Store pages — only included when store feature is enabled
+  let storePages: MetadataRoute.Sitemap = [];
+  if (siteConfig.features.store) {
+    try {
+      const { getAllProducts } = require("@/data/products");
+      const { categories } = require("@/data/categories");
 
-  // Product pages
-  const products = getAllProducts();
-  const productPages: MetadataRoute.Sitemap = products.map((product) => ({
-    url: `${baseUrl}/shop/${product.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: 0.8,
-  }));
+      storePages.push({
+        url: `${baseUrl}/shop`,
+        lastModified: new Date(),
+        changeFrequency: "daily",
+        priority: 0.9,
+      });
 
-  return [...staticPages, ...categoryPages, ...productPages];
+      storePages.push({
+        url: `${baseUrl}/shipping`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+
+      // Category pages
+      if (Array.isArray(categories)) {
+        for (const category of categories) {
+          storePages.push({
+            url: `${baseUrl}/shop?category=${category.slug}`,
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.8,
+          });
+        }
+      }
+
+      // Product pages
+      const products = getAllProducts();
+      if (Array.isArray(products)) {
+        for (const product of products) {
+          storePages.push({
+            url: `${baseUrl}/shop/${product.slug}`,
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.8,
+          });
+        }
+      }
+    } catch {
+      // Store data not available — skip store pages silently
+    }
+  }
+
+  // Portfolio pages — only included when portfolio feature is enabled
+  let portfolioPages: MetadataRoute.Sitemap = [];
+  if (siteConfig.features.portfolio) {
+    portfolioPages.push({
+      url: `${baseUrl}/projects`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    });
+  }
+
+  return [...staticPages, ...storePages, ...portfolioPages];
 }

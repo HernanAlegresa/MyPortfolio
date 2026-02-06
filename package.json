@@ -1,5 +1,5 @@
 {
-  "name": "ohshrt-web",
+  "name": "starter-template",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,7 @@
     "dev:webpack": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
@@ -22,6 +22,9 @@
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
+    "@eslint/compat": "^1.4.1",
+    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/js": "^9.39.2",
     "@types/node": "^22.10.5",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
@@ -31,6 +34,6 @@
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.7.2"
+    "typescript": "5.9.3"
   }
 }

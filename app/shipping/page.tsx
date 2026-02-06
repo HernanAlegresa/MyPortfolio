@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Truck, Package, RefreshCw, Globe } from "lucide-react";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Shipping & Returns",
-  description: "Shipping rates, delivery times, and return policy for Oh Sh!rt orders.",
+  description: `Shipping rates, delivery times, and return policy for ${siteConfig.name} orders.`,
 };
 
 const shippingRates = [
@@ -140,7 +141,7 @@ export default function ShippingPage() {
           <h2 className="mb-6 text-2xl font-bold">How Returns Work</h2>
           <div className="space-y-4">
             {[
-              "Contact us at hello@ohshrt.com with your order number",
+              `Contact us at ${siteConfig.email} with your order number`,
               "We'll send you a prepaid return shipping label",
               "Pack the item(s) in their original condition with tags attached",
               "Drop off the package at any carrier location",

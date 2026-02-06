@@ -18,7 +18,7 @@ type SearchCategory = "all" | "products" | "collections" | "pages";
 const pages = [
   { name: "Shop", href: "/shop", description: "Browse all products" },
   { name: "Collections", href: "/collections", description: "View our collections" },
-  { name: "About Us", href: "/about", description: "Learn about Oh Sh!rt" },
+  { name: "About Us", href: "/about", description: "Learn more about us" },
   { name: "Contact", href: "/contact", description: "Get in touch with us" },
 ];
 
@@ -226,7 +226,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
               <div className="p-6">
                 <p className="text-sm text-gray-500 mb-4">Popular searches</p>
                 <div className="flex flex-wrap gap-2">
-                  {["Polos", "Flannel", "Patchwork", "Jackets", "Accessories"].map(
+                  {["Shirts", "Outerwear", "Accessories", "Basics"].map(
                     (term) => (
                       <button
                         key={term}

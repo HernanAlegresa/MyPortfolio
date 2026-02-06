@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Dialog,
   DialogContent,
@@ -26,9 +26,16 @@ export function WaitlistModal({
   const [internalOpen, setInternalOpen] = useState(false);
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : internalOpen;
-  const setOpen = isControlled
-    ? controlledOnOpenChange || (() => {})
-    : setInternalOpen;
+  const setOpen = useCallback(
+    (value: boolean) => {
+      if (isControlled && controlledOnOpenChange) {
+        controlledOnOpenChange(value);
+      } else if (!isControlled) {
+        setInternalOpen(value);
+      }
+    },
+    [isControlled, controlledOnOpenChange]
+  );
 
   // Listen for custom event to open modal
   useEffect(() => {

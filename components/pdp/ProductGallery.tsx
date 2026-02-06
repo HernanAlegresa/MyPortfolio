@@ -18,6 +18,14 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
     setSelectedImageIndex(index);
   }, []);
 
+  const nextImage = useCallback(() => {
+    setSelectedImageIndex((prev) => (prev + 1) % images.length);
+  }, [images.length]);
+
+  const prevImage = useCallback(() => {
+    setSelectedImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  }, [images.length]);
+
   if (images.length === 0) {
     return (
       <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
@@ -27,14 +35,6 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
   }
 
   const mainImage = images[selectedImageIndex] || images[0];
-
-  const nextImage = useCallback(() => {
-    setSelectedImageIndex((prev) => (prev + 1) % images.length);
-  }, [images.length]);
-
-  const prevImage = useCallback(() => {
-    setSelectedImageIndex((prev) => (prev - 1 + images.length) % images.length);
-  }, [images.length]);
 
   return (
     <div className="space-y-4">

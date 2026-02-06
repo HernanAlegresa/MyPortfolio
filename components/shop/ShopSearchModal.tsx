@@ -160,7 +160,7 @@ export function ShopSearchModal({ isOpen, onClose }: ShopSearchModalProps) {
               <div className="p-6">
                 <p className="text-sm text-gray-500 mb-4">Popular searches</p>
                 <div className="flex flex-wrap gap-2">
-                  {["Polos", "Flannel", "Patchwork", "Jacket", "Cap"].map(
+                  {["Shirts", "Outerwear", "Accessories", "Basics"].map(
                     (term) => (
                       <button
                         key={term}

@@ -3,14 +3,17 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { siteConfig } from "@/config/site";
 
 const STORAGE_KEY = "announcement-dismissed";
-const ANNOUNCEMENT_TEXT = "Free shipping on orders over $100";
+const ANNOUNCEMENT_TEXT = siteConfig.announcement;
 
 export function AnnouncementBar() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // If announcement text is empty, don't show
+    if (!ANNOUNCEMENT_TEXT) return;
     try {
       const dismissed = localStorage.getItem(STORAGE_KEY);
       if (!dismissed) {
