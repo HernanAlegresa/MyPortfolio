@@ -11,6 +11,8 @@ export const profile: Profile = {
   ],
   location: "Montevideo, Uruguay",
   email: "alegresah@gmail.com",
+  // Replace with your final professional photo when ready.
+  photo: "/portfolio/profile-photo.svg",
   socials: [
     { label: "GitHub", href: "https://github.com/HernanAlegresa" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/HernanAlegresa" },

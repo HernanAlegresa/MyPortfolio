@@ -7,9 +7,9 @@ export const experience: ExperienceItem[] = [
     period: "2024 – 2025",
     location: "Remote",
     highlights: [
-      "Worked on real client projects and technical onboardings for Shopify native and headless architectures.",
-      "Integrated APIs and adapted existing client repositories for brands such as Monica + Andy, SKKN, Greyson, Vici, and UTV.",
-      "Collaborated with international stakeholders with a focus on APIs, integrations, and clear technical communication.",
+      "Delivered client-facing features and technical onboardings across Shopify native and headless architectures, balancing quality with fast iteration.",
+      "Implemented API integrations and adapted existing repositories for brands including Monica + Andy, SKKN, Greyson, Vici, and UTV.",
+      "Coordinated with international stakeholders, translating business requirements into clear technical execution plans and reliable releases.",
     ],
   },
   {
@@ -18,9 +18,9 @@ export const experience: ExperienceItem[] = [
     period: "2023",
     location: "Montevideo",
     highlights: [
-      "Managed administrative tasks with strong organization and efficiency.",
-      "Improved processes through prioritization and problem-solving.",
-      "Strengthened analytical skills and attention to detail.",
+      "Managed administrative operations, documentation workflows, and internal coordination with strong attention to deadlines and service quality.",
+      "Improved day-to-day process efficiency through prioritization, structured follow-ups, and proactive issue resolution.",
+      "Strengthened analytical rigor, communication, and operational ownership in a fast-paced professional environment.",
     ],
   },
   {
@@ -29,9 +29,9 @@ export const experience: ExperienceItem[] = [
     period: "2021 – 2022",
     location: "Montevideo",
     highlights: [
-      "Managed accounting tasks (data entry, financial records) ensuring accuracy.",
-      "Collaborated to streamline reporting processes and meet deadlines.",
-      "Built discipline in time management and teamwork.",
+      "Handled accounting support tasks including data entry, financial record maintenance, and document control with consistent precision.",
+      "Collaborated on reporting and reconciliation routines to support timely financial closes and internal control standards.",
+      "Built a strong foundation in discipline, detail orientation, and cross-team collaboration that later shaped my product and engineering approach.",
     ],
   },
 ];

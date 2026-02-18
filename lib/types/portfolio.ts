@@ -9,6 +9,7 @@ export type Profile = {
   roles: string[];
   location: string;
   email: string;
+  photo?: string;
   socials: SocialLink[];
 };
 

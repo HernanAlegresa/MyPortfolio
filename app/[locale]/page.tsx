@@ -4,13 +4,12 @@ import Link from "next/link";
 import { profile } from "@/data/profile";
 import { experience } from "@/data/experience";
 import { getFeaturedProjects } from "@/data/projects";
-import { skills } from "@/data/skills";
+import { getSkillCategories } from "@/data/skills";
 import { Reveal } from "@/components/motion/reveal";
 import { StaggerReveal } from "@/components/motion/stagger-reveal";
 import { Container } from "@/components/portfolio/container";
 import { Heading } from "@/components/portfolio/heading";
-import { HeroVideo } from "@/components/portfolio/hero-video";
-import { ProjectCard } from "@/components/portfolio/project-card";
+import { ProjectShowcaseCard } from "@/components/portfolio/project-showcase-card";
 import { ScrollIndicator } from "@/components/portfolio/scroll-indicator";
 import { Section } from "@/components/portfolio/section";
 import { Badge } from "@/components/ui/badge";
@@ -41,7 +40,17 @@ export default async function HomePage({
   const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "en";
   const dict = await getDictionary(typedLocale);
   const featured = getFeaturedProjects();
-  const heroProject = featured.find((p) => p.heroVideo) ?? featured[0];
+  const skillCategories = getSkillCategories(typedLocale);
+  const progressionText =
+    typedLocale === "es"
+      ? "Trayectoria profesional: de contabilidad y administración hacia desarrollo full stack orientado a producto."
+      : "Career progression: from accounting and administration into full stack product development.";
+
+  const projectsBySlug = new Map(featured.map((project) => [project.slug, project]));
+  const cardShootout = projectsBySlug.get("card-shootout");
+  const keyCliq = projectsBySlug.get("keycliq");
+  const shopifyIntegrations = projectsBySlug.get("shopify-integrations-rebl");
+  const ohShirt = projectsBySlug.get("oh-shirt");
 
   return (
     <>
@@ -52,12 +61,13 @@ export default async function HomePage({
             {/* Text — first in DOM for LCP */}
             <div>
               <StaggerReveal index={0}>
-                <Badge variant="outline">{dict.home.badge}</Badge>
-              </StaggerReveal>
-              <StaggerReveal index={1}>
                 <h1 className="mt-6 text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl">
                   {profile.name}
                 </h1>
+              </StaggerReveal>
+              <StaggerReveal index={1}>
+                <p className="mt-4 text-base font-medium text-foreground/90 md:text-lg">{profile.headline}</p>
+                <p className="mt-1 text-sm text-muted-foreground md:text-base">{profile.location}</p>
               </StaggerReveal>
               <StaggerReveal index={2}>
                 <p className="mt-4 text-lg text-foreground/80 md:text-xl lg:text-2xl">
@@ -84,27 +94,24 @@ export default async function HomePage({
               </StaggerReveal>
             </div>
 
-            {/* Demo media — uses heroVideo when available, otherwise fallback image */}
-            {heroProject && (
-              <StaggerReveal index={3} className="relative">
-                {heroProject.heroVideo ? (
-                  <HeroVideo
-                    src={heroProject.heroVideo}
-                    poster={heroProject.posterImage ?? heroProject.coverImage}
+            <StaggerReveal index={3} className="relative">
+              <div className="relative mx-auto w-full max-w-[18rem] sm:max-w-[20rem] md:mx-0 md:max-w-[22rem] md:justify-self-end lg:max-w-[24rem]">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -inset-6 -z-10 rounded-full bg-gradient-to-br from-cyan-500/18 via-fuchsia-500/8 to-transparent blur-2xl"
+                />
+                <div className="relative aspect-square overflow-hidden rounded-full border border-border/60 shadow-xl shadow-cyan-500/10">
+                  <Image
+                    src={profile.photo ?? "/portfolio/profile-photo.svg"}
+                    alt={`${profile.name} profile portrait`}
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 72vw, 26rem"
+                    className="object-cover"
                   />
-                ) : (
-                  <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-border/60 bg-card/40 shadow-2xl shadow-cyan-500/5">
-                    <Image
-                      src={heroProject.posterImage ?? heroProject.coverImage}
-                      alt={`${heroProject.title} preview`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-              </StaggerReveal>
-            )}
+                </div>
+              </div>
+            </StaggerReveal>
           </div>
 
           {/* Scroll indicator */}
@@ -124,13 +131,44 @@ export default async function HomePage({
               eyebrow={<Badge>{dict.common.featured}</Badge>}
             />
           </Reveal>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {featured.map((project, index) => (
-              <Reveal key={project.slug} delay={index * 0.08}>
-                <ProjectCard locale={typedLocale} project={project} />
+          {cardShootout && (
+            <Reveal className="mt-10">
+              <ProjectShowcaseCard
+                locale={typedLocale}
+                project={cardShootout}
+                autoPlayVideo
+                mediaClassName="aspect-[21/9]"
+              />
+            </Reveal>
+          )}
+
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            {keyCliq && (
+              <Reveal>
+                <ProjectShowcaseCard locale={typedLocale} project={keyCliq} mediaClassName="aspect-[16/10]" />
               </Reveal>
-            ))}
+            )}
+            {shopifyIntegrations && (
+              <Reveal delay={0.05}>
+                <ProjectShowcaseCard
+                  locale={typedLocale}
+                  project={shopifyIntegrations}
+                  mediaClassName="aspect-[16/10]"
+                />
+              </Reveal>
+            )}
           </div>
+
+          {ohShirt && (
+            <Reveal className="mt-6">
+              <ProjectShowcaseCard
+                locale={typedLocale}
+                project={ohShirt}
+                mediaClassName="aspect-[18/9]"
+                className="mx-auto w-full md:max-w-4xl"
+              />
+            </Reveal>
+          )}
         </Container>
       </Section>
 
@@ -140,17 +178,28 @@ export default async function HomePage({
           <Reveal>
             <Heading title={dict.home.experienceTitle} description={dict.home.experienceDescription} />
           </Reveal>
-          <div className="mt-8 grid gap-4">
-            {experience.slice(0, 2).map((item, index) => (
+          <Reveal className="mt-4">
+            <p className="max-w-3xl text-sm text-muted-foreground">{progressionText}</p>
+          </Reveal>
+          <div className="mt-8 space-y-6">
+            {experience.map((item, index) => (
               <Reveal key={item.company} delay={index * 0.08}>
-                <article className="rounded-xl border border-border bg-card/60 p-5">
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <p className="font-medium">
-                      {item.role} - {item.company}
-                    </p>
-                    <p className="text-sm text-muted-foreground">{item.period}</p>
+                <article className="rounded-2xl border border-border bg-card/60 p-6">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <h3 className="text-base font-semibold md:text-lg">{item.role}</h3>
+                      <p className="mt-1 text-sm text-foreground/90">{item.company}</p>
+                    </div>
+                    <div className="text-right text-sm text-muted-foreground">
+                      <p>{item.period}</p>
+                      <p>{item.location}</p>
+                    </div>
                   </div>
-                  <p className="mt-3 text-sm text-muted-foreground">{item.highlights[0]}</p>
+                  <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                    {item.highlights.map((highlight) => (
+                      <li key={highlight}>- {highlight}</li>
+                    ))}
+                  </ul>
                 </article>
               </Reveal>
             ))}
@@ -165,11 +214,21 @@ export default async function HomePage({
             <Heading title={dict.home.skillsTitle} description={dict.home.skillsDescription} />
           </Reveal>
           <Reveal className="mt-8">
-            <div className="flex flex-wrap gap-2">
-              {skills.map((skill) => (
-                <Badge key={skill} variant="secondary">
-                  {skill}
-                </Badge>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {skillCategories.map((category) => (
+                <article
+                  key={category.id}
+                  className="rounded-2xl border border-border bg-card/60 p-5 shadow-sm backdrop-blur"
+                >
+                  <h3 className="text-base font-semibold tracking-tight">{category.title}</h3>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {category.items.map((skill) => (
+                      <Badge key={skill} variant="secondary">
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </article>
               ))}
             </div>
           </Reveal>

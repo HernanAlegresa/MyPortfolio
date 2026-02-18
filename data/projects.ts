@@ -51,8 +51,15 @@ export const projects: Project[] = [
       "Iterated on product logic based on real testing and performance metrics.",
     ],
     coverImage: "/portfolio/keycliq-cover.svg",
+    heroVideo: "/portfolio/keycliq-demo.mp4",
+    posterImage: "/portfolio/keycliq-cover.svg",
     gallery: [
       // TODO: Replace with real screenshots
+      {
+        type: "video",
+        src: "/portfolio/keycliq-demo.mp4",
+        poster: "/portfolio/keycliq-cover.svg",
+      },
       { type: "image", src: "/portfolio/gallery-1.svg", alt: "KeyCliq dashboard" },
       { type: "image", src: "/portfolio/gallery-2.svg", alt: "KeyCliq scanning flow" },
     ],
@@ -78,8 +85,15 @@ export const projects: Project[] = [
       "Deployed to production on Vercel with Supabase form integrations.",
     ],
     coverImage: "/portfolio/oh-shirt-cover.svg",
+    heroVideo: "/portfolio/oh-shirt-demo.mp4",
+    posterImage: "/portfolio/oh-shirt-cover.svg",
     gallery: [
       // TODO: Replace with real screenshots
+      {
+        type: "video",
+        src: "/portfolio/oh-shirt-demo.mp4",
+        poster: "/portfolio/oh-shirt-cover.svg",
+      },
       { type: "image", src: "/portfolio/gallery-1.svg", alt: "Oh Sh!rt storefront" },
       { type: "image", src: "/portfolio/gallery-2.svg", alt: "Oh Sh!rt product page" },
     ],
@@ -105,6 +119,7 @@ export const projects: Project[] = [
       "Standardized onboarding patterns to reduce client setup friction.",
     ],
     coverImage: "/portfolio/rebl-cover.svg",
+    posterImage: "/portfolio/rebl-cover.svg",
     gallery: [
       // TODO: Replace with real screenshots
       { type: "image", src: "/portfolio/gallery-1.svg", alt: "Shopify integration flow" },

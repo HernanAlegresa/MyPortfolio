@@ -21,7 +21,9 @@ export function Heading({
       {eyebrow ? <div className="mb-3">{eyebrow}</div> : null}
       <h2 className="text-2xl font-semibold tracking-tight md:text-4xl">{title}</h2>
       {description ? (
-        <p className="mt-3 max-w-2xl text-sm text-muted-foreground md:text-base">{description}</p>
+        <p className="mt-3 max-w-2xl whitespace-pre-line text-sm text-muted-foreground md:text-base">
+          {description}
+        </p>
       ) : null}
     </div>
   );

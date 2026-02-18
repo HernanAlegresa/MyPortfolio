@@ -1,0 +1,15 @@
+<svg width="1200" height="1500" viewBox="0 0 1200 1500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="1500" rx="48" fill="#0B0F19"/>
+  <rect x="18" y="18" width="1164" height="1464" rx="40" fill="url(#paint0_radial)" stroke="#334155" stroke-opacity="0.5"/>
+  <circle cx="600" cy="520" r="210" fill="#1E293B"/>
+  <path d="M300 1230C300 1029.16 462.857 866.3 663.7 866.3H536.3C737.143 866.3 900 1029.16 900 1230V1250H300V1230Z" fill="#1E293B"/>
+  <text x="600" y="1320" text-anchor="middle" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="38">
+    Replace with profile-photo.jpg
+  </text>
+  <defs>
+    <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 410) rotate(90) scale(1050 840)">
+      <stop stop-color="#111827"/>
+      <stop offset="1" stop-color="#020617"/>
+    </radialGradient>
+  </defs>
+</svg>
