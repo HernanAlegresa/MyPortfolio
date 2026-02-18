@@ -1,0 +1,18 @@
+export const skills = [
+  "React",
+  "TypeScript",
+  "Next.js",
+  "Remix",
+  "Tailwind CSS",
+  "Framer Motion",
+  "Node.js",
+  "REST APIs",
+  "Prisma",
+  "PostgreSQL",
+  "Supabase",
+  "Shopify",
+  "UI/UX",
+  "Design Systems",
+  "Accessibility",
+  "Performance",
+];

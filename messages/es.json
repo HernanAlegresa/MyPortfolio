@@ -1,0 +1,93 @@
+{
+  "site": {
+    "title": "Hernán Alegresa — Desarrollador Full Stack",
+    "description": "Desarrollador Full Stack construyendo soluciones end-to-end con pensamiento de producto, UI/UX limpio y tecnologías web modernas."
+  },
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "contact": "Contacto"
+  },
+  "common": {
+    "viewProjects": "Ver proyectos",
+    "contact": "Contacto",
+    "backToProjects": "Volver a proyectos",
+    "featured": "Destacado",
+    "exploreAll": "Explorar todos los proyectos",
+    "filters": "Filtro",
+    "all": "Todos"
+  },
+  "home": {
+    "badge": "Abierto a nuevas oportunidades",
+    "headline": "Construyo productos digitales end-to-end con código limpio, UI precisa y pensamiento de producto.",
+    "subheadline": "Desarrollador Full Stack con experiencia en frontend, backend, mobile y APIs. Enfocado en interfaces intuitivas, arquitectura escalable e impacto real en el usuario.",
+    "featuredTitle": "Proyectos Destacados",
+    "featuredDescription": "Trabajo seleccionado en IA, e-commerce, videojuegos e integraciones.",
+    "experienceTitle": "Experiencia",
+    "experienceDescription": "Roles recientes y contribuciones clave.",
+    "skillsTitle": "Habilidades",
+    "skillsDescription": "Tecnologías y capacidades con las que trabajo a diario.",
+    "ctaTitle": "Construyamos algo juntos",
+    "ctaDescription": "Colaboro con equipos y clientes que valoran la calidad, la comunicación clara y el desarrollo con propósito."
+  },
+  "about": {
+    "title": "Sobre mí",
+    "intro": "Desarrollador Full Stack con experiencia en frontend, backend, desarrollo mobile, APIs y bases de datos — con foco fuerte en aplicaciones móviles.",
+    "paragraph1": "Construyo soluciones end-to-end combinando ejecución técnica con pensamiento de producto y diseño centrado en el usuario. Disfruto trabajar UI/UX y crear interfaces limpias e intuitivas.",
+    "paragraph2": "He colaborado con clientes y stakeholders de Canadá, Estados Unidos y Brasil. Soy proactivo, adaptable y motivado por el aprendizaje continuo.",
+    "valuesTitle": "Cómo Trabajo",
+    "values": [
+      "Ejecución orientada a producto",
+      "Interfaces limpias e intuitivas",
+      "Comunicación técnica clara",
+      "Aprendizaje continuo y adaptabilidad"
+    ],
+    "educationTitle": "Educación",
+    "education": [
+      {
+        "institution": "Holberton School Uruguay",
+        "degree": "Bootcamp de Desarrollo Full Stack",
+        "period": "Oct 2023 – Nov 2024"
+      },
+      {
+        "institution": "FCEA — Udelar",
+        "degree": "Licenciatura en Administración (pausada)",
+        "period": "2021 – 2023"
+      },
+      {
+        "institution": "Stella Maris School",
+        "degree": "Educación primaria y secundaria bilingüe",
+        "period": ""
+      }
+    ],
+    "languagesTitle": "Idiomas",
+    "languages": [
+      "Español (nativo)",
+      "Inglés (avanzado)",
+      "Portugués (bueno)"
+    ]
+  },
+  "projects": {
+    "title": "Proyectos",
+    "description": "Trabajo de ingeniería full-stack en IA, e-commerce, videojuegos e integraciones con clientes.",
+    "overview": "Resumen",
+    "role": "Rol",
+    "stack": "Stack",
+    "highlights": "Logros",
+    "gallery": "Galería",
+    "links": "Enlaces",
+    "galleryPlaceholder": "Capturas y visuales del producto próximamente.",
+    "liveDemo": "Demo",
+    "repository": "Repositorio"
+  },
+  "contactPage": {
+    "title": "Contacto",
+    "description": "Disponible para oportunidades remotas, colaboraciones de producto y proyectos freelance.",
+    "cta": "Escribime por email o conectemos en mis perfiles profesionales.",
+    "phone": "Teléfono"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados."
+  }
+}

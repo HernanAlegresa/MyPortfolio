@@ -4,52 +4,54 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --border: 0 0% 89.8%;
+    --background: 222 47% 5%;
+    --foreground: 210 20% 96%;
+    --muted: 215 19% 17%;
+    --muted-foreground: 215 15% 68%;
+    --card: 220 26% 10%;
+    --card-foreground: 210 20% 96%;
+    --border: 217 19% 22%;
+    --ring: 204 93% 58%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222 47% 11%;
   }
-}
-
-@layer base {
   * {
     @apply border-border;
-  }
-
-  /* Remove focus outlines site-wide for cleaner UI */
-  *:focus,
-  *:focus-visible {
-    @apply outline-none ring-0;
   }
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: hsl(var(--muted-foreground));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: hsl(var(--foreground));
 }
 
-/* Respect user motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

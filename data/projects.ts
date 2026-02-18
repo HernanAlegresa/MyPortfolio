@@ -1,111 +1,131 @@
-// ============================================
-// PROJECTS — Portfolio mode example data
-// ============================================
-// Use this dataset when building a portfolio site.
-// Each project has a title, description, tech stack,
-// image, and optional links.
-//
-// To enable portfolio mode:
-//   1. Create /app/projects/page.tsx (listing)
-//   2. Create /app/projects/[slug]/page.tsx (detail)
-//   3. Update config/site.ts navigation to include "Projects"
-//   4. Remove or hide store-related nav items
-
-export type Project = {
-  id: string;
-  title: string;
-  slug: string;
-  description: string;
-  longDescription: string;
-  image: string;
-  tags: string[];
-  techStack: string[];
-  liveUrl?: string;
-  githubUrl?: string;
-  featured: boolean;
-  year: string;
-};
+import type { Project } from "@/lib/types/portfolio";
 
 export const projects: Project[] = [
   {
-    id: "project-1",
-    title: "E-Commerce Platform",
-    slug: "e-commerce-platform",
-    description:
-      "A full-stack e-commerce platform with cart, checkout, and payment processing.",
-    longDescription:
-      "Built a complete e-commerce solution featuring product catalog management, shopping cart with persistent state, Stripe checkout integration, and an admin dashboard for order management. Optimized for performance with server-side rendering and image optimization.",
-    image: "/placeholders/product.svg",
-    tags: ["Full Stack", "E-Commerce"],
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe", "Supabase"],
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/yourhandle/project",
-    featured: true,
-    year: "2026",
-  },
-  {
-    id: "project-2",
-    title: "Task Management App",
-    slug: "task-management-app",
-    description:
-      "A collaborative task management tool with real-time updates and team workspaces.",
-    longDescription:
-      "Designed and built a project management application featuring Kanban boards, real-time collaboration through WebSockets, team workspace management, and automated notifications. Focused on intuitive UX with drag-and-drop interactions.",
-    image: "/placeholders/product.svg",
-    tags: ["Full Stack", "SaaS"],
-    techStack: ["React", "Node.js", "PostgreSQL", "Socket.io", "Docker"],
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/yourhandle/project",
-    featured: true,
-    year: "2025",
-  },
-  {
-    id: "project-3",
-    title: "Design System",
-    slug: "design-system",
-    description:
-      "A comprehensive component library and design system for consistent UI development.",
-    longDescription:
-      "Created a reusable design system with 30+ components, complete with documentation, accessibility testing, and Storybook integration. Used by multiple teams across the organization to maintain visual consistency.",
-    image: "/placeholders/product.svg",
-    tags: ["Frontend", "Design"],
-    techStack: [
-      "React",
-      "TypeScript",
-      "Storybook",
-      "Tailwind CSS",
-      "Radix UI",
+    slug: "card-shootout",
+    title: "Card Shootout",
+    oneLiner: "Football penalty shootout game inspired by collectible player cards.",
+    overview:
+      "Initially developed as a bootcamp final project using Flutter, Firebase, and BLoC. Later independently rebuilt and expanded as a long-term personal product using a modern web stack. Built and iterated gameplay logic, state management, UI/UX, and backend services. Original MVP: Flutter, Dart, Firebase, BLoC.",
+    role: "Full Stack / Mobile Developer",
+    stack: ["Remix", "React", "TypeScript", "Tailwind CSS", "Supabase", "Capacitor", "Git", "Figma"],
+    tags: ["Game", "Mobile", "Full Stack"],
+    highlights: [
+      "Built gameplay loop logic and match state architecture for smooth sessions.",
+      "Designed motion-driven UI feedback for player clarity and delight.",
+      "Rebuilt from Flutter MVP to modern web stack for broader reach.",
+      "Integrated Supabase for auth, data persistence, and storage.",
     ],
-    liveUrl: "https://example.com",
+    coverImage: "/portfolio/card-shootout-cover.svg",
+    heroVideo: "/portfolio/card-shootout-demo.mp4",
+    posterImage: "/portfolio/card-shootout-poster.jpg",
+    gallery: [
+      // TODO: Replace with real screenshots/videos
+      {
+        type: "video",
+        src: "/portfolio/card-shootout-demo.mp4",
+        poster: "/portfolio/card-shootout-poster.jpg",
+      },
+      { type: "image", src: "/portfolio/gallery-1.svg", alt: "Card Shootout gameplay" },
+      { type: "image", src: "/portfolio/gallery-2.svg", alt: "Card Shootout UI" },
+    ],
+    links: {
+      // TODO: Add live/repo URLs when available
+    },
     featured: true,
     year: "2025",
   },
   {
-    id: "project-4",
-    title: "Analytics Dashboard",
-    slug: "analytics-dashboard",
-    description:
-      "A real-time analytics dashboard with interactive charts and data visualization.",
-    longDescription:
-      "Built a performant analytics dashboard displaying real-time metrics with interactive charts, date range filtering, CSV export, and customizable widgets. Handles millions of data points with virtualized rendering.",
-    image: "/placeholders/product.svg",
-    tags: ["Frontend", "Data Viz"],
-    techStack: ["Next.js", "D3.js", "TypeScript", "Recharts", "Vercel"],
-    featured: false,
+    slug: "keycliq",
+    title: "KeyCliq",
+    oneLiner: "AI-powered web app for physical key recognition and inventory management.",
+    overview:
+      "Designed and developed full-stack architecture including frontend, backend APIs, database, and AI integration. Implemented image recognition workflows to match uploaded key images against user inventories. Built scalable and auditable data models and secure APIs for key management and scanning flows. Iterated product logic based on real testing and performance metrics.",
+    role: "Full Stack Developer",
+    stack: ["React", "Remix", "TypeScript", "Tailwind CSS", "Node.js", "REST APIs", "Prisma", "PostgreSQL", "Cloudinary"],
+    tags: ["AI", "Full Stack", "SaaS"],
+    highlights: [
+      "Designed end-to-end full-stack architecture from database to UI.",
+      "Implemented AI-powered image recognition for key matching workflows.",
+      "Built secure, auditable APIs for inventory and scanning operations.",
+      "Iterated on product logic based on real testing and performance metrics.",
+    ],
+    coverImage: "/portfolio/keycliq-cover.svg",
+    gallery: [
+      // TODO: Replace with real screenshots
+      { type: "image", src: "/portfolio/gallery-1.svg", alt: "KeyCliq dashboard" },
+      { type: "image", src: "/portfolio/gallery-2.svg", alt: "KeyCliq scanning flow" },
+    ],
+    links: {
+      // TODO: Add live/repo URLs when available
+    },
+    featured: true,
+    year: "2025",
+  },
+  {
+    slug: "oh-shirt",
+    title: "Oh Sh!rt",
+    oneLiner: "Headless e-commerce web platform for a men's streetwear brand.",
+    overview:
+      "Built and launched a modern e-commerce platform with Next.js 15, React, TypeScript, and Tailwind. Implemented reusable product data models, URL-based filtering, SEO optimization (metadata, JSON-LD, sitemap), cart logic with localStorage, modular checkout placeholder, Supabase form integrations, and production deployment on Vercel.",
+    role: "Founder & Full Stack Developer",
+    stack: ["Next.js 15", "React", "TypeScript", "Tailwind CSS", "Supabase", "Vercel"],
+    tags: ["E-Commerce", "Full Stack", "Brand"],
+    highlights: [
+      "Architected headless storefront with Next.js 15 App Router.",
+      "Implemented SEO optimization with metadata, JSON-LD, and sitemap generation.",
+      "Built cart logic with localStorage and modular checkout flow.",
+      "Deployed to production on Vercel with Supabase form integrations.",
+    ],
+    coverImage: "/portfolio/oh-shirt-cover.svg",
+    gallery: [
+      // TODO: Replace with real screenshots
+      { type: "image", src: "/portfolio/gallery-1.svg", alt: "Oh Sh!rt storefront" },
+      { type: "image", src: "/portfolio/gallery-2.svg", alt: "Oh Sh!rt product page" },
+    ],
+    links: {
+      // TODO: Add live/repo URLs when available
+    },
+    featured: true,
+    year: "2025",
+  },
+  {
+    slug: "shopify-integrations-rebl",
+    title: "Shopify & Headless Integrations",
+    oneLiner: "Shopify native + headless integrations and technical onboarding for client brands.",
+    overview:
+      "Professional work supporting integrations, onboarding processes, and adaptation to existing client codebases. Collaborated with international stakeholders for brands including Monica + Andy, SKKN, Greyson, Vici, and UTV. Focused on APIs, integrations, and clear technical communication.",
+    role: "Full Stack Developer @ Rebl Tech",
+    stack: ["Shopify", "Headless Commerce", "APIs", "TypeScript", "React"],
+    tags: ["Integrations", "Shopify", "Client Work"],
+    highlights: [
+      "Supported Shopify native and headless architectures for multiple brands.",
+      "Integrated APIs and adapted existing client repositories.",
+      "Coordinated cross-functional delivery with international stakeholders.",
+      "Standardized onboarding patterns to reduce client setup friction.",
+    ],
+    coverImage: "/portfolio/rebl-cover.svg",
+    gallery: [
+      // TODO: Replace with real screenshots
+      { type: "image", src: "/portfolio/gallery-1.svg", alt: "Shopify integration flow" },
+      { type: "image", src: "/portfolio/gallery-2.svg", alt: "Client onboarding UI" },
+    ],
+    links: {
+      // TODO: Add live/repo URLs when available
+    },
+    featured: true,
     year: "2024",
   },
 ];
 
-// ── Helper Functions ─────────────────────────────
-
-export function getAllProjects(): Project[] {
+export function getAllProjects() {
   return projects;
 }
 
-export function getProjectBySlug(slug: string): Project | undefined {
-  return projects.find((project) => project.slug === slug);
+export function getFeaturedProjects() {
+  return projects.filter((project) => project.featured);
 }
 
-export function getFeaturedProjects(): Project[] {
-  return projects.filter((project) => project.featured);
+export function getProjectBySlug(slug: string) {
+  return projects.find((project) => project.slug === slug);
 }

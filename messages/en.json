@@ -1,0 +1,93 @@
+{
+  "site": {
+    "title": "Hernán Alegresa — Full Stack Developer",
+    "description": "Full Stack Developer building end-to-end solutions with product thinking, clean UI/UX, and modern web technologies."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "common": {
+    "viewProjects": "View Projects",
+    "contact": "Contact",
+    "backToProjects": "Back to projects",
+    "featured": "Featured",
+    "exploreAll": "Explore all projects",
+    "filters": "Filter",
+    "all": "All"
+  },
+  "home": {
+    "badge": "Open to new opportunities",
+    "headline": "I build end-to-end digital products with clean code, sharp UI, and product thinking.",
+    "subheadline": "Full Stack Developer with experience across frontend, backend, mobile, and APIs. Focused on intuitive interfaces, scalable architecture, and real user impact.",
+    "featuredTitle": "Featured Projects",
+    "featuredDescription": "Selected work spanning AI, e-commerce, games, and integrations.",
+    "experienceTitle": "Experience",
+    "experienceDescription": "Recent roles and key contributions.",
+    "skillsTitle": "Skills",
+    "skillsDescription": "Technologies and capabilities I work with daily.",
+    "ctaTitle": "Let's build something together",
+    "ctaDescription": "I partner with teams and clients who value quality, clear communication, and shipping with purpose."
+  },
+  "about": {
+    "title": "About",
+    "intro": "Full Stack Developer with experience across frontend, backend, mobile development, APIs, and databases — with a strong focus on mobile applications.",
+    "paragraph1": "I build end-to-end solutions combining technical execution with product thinking and user-centered design. I enjoy UI/UX and creating clean, intuitive interfaces.",
+    "paragraph2": "I've collaborated with clients and stakeholders across Canada, the United States, and Brazil. I'm proactive, adaptable, and driven by continuous learning.",
+    "valuesTitle": "How I Work",
+    "values": [
+      "Product-minded execution",
+      "Clean, intuitive interfaces",
+      "Clear technical communication",
+      "Continuous learning & adaptability"
+    ],
+    "educationTitle": "Education",
+    "education": [
+      {
+        "institution": "Holberton School Uruguay",
+        "degree": "Full Stack Development Bootcamp",
+        "period": "Oct 2023 – Nov 2024"
+      },
+      {
+        "institution": "FCEA — Udelar",
+        "degree": "Bachelor's in Administration (paused)",
+        "period": "2021 – 2023"
+      },
+      {
+        "institution": "Stella Maris School",
+        "degree": "Bilingual primary & secondary education",
+        "period": ""
+      }
+    ],
+    "languagesTitle": "Languages",
+    "languages": [
+      "Spanish (native)",
+      "English (advanced)",
+      "Portuguese (good)"
+    ]
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "Full-stack engineering work across AI, e-commerce, games, and client integrations.",
+    "overview": "Overview",
+    "role": "Role",
+    "stack": "Stack",
+    "highlights": "Highlights",
+    "gallery": "Gallery",
+    "links": "Links",
+    "galleryPlaceholder": "Screenshots and product visuals coming soon.",
+    "liveDemo": "Live demo",
+    "repository": "Repository"
+  },
+  "contactPage": {
+    "title": "Contact",
+    "description": "Open to remote opportunities, product collaborations, and freelance projects.",
+    "cta": "Reach out via email or connect on my professional profiles.",
+    "phone": "Phone"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}

@@ -1,22 +1,6 @@
-import type { Metadata } from "next";
-import { Hero } from "@/components/sections/Hero";
-import { CategoryShowcase } from "@/components/sections/CategoryShowcase";
-import { FeaturedProducts } from "@/components/sections/FeaturedProducts";
-import { BrandStory } from "@/components/sections/BrandStory";
-import { siteConfig } from "@/config/site";
+import { redirect } from "next/navigation";
+import { defaultLocale } from "@/lib/i18n/config";
 
-export const metadata: Metadata = {
-  title: "Home",
-  description: siteConfig.description,
-};
-
-export default function Home() {
-  return (
-    <>
-      <Hero />
-      <FeaturedProducts />
-      <CategoryShowcase />
-      <BrandStory />
-    </>
-  );
+export default function RootPage() {
+  redirect(`/${defaultLocale}`);
 }
