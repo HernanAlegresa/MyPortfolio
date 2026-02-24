@@ -12,9 +12,28 @@ interface FormData {
   message: string;
 }
 
+type ContactFormDict = {
+  nameLabel: string;
+  emailLabel: string;
+  subjectLabel: string;
+  messageLabel: string;
+  send: string;
+  sending: string;
+  success: string;
+  errorGeneric: string;
+  errorNetwork: string;
+  errorRateLimit: string;
+  nameRequired: string;
+  emailRequired: string;
+  emailInvalid: string;
+  subjectRequired: string;
+  messageRequired: string;
+  messageTooShort: string;
+};
+
 const initialForm: FormData = { name: "", email: "", subject: "", message: "" };
 
-export function ContactForm() {
+export function ContactForm({ dict }: { dict: ContactFormDict }) {
   const [form, setForm] = useState<FormData>(initialForm);
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,21 +41,21 @@ export function ContactForm() {
 
   const validate = useCallback((): boolean => {
     const next: Partial<FormData> = {};
-    if (!form.name.trim()) next.name = "Name is required";
+    if (!form.name.trim()) next.name = dict.nameRequired;
     if (!form.email.trim()) {
-      next.email = "Email is required";
+      next.email = dict.emailRequired;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      next.email = "Please enter a valid email";
+      next.email = dict.emailInvalid;
     }
-    if (!form.subject.trim()) next.subject = "Subject is required";
+    if (!form.subject.trim()) next.subject = dict.subjectRequired;
     if (!form.message.trim()) {
-      next.message = "Message is required";
+      next.message = dict.messageRequired;
     } else if (form.message.trim().length < 10) {
-      next.message = "Message must be at least 10 characters";
+      next.message = dict.messageTooShort;
     }
     setErrors(next);
     return Object.keys(next).length === 0;
-  }, [form]);
+  }, [form, dict]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -59,18 +78,18 @@ export function ContactForm() {
 
       if (!response.ok) {
         if (response.status === 429) {
-          toast.error("Too many requests. Please try again later.");
+          toast.error(dict.errorRateLimit);
         } else {
-          toast.error(data.error || "Failed to send message. Please try again.");
+          toast.error(data.error || dict.errorGeneric);
         }
         return;
       }
 
       setForm(initialForm);
       setErrors({});
-      toast.success("Message sent! We'll get back to you soon.");
+      toast.success(dict.success);
     } catch {
-      toast.error("Network error. Please check your connection and try again.");
+      toast.error(dict.errorNetwork);
     } finally {
       setIsSubmitting(false);
     }
@@ -91,7 +110,7 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-5" noValidate>
       <div>
         <label htmlFor="name" className="mb-1.5 block text-sm font-medium">
-          Name
+          {dict.nameLabel}
         </label>
         <Input
           id="name"
@@ -109,7 +128,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="email" className="mb-1.5 block text-sm font-medium">
-          Email
+          {dict.emailLabel}
         </label>
         <Input
           id="email"
@@ -128,7 +147,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="subject" className="mb-1.5 block text-sm font-medium">
-          Subject
+          {dict.subjectLabel}
         </label>
         <Input
           id="subject"
@@ -146,7 +165,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="message" className="mb-1.5 block text-sm font-medium">
-          Message
+          {dict.messageLabel}
         </label>
         <textarea
           id="message"
@@ -165,7 +184,7 @@ export function ContactForm() {
       </div>
 
       <Button type="submit" disabled={isSubmitting} className="w-full" size="lg">
-        {isSubmitting ? "Sending..." : "Send Message"}
+        {isSubmitting ? dict.sending : dict.send}
       </Button>
     </form>
   );

@@ -7,75 +7,78 @@
 
 export const siteConfig = {
   // ── Brand ──────────────────────────────────────
-  name: "Starter Template",
-  shortName: "Starter",
+  name: "Hernán Alegresa",
+  shortName: "Hernán",
   description:
-    "A modern, production-ready Next.js starter template for portfolios, business sites, and e-commerce stores.",
-  tagline: "Build something great.",
+    "Portfolio Personal de Hernán Alegresa, Desarrollador Full Stack de Uruguay. Construyo soluciones completas con foco en el producto, buena UI/UX y tecnologías web modernas.",
+  tagline: "Construyo productos completos, no partes sueltas.",
 
   // ── URLs ───────────────────────────────────────
+  // Set NEXT_PUBLIC_SITE_URL in .env.local for your real domain.
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://example.com",
   ogImage: "/og-image.png",
 
   // ── Contact ────────────────────────────────────
-  email: "hello@example.com",
-  location: "Your City, Country",
-  responseTime: "Within 24 hours",
+  email: "alegresah@gmail.com",
+  location: "Montevideo, Uruguay",
+  responseTime: "Dentro de 24 horas",
 
   // ── Social Links (set to "" to hide) ───────────
   social: {
-    twitter: "https://twitter.com/yourhandle",
-    instagram: "https://instagram.com/yourhandle",
-    github: "https://github.com/yourhandle",
-    linkedin: "",
+    twitter: "",
+    instagram: "",
+    github: "https://github.com/HernanAlegresa",
+    linkedin: "https://www.linkedin.com/in/HernanAlegresa",
   },
 
   // ── Navigation ─────────────────────────────────
-  // Modify these arrays to change what appears in the header/footer.
-  // For a portfolio site, you might use:
-  //   { href: "/projects", label: "Projects" }
-  // For a store:
-  //   { href: "/shop", label: "Shop" }
+  // Not used directly — SiteHeader reads from the i18n dictionary.
+  // Keep in sync as a reference.
   mainNav: [
-    { href: "/shop", label: "Shop" },
-    { href: "/collections", label: "Collections" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
+    { href: "/projects", label: "Proyectos" },
+    { href: "/about", label: "Sobre mí" },
+    { href: "/contact", label: "Contacto" },
   ],
 
   footerNav: {
-    shop: [{ href: "/shop", label: "All Products" }],
+    portfolio: [
+      { href: "/projects", label: "Proyectos" },
+      { href: "/about", label: "Sobre mí" },
+      { href: "/contact", label: "Contacto" },
+    ],
+    shop: [] as Array<{ href: string; label: string }>,
     company: [
-      { href: "/about", label: "About" },
-      { href: "/contact", label: "Contact" },
-      { href: "/shipping", label: "Shipping" },
+      { href: "/projects", label: "Proyectos" },
+      { href: "/about", label: "Sobre mí" },
+      { href: "/contact", label: "Contacto" },
     ],
   },
 
   // ── SEO / Metadata ─────────────────────────────
   keywords: [
-    "starter template",
+    "desarrollador full stack",
+    "portfolio",
     "next.js",
     "react",
-    "tailwind css",
-    "e-commerce",
-    "portfolio",
+    "typescript",
+    "uruguay",
+    "hernán alegresa",
   ],
-  authors: [{ name: "Your Name" }],
-  locale: "en_US",
+  authors: [{ name: "Hernán Alegresa" }],
+  locale: "es_UY",
 
   // ── Announcement Bar ───────────────────────────
   // Set to "" to hide the announcement bar.
-  announcement: "Free shipping on orders over $100",
+  announcement: "",
 
   // ── Feature Flags ──────────────────────────────
   // Toggle major site sections on/off.
   // When disabled, related nav links, sitemap entries,
   // and layout providers are excluded automatically.
   features: {
-    store: true, // Shop pages, cart, product catalog
-    waitlist: true, // Newsletter / waitlist signup form
-    portfolio: false, // Portfolio / projects section
+    store: false,     // Shop pages, cart, product catalog
+    waitlist: false,  // Newsletter / waitlist signup form
+    portfolio: true,  // Portfolio / projects section
   },
 
   // ── Store Settings ─────────────────────────────

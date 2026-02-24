@@ -3,86 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin, ArrowUpRight } from "lucide-react";
 import { profile } from "@/data/profile";
-import { experience } from "@/data/experience";
+import { getExperience } from "@/data/experience";
+import { getAboutContent } from "@/data/about";
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/portfolio/container";
 import { Section } from "@/components/portfolio/section";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
+import { getAlternateLanguages } from "@/lib/seo";
 import { locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-
-// ─── Contenido estático ───────────────────────────────────────────────────────
-
-const principios = [
-  {
-    titulo: "De punta a punta",
-    desc: "Sigo un problema desde la arquitectura hasta la interfaz. Me importa cómo todo conecta: el modelo de datos, el diseño de la API, la estructura de componentes y el último detalle de UI.",
-  },
-  {
-    titulo: "El producto primero",
-    desc: "Cada decisión técnica que tomo tiene en cuenta lo que el producto realmente necesita. Construyo pensando en el usuario y en el resultado, no en cerrar tickets.",
-  },
-  {
-    titulo: "La comunicación también es trabajo",
-    desc: "Dirigí onboardings con clientes internacionales y revisé repositorios en producción. Saber moverse entre lo técnico y lo humano es algo que tomo en serio y me parece muy importante.",
-  },
-  {
-    titulo: "Construir bien, mejorar con intención",
-    desc: "Los buenos sistemas no nacen perfectos. Por ejemplo, en el desarrollo de KeyCliq, pasé por multiples versiones de logica, porque medí lo que fallaba y lo arreglé con criterio. Esa forma de trabajar la aplico en todo lo que construyo.",
-  },
-];
-
-const proyectos = [
-  {
-    etiqueta: "Mobile Web App",
-    titulo: "KeyCliq",
-    slug: "keycliq",
-    nota: "Construí toda la aplicación web, de principio a fin. Una aplicación web con integración de IA, que permite reconocer llaves y gestionar inventario, fue creada por pedido de una clienta de Canada relacionada al rubro de real-estate. Keycliq fue un proyecto de aproximadamente 2 meses de desarrollo, donde yo era el unico desarrollador. Un desafio muy grande y de mucha complejidad, pero que me ayudo a crecer mucho como desarrollador.",
-  },
-  {
-    etiqueta: "Videojuego Mobile",
-    titulo: "Card Shootout",
-    slug: "card-shootout",
-    nota: "Mi proyecto favorito, aun no finalizado, ya que tiene muchisimo por agregar y hacer. Una idea que tengo desde que comence mis estudios de programacion, juntando algo que me apasiona como el futbol y la programacion. Este videojuego lo presente en mi proyecto final del bootcamp de desarrollo full stack. En aquel entonces lo habia desarrollado en flutter, pero ahora lo estoy reconstruyendo en React Native. Es un juego el cual tiene una logica de negocio y monetizacion, el cual se que puede ser un juego que rompa el mercado y le puede ir muy bien en los mercados de juegos.",
-  },
-  {
-    etiqueta: "E-commerce Shop",
-    titulo: "Oh Sh!rt",
-    slug: "oh-shirt",
-    nota: "Una arquitectura de e-commerce lista para producción. SEO como prioridad, componentes reutilizables, etc. Un sitio web de e-commerce que se adapta a la marca y a los productos que se venden. Un sitio web que se puede expandir y crecer sin un rebuild completo.",
-  },
-  {
-    etiqueta: "Trabajo con clientes Shopify",
-    titulo: "Shopify Integrations",
-    slug: "shopify-integrations-rebl",
-    nota: "Entornos de producción, clientes reales, revenue real. Aprendí a diagnosticar rápido, comunicar con claridad y ser responsable del resultado. Un rol muy interesante y desafiante, donde trabaje para clientes muy importantes como Monica + Andy, SKKN, Greyson, Vici, y UTV.",
-  },
-];
-
-const educacion = [
-  {
-    institucion: "Holberton School Uruguay",
-    titulo: "Desarrollo Full Stack",
-    periodo: "Oct 2023 – Nov 2024",
-  },
-  {
-    institucion: "FCEA — Udelar",
-    titulo: "Licenciatura en Administración (Retomada)",
-    periodo: "2021 – 2023",
-  },
-  {
-    institucion: "Stella Maris School",
-    titulo: "Educación primaria y secundaria bilingüe",
-    periodo: "",
-  },
-];
-
-const idiomas = [
-  { idioma: "Español", nivel: "Nativo" },
-  { idioma: "Inglés", nivel: "Avanzado" },
-  { idioma: "Portugués", nivel: "Bueno" },
-];
 
 // ─── Placeholder de imagen ────────────────────────────────────────────────────
 
@@ -116,6 +46,7 @@ export async function generateMetadata({
   return {
     title: dict.about.title,
     description: dict.about.intro,
+    alternates: getAlternateLanguages("about"),
   };
 }
 
@@ -126,6 +57,9 @@ export default async function AboutPage({
 }) {
   const { locale } = await params;
   const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
+
+  const about = getAboutContent(typedLocale);
+  const experience = getExperience(typedLocale);
 
   // ─── Ajustes de espaciado y tamaño ──────────────────────────────────────────
   // Modificá estos valores para ajustar el layout sin tocar el código.
@@ -164,19 +98,22 @@ export default async function AboutPage({
             <div>
               <Reveal>
                 <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-                  Sobre mí
+                  {about.hero.label}
                 </p>
               </Reveal>
               <Reveal className="mt-4">
                 <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-                  Construyo productos completos,<br className="hidden sm:block" /> no partes sueltas.
+                  {about.hero.heading.split("\n").map((line, i) => (
+                    <span key={i}>
+                      {line}
+                      {i === 0 && <br className="hidden sm:block" />}
+                    </span>
+                  ))}
                 </h1>
               </Reveal>
               <Reveal className="mt-6">
                 <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-                  Desarrollador Full Stack de Uruguay. Dispuesto a desarrollarme como profesional y persona. Nadie nace sabiendo todo, siempre hay algo por aprender. <br /> Trabajo en frontend, backend, mobile y APIs,
-                  siempre de punta a punta: desde el diseño del sistema hasta lo que el usuario ve
-                  en pantalla.
+                  {about.hero.subheading}
                 </p>
               </Reveal>
               <Reveal className="mt-6">
@@ -209,7 +146,7 @@ export default async function AboutPage({
               >
                 <Image
                   src="/about/profile_programming.jpeg"
-                  alt="Hernán Alegresa trabajando"
+                  alt={about.hero.imageAlt}
                   fill
                   sizes="(max-width: 1024px) 208px, 240px"
                   className="object-cover"
@@ -229,29 +166,26 @@ export default async function AboutPage({
             <Reveal>
               <div className="h-full rounded-2xl border border-border bg-card/60 p-8">
                 <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-                  Dónde empecé
+                  {about.trayectoria.originLabel}
                 </p>
                 <h2 className="mt-3 text-xl font-bold tracking-tight">
-                  De la administración al desarrollo
+                  {about.trayectoria.originHeading}
                 </h2>
                 <p className="mt-4 leading-relaxed text-muted-foreground">
-                  Antes de dedicarme al desarrollo, trabaje en el area de Administración y Contabilidad. <br /> No fue un desvío, fue una base. <br /> Aprendí a pensar
-                  en procesos, a entender el contexto del negocio y desarrollar habilidades de gestión administrativa y contable. Las cuales hoy en dia como desarrollador me ayudan a tener un mejor entendimiento del negocio y de la empresa, fuera de lo que es el codigo. <br /> Hoy en dia no dejé esa experiencia atrás, la traje conmigo.
+                  {about.trayectoria.originText}
                 </p>
               </div>
             </Reveal>
             <Reveal delay={0.05}>
               <div className="h-full rounded-2xl border border-border bg-card/60 p-8">
                 <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-                  Dónde estoy hoy
+                  {about.trayectoria.currentLabel}
                 </p>
                 <h2 className="mt-3 text-xl font-bold tracking-tight">
-                  Desarrollo Full Stack con sentido de negocio
+                  {about.trayectoria.currentHeading}
                 </h2>
                 <p className="mt-4 leading-relaxed text-muted-foreground">
-                  Porque comence mi carrera como desarrollador? <br /> Por el avance de la tecnologia y mi curiosidad por entender la programacion y codigo, el cual parecia chino para mi y algo muy dificil de aprender. Y hoy en dia, me da esa capacidad de poder crear, que tanto me llamaba la atencion. <br /> Hoy construyo sistemas que son técnicamente sólidos y también tienen sentido
-                  desde el punto de vista del negocio. Entiendo por qué el producto tiene que
-                  funcionar, no solo cómo hacerlo funcionar.
+                  {about.trayectoria.currentText}
                 </p>
               </div>
             </Reveal>
@@ -269,7 +203,7 @@ export default async function AboutPage({
             >
               <Image
                 src="/about/remote_context.jpeg"
-                alt="Trabajando de forma remota"
+                alt={about.trayectoria.remoteImageAlt}
                 fill
                 sizes="100vw"
                 className="object-cover"
@@ -285,11 +219,11 @@ export default async function AboutPage({
         <Container>
           <Reveal>
             <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-              Cómo trabajo
+              {about.principios.sectionLabel}
             </p>
           </Reveal>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {principios.map((item, i) => (
+            {about.principios.items.map((item, i) => (
               <Reveal key={item.titulo} delay={i * 0.05}>
                 <article className="h-full rounded-2xl border border-border bg-card/60 p-6">
                   <h3 className="font-semibold">{item.titulo}</h3>
@@ -306,15 +240,14 @@ export default async function AboutPage({
         <Container>
           <Reveal>
             <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-              Proyectos seleccionados
+              {about.proyectos.sectionLabel}
             </p>
             <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-              Cuatro dominios distintos, cuatro conjuntos de problemas distintos. Cada uno me
-              enseñó algo que no podría haber aprendido de otra forma.
+              {about.proyectos.sublabel}
             </p>
           </Reveal>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {proyectos.map((p, i) => (
+            {about.proyectos.items.map((p, i) => (
               <Reveal key={p.slug} delay={i * 0.05}>
                 <Link
                   href={`/${typedLocale}/projects/${p.slug}`}
@@ -347,7 +280,7 @@ export default async function AboutPage({
         <Container>
           <Reveal>
             <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-              Experiencia
+              {about.experiencia.sectionLabel}
             </p>
           </Reveal>
           <div className="mt-6 space-y-3">
@@ -375,19 +308,15 @@ export default async function AboutPage({
           <Reveal>
             <div className="rounded-2xl border border-border bg-card/60 p-8 md:p-10">
               <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-                Un poco sobre mi vida cotidiana y mis hobbies.
+                {about.outOfOffice.sectionLabel}
               </p>
               <h2 className="mt-3 text-xl font-bold tracking-tight md:text-2xl">
-                Out Of Office...
+                {about.outOfOffice.heading}
               </h2>
-              <p className="mt-4 max-w-3xl leading-relaxed text-muted-foreground">
-                  Fuera del mundo laboral y estudiantil soy una persona tranquila. Disfruto mucho estar con mi familia, mi perra &quot;Pipa&quot; y mis amigos, compartir tiempo de calidad, salir, reírnos y simplemente pasar buenos momentos.
-                  <br /><br />
-                  El deporte es una parte muy importante de mi vida. El fútbol me acompaña desde chico. Jugué a nivel profesional juvenil y hoy sigo jugando a nivel amateur, disfrutándolo con la misma pasión de siempre.
-                  <br /><br />
-                  Me encanta viajar, conocer lugares nuevos y vivir experiencias. Creo que salir de la rutina, descubrir culturas y paisajes diferentes abre la cabeza y ayuda a crecer tanto personal como profesionalmente.
-                </p>
-              </div>
+              <p className="mt-4 max-w-3xl leading-relaxed text-muted-foreground whitespace-pre-line">
+                {about.outOfOffice.text}
+              </p>
+            </div>
           </Reveal>
         </Container>
       </Section>
@@ -405,7 +334,7 @@ export default async function AboutPage({
               >
                 <Image
                   src="/about/lifestyle.jpeg"
-                  alt="Hernán Alegresa"
+                  alt={about.lifestyleImageAlt}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
@@ -419,10 +348,10 @@ export default async function AboutPage({
               <Reveal delay={0.05}>
                 <div className="rounded-2xl border border-border bg-card/60 p-6">
                   <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-                    Educación
+                    {about.educacion.sectionLabel}
                   </p>
                   <ul className="mt-5 space-y-5">
-                    {educacion.map((item) => (
+                    {about.educacion.items.map((item) => (
                       <li key={item.institucion}>
                         <p className="font-medium">{item.institucion}</p>
                         <p className="mt-0.5 text-sm text-muted-foreground">{item.titulo}</p>
@@ -438,10 +367,10 @@ export default async function AboutPage({
               <Reveal delay={0.08}>
                 <div className="rounded-2xl border border-border bg-card/60 p-6">
                   <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-                    Idiomas
+                    {about.idiomas.sectionLabel}
                   </p>
                   <ul className="mt-5 space-y-4">
-                    {idiomas.map((l) => (
+                    {about.idiomas.items.map((l) => (
                       <li key={l.idioma} className="flex items-center justify-between">
                         <span className="text-sm font-medium">{l.idioma}</span>
                         <Badge variant="secondary" className="text-xs">
@@ -452,10 +381,10 @@ export default async function AboutPage({
                   </ul>
                   <div className="mt-6 border-t border-border pt-5">
                     <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-                      Disponible para
+                      {about.idiomas.availabilityLabel}
                     </p>
                     <div className="mt-3 flex flex-wrap gap-2">
-                      {["Remoto", "Full-time", "Freelance", "Contrato"].map((tag) => (
+                      {about.idiomas.availabilityTags.map((tag) => (
                         <Badge key={tag} variant="outline" className="text-xs">
                           {tag}
                         </Badge>
@@ -476,17 +405,17 @@ export default async function AboutPage({
           <Reveal>
             <div className="rounded-2xl border border-border bg-card/70 p-8 md:p-10">
               <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
-                Construyamos algo juntos
+                {about.cta.heading}
               </h2>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link href={`/${typedLocale}/contact`} className={buttonVariants()}>
-                  Escribime
+                  {about.cta.contactButton}
                 </Link>
                 <Link
                   href={`/${typedLocale}/projects`}
                   className={buttonVariants({ variant: "outline" })}
                 >
-                  Ver mis proyectos
+                  {about.cta.projectsButton}
                 </Link>
               </div>
             </div>

@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { generateProjectStructuredData } from "@/lib/seo";
+import { generateProjectStructuredData, getAlternateLanguages } from "@/lib/seo";
 import type { ProjectMedia } from "@/lib/types/portfolio";
 import { OhShirtCaseStudy } from "@/components/portfolio/case-studies/oh-shirt-case-study";
 import { CardShootoutCaseStudy } from "@/components/portfolio/case-studies/card-shootout-case-study";
@@ -25,8 +25,9 @@ type DetailPageProps = {
 };
 
 export async function generateMetadata({ params }: DetailPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const { locale, slug } = await params;
+  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
+  const project = getProjectBySlug(slug, typedLocale);
   if (!project) return {};
   const ogImagePath = `/og/${slug}.jpg`;
   const hasOgImage = existsSync(join(process.cwd(), "public", "og", `${slug}.jpg`));
@@ -34,6 +35,7 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
   return {
     title: project.title,
     description: project.oneLiner,
+    alternates: getAlternateLanguages(`projects/${slug}`),
     ...(hasOgImage
       ? {
           openGraph: {
@@ -49,9 +51,9 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
 
 export async function generateStaticParams() {
   const params: Array<{ locale: Locale; slug: string }> = [];
-  const projects = getAllProjects();
 
   for (const locale of locales) {
+    const projects = getAllProjects(locale);
     for (const project of projects) {
       params.push({ locale, slug: project.slug });
     }
@@ -60,7 +62,7 @@ export async function generateStaticParams() {
   return params;
 }
 
-function GalleryItem({ media }: { media: ProjectMedia }) {
+function GalleryItem({ media, videoAriaLabel }: { media: ProjectMedia; videoAriaLabel: string }) {
   if (media.type === "video") {
     const shouldAutoplay = media.autoplay === true;
     const shouldLoop = media.loop === true;
@@ -75,7 +77,7 @@ function GalleryItem({ media }: { media: ProjectMedia }) {
           preload="metadata"
           poster={media.poster}
           controls
-          aria-label="Project demo video"
+          aria-label={videoAriaLabel}
           className="h-full w-full object-cover"
         >
           <source src={media.src} type="video/mp4" />
@@ -95,7 +97,7 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
   const { locale, slug } = await params;
   const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
   const dict = await getDictionary(typedLocale);
-  const project = getProjectBySlug(slug);
+  const project = getProjectBySlug(slug, typedLocale);
 
   if (!project) {
     notFound();
@@ -221,7 +223,7 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
             <p className="mt-2 text-sm text-muted-foreground">{dict.projects.galleryPlaceholder}</p>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
               {project.gallery.map((media, index) => (
-                <GalleryItem key={index} media={media} />
+                <GalleryItem key={index} media={media} videoAriaLabel={dict.projects.demoVideoAriaLabel} />
               ))}
             </div>
           </Reveal>
@@ -258,7 +260,7 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
                   rel="noreferrer"
                   className={buttonVariants({ variant: "outline" })}
                 >
-                  Case Study
+                  {dict.projects.caseStudy}
                 </a>
               )}
             </div>

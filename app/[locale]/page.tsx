@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { profile } from "@/data/profile";
-import { experience } from "@/data/experience";
+import { getExperience } from "@/data/experience";
 import { getFeaturedProjects } from "@/data/projects";
 import { getSkillCategories } from "@/data/skills";
 import { Reveal } from "@/components/motion/reveal";
@@ -14,6 +14,7 @@ import { ScrollIndicator } from "@/components/portfolio/scroll-indicator";
 import { Section } from "@/components/portfolio/section";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
+import { getAlternateLanguages } from "@/lib/seo";
 import { locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 
@@ -28,6 +29,7 @@ export async function generateMetadata({
   return {
     title: dict.site.title,
     description: dict.site.description,
+    alternates: getAlternateLanguages(""),
   };
 }
 
@@ -39,12 +41,9 @@ export default async function HomePage({
   const { locale } = await params;
   const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
   const dict = await getDictionary(typedLocale);
-  const featured = getFeaturedProjects();
+  const featured = getFeaturedProjects(typedLocale);
   const skillCategories = getSkillCategories(typedLocale);
-  const progressionText =
-    typedLocale === "es"
-      ? "Trayectoria profesional: de contabilidad y administración hacia desarrollo full stack orientado a producto."
-      : "Career progression: from accounting and administration into full stack product development.";
+  const experience = getExperience(typedLocale);
 
   const projectsBySlug = new Map(featured.map((project) => [project.slug, project]));
   const cardShootout = projectsBySlug.get("card-shootout");
@@ -66,7 +65,7 @@ export default async function HomePage({
                 </h1>
               </StaggerReveal>
               <StaggerReveal index={1}>
-                <p className="mt-4 text-base font-medium text-foreground/90 md:text-lg">{profile.headline}</p>
+                <p className="mt-4 text-base font-medium text-foreground/90 md:text-lg">{dict.home.roleTagline}</p>
                 <p className="mt-1 text-sm text-muted-foreground md:text-base">{profile.location}</p>
               </StaggerReveal>
               <StaggerReveal index={2}>
@@ -213,7 +212,7 @@ export default async function HomePage({
             <Heading title={dict.home.experienceTitle} description={dict.home.experienceDescription} />
           </Reveal>
           <Reveal className="mt-4">
-            <p className="max-w-3xl text-sm text-muted-foreground">{progressionText}</p>
+            <p className="max-w-3xl text-sm text-muted-foreground">{dict.home.progressionText}</p>
           </Reveal>
           <div className="mt-8 space-y-6">
             {experience.map((item, index) => (

@@ -38,7 +38,7 @@ export function SiteHeader({ locale, dict }: HeaderProps) {
         </nav>
         <div className="flex items-center gap-2">
           <LanguageToggle currentLocale={locale} />
-          <MobileNav items={nav} />
+          <MobileNav items={nav} openMenuLabel={dict.a11y.openMenu} closeMenuLabel={dict.a11y.closeMenu} />
         </div>
       </Container>
     </header>

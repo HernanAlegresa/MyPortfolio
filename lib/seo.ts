@@ -1,4 +1,22 @@
+import type { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 import type { Profile, Project } from "@/lib/types/portfolio";
+
+/**
+ * Returns alternate language URLs for hreflang SEO.
+ * @param pathWithoutLeadingSlash - Path after locale, e.g. "" for home, "about", "projects", "projects/card-shootout"
+ */
+export function getAlternateLanguages(pathWithoutLeadingSlash: string): Metadata["alternates"] {
+  const base = siteConfig.url.replace(/\/$/, "");
+  const path = pathWithoutLeadingSlash ? `/${pathWithoutLeadingSlash}` : "";
+  return {
+    languages: {
+      es: `${base}/es${path}`,
+      en: `${base}/en${path}`,
+      "x-default": `${base}/es${path}`,
+    },
+  };
+}
 
 export function generatePersonStructuredData(profile: Profile) {
   return {
@@ -30,7 +48,3 @@ export function generateProjectStructuredData(project: Project) {
     ...(project.links?.live ? { url: project.links.live } : {}),
   };
 }
-
-// Backward-compatible aliases while migrating call sites.
-export const generatePersonJsonLd = generatePersonStructuredData;
-export const generateProjectJsonLd = generateProjectStructuredData;

@@ -8,6 +8,7 @@ import { Container } from "@/components/portfolio/container";
 import { Heading } from "@/components/portfolio/heading";
 import { Section } from "@/components/portfolio/section";
 import { buttonVariants } from "@/components/ui/button";
+import { getAlternateLanguages } from "@/lib/seo";
 import { locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 
@@ -32,6 +33,7 @@ export async function generateMetadata({
   return {
     title: dict.contactPage.title,
     description: dict.contactPage.description,
+    alternates: getAlternateLanguages("contact"),
   };
 }
 
@@ -66,7 +68,7 @@ export default async function ContactPage({
 
               <div className="flex items-center justify-between rounded-xl border border-border bg-background/40 px-4 py-3">
                 <div>
-                  <p className="text-xs text-muted-foreground">Teléfono</p>
+                  <p className="text-xs text-muted-foreground">{dict.contactPage.phone}</p>
                   <p className="mt-0.5 text-sm font-medium">+598 099 898 342</p>
                 </div>
                 <CopyButton value="+598099898342" />
@@ -98,7 +100,7 @@ export default async function ContactPage({
                 className={buttonVariants({ variant: "outline" })}
               >
                 <FileDown className="mr-2 h-4 w-4" />
-                Ver / Descargar CV
+                {dict.contactPage.cvDownload}
               </a>
             </div>
           </article>
@@ -107,12 +109,12 @@ export default async function ContactPage({
         {supabaseEnabled && (
           <Reveal className="mt-8">
             <article className="rounded-2xl border border-border bg-card/60 p-8">
-              <h3 className="text-lg font-semibold">Contact Form</h3>
+              <h3 className="text-lg font-semibold">{dict.contactPage.formTitle}</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Supabase environment variables detected. Form submissions are enabled.
+                {dict.contactPage.formEnabled}
               </p>
               <div className="mt-6">
-                <ContactForm />
+                <ContactForm dict={dict.contactForm} />
               </div>
             </article>
           </Reveal>

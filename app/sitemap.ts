@@ -1,91 +1,55 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
+import { getAllProjects } from "@/data/projects";
+import { locales, type Locale } from "@/lib/i18n/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
 
-  // Static pages (always present)
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
+  const entries: MetadataRoute.Sitemap = [];
+
+  for (const locale of locales) {
+    // Root / home
+    entries.push({
+      url: `${baseUrl}/${locale}`,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-  ];
+    });
 
-  // Store pages — only included when store feature is enabled
-  let storePages: MetadataRoute.Sitemap = [];
-  if (siteConfig.features.store) {
-    try {
-      const { getAllProducts } = require("@/data/products");
-      const { categories } = require("@/data/categories");
-
-      storePages.push({
-        url: `${baseUrl}/shop`,
-        lastModified: new Date(),
-        changeFrequency: "daily",
-        priority: 0.9,
-      });
-
-      storePages.push({
-        url: `${baseUrl}/shipping`,
+    // Static pages
+    for (const [path, priority] of [
+      ["/about", 0.7],
+      ["/contact", 0.7],
+    ] as [string, number][]) {
+      entries.push({
+        url: `${baseUrl}/${locale}${path}`,
         lastModified: new Date(),
         changeFrequency: "monthly",
-        priority: 0.6,
+        priority,
+      });
+    }
+
+    // Portfolio pages — only when portfolio feature is enabled
+    if (siteConfig.features.portfolio) {
+      entries.push({
+        url: `${baseUrl}/${locale}/projects`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.8,
       });
 
-      // Category pages
-      if (Array.isArray(categories)) {
-        for (const category of categories) {
-          storePages.push({
-            url: `${baseUrl}/shop?category=${category.slug}`,
-            lastModified: new Date(),
-            changeFrequency: "weekly",
-            priority: 0.8,
-          });
-        }
+      const projects = getAllProjects(locale as Locale);
+      for (const project of projects) {
+        entries.push({
+          url: `${baseUrl}/${locale}/projects/${project.slug}`,
+          lastModified: new Date(),
+          changeFrequency: "monthly",
+          priority: 0.7,
+        });
       }
-
-      // Product pages
-      const products = getAllProducts();
-      if (Array.isArray(products)) {
-        for (const product of products) {
-          storePages.push({
-            url: `${baseUrl}/shop/${product.slug}`,
-            lastModified: new Date(),
-            changeFrequency: "weekly",
-            priority: 0.8,
-          });
-        }
-      }
-    } catch {
-      // Store data not available — skip store pages silently
     }
   }
 
-  // Portfolio pages — only included when portfolio feature is enabled
-  let portfolioPages: MetadataRoute.Sitemap = [];
-  if (siteConfig.features.portfolio) {
-    portfolioPages.push({
-      url: `${baseUrl}/projects`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    });
-  }
-
-  return [...staticPages, ...storePages, ...portfolioPages];
+  return entries;
 }

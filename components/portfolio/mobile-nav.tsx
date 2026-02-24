@@ -6,7 +6,13 @@ import { Menu, X } from "lucide-react";
 
 type NavItem = { href: string; label: string };
 
-export function MobileNav({ items }: { items: NavItem[] }) {
+type MobileNavProps = {
+  items: NavItem[];
+  openMenuLabel: string;
+  closeMenuLabel: string;
+};
+
+export function MobileNav({ items, openMenuLabel, closeMenuLabel }: MobileNavProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -15,7 +21,7 @@ export function MobileNav({ items }: { items: NavItem[] }) {
         type="button"
         onClick={() => setOpen(!open)}
         className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition hover:text-foreground"
-        aria-label={open ? "Close menu" : "Open menu"}
+        aria-label={open ? closeMenuLabel : openMenuLabel}
         aria-expanded={open}
       >
         {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}

@@ -5,6 +5,7 @@ import { Container } from "@/components/portfolio/container";
 import { Heading } from "@/components/portfolio/heading";
 import { ProjectCard } from "@/components/portfolio/project-card";
 import { Section } from "@/components/portfolio/section";
+import { getAlternateLanguages } from "@/lib/seo";
 import { locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 
@@ -19,6 +20,7 @@ export async function generateMetadata({
   return {
     title: dict.projects.title,
     description: dict.projects.description,
+    alternates: getAlternateLanguages("projects"),
   };
 }
 
@@ -30,7 +32,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
   const { locale } = await params;
   const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
   const dict = await getDictionary(typedLocale);
-  const projects = getAllProjects();
+  const projects = getAllProjects(typedLocale);
 
   // ASPECT RATIO per project — all cards uniform at 16:9
   // Change any value to adjust that card's height (e.g. "aspect-[4/3]", "aspect-[16/10]")

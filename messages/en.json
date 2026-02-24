@@ -22,51 +22,20 @@
     "badge": "Open to new opportunities",
     "headline": "I build end-to-end digital products with clean code, sharp UI, and product thinking.",
     "subheadline": "Full Stack Developer with experience across frontend, backend, mobile, and APIs. Focused on intuitive interfaces, scalable architecture, and real user impact.",
+    "roleTagline": "Full Stack Developer | Product & UX-UI Focus",
+    "progressionText": "Career progression: from accounting and administration into full stack product development.",
     "featuredTitle": "Featured Projects",
     "featuredDescription": "Selected work spanning AI, e-commerce, games, and integrations.",
     "experienceTitle": "Experience",
     "experienceDescription": "Recent roles and key contributions.",
     "skillsTitle": "Skills",
-    "skillsDescription": "Technologies and tools I’ve used throughout my professional journey.\nFrom administrative systems to modern full-stack and AI-powered development.",
+    "skillsDescription": "Technologies and tools I've used throughout my professional journey.\nFrom administrative systems to modern full-stack and AI-powered development.",
     "ctaTitle": "Let's build something together",
     "ctaDescription": "I partner with teams and clients who value quality, clear communication, and shipping with purpose."
   },
   "about": {
     "title": "About",
-    "intro": "Full Stack Developer with experience across frontend, backend, mobile development, APIs, and databases — with a strong focus on mobile applications.",
-    "paragraph1": "I build end-to-end solutions combining technical execution with product thinking and user-centered design. I enjoy UI/UX and creating clean, intuitive interfaces.",
-    "paragraph2": "I've collaborated with clients and stakeholders across Canada, the United States, and Brazil. I'm proactive, adaptable, and driven by continuous learning.",
-    "valuesTitle": "How I Work",
-    "values": [
-      "Product-minded execution",
-      "Clean, intuitive interfaces",
-      "Clear technical communication",
-      "Continuous learning & adaptability"
-    ],
-    "educationTitle": "Education",
-    "education": [
-      {
-        "institution": "Holberton School Uruguay",
-        "degree": "Full Stack Development Bootcamp",
-        "period": "Oct 2023 – Nov 2024"
-      },
-      {
-        "institution": "FCEA — Udelar",
-        "degree": "Bachelor's in Administration (paused)",
-        "period": "2021 – 2023"
-      },
-      {
-        "institution": "Stella Maris School",
-        "degree": "Bilingual primary & secondary education",
-        "period": ""
-      }
-    ],
-    "languagesTitle": "Languages",
-    "languages": [
-      "Spanish (native)",
-      "English (advanced)",
-      "Portuguese (good)"
-    ]
+    "intro": "Full Stack Developer from Uruguay. I work across frontend, backend, mobile, and APIs — always thinking about the complete product."
   },
   "projects": {
     "title": "Projects",
@@ -79,15 +48,52 @@
     "links": "Links",
     "galleryPlaceholder": "Screenshots and product visuals coming soon.",
     "liveDemo": "Live demo",
-    "repository": "Repository"
+    "repository": "Repository",
+    "caseStudy": "Case Study",
+    "demoVideoAriaLabel": "Project demo video"
   },
   "contactPage": {
     "title": "Contact",
     "description": "Open to remote opportunities, product collaborations, and freelance projects.",
     "cta": "Reach out via email or connect on my professional profiles.",
-    "phone": "Phone"
+    "phone": "Phone",
+    "cvDownload": "View / Download CV",
+    "formTitle": "Contact Form",
+    "formEnabled": "Supabase environment variables detected. Form submissions are enabled."
+  },
+  "contactForm": {
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "subjectLabel": "Subject",
+    "messageLabel": "Message",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "success": "Message sent! I'll get back to you soon.",
+    "errorGeneric": "Failed to send message. Please try again.",
+    "errorNetwork": "Network error. Please check your connection and try again.",
+    "errorRateLimit": "Too many requests. Please try again later.",
+    "nameRequired": "Name is required",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email",
+    "subjectRequired": "Subject is required",
+    "messageRequired": "Message is required",
+    "messageTooShort": "Message must be at least 10 characters"
+  },
+  "caseStudy": {
+    "appInProduction": "App in production",
+    "viewLive": "View live app"
   },
   "footer": {
     "rights": "All rights reserved."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist.",
+    "backHome": "Go to home"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   }
 }

@@ -51,7 +51,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
       >
-        Skip to content
+        {dict.a11y.skipToContent}
       </a>
       <script
         type="application/ld+json"
@@ -59,7 +59,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       />
       <BackgroundDecor />
       <SiteHeader locale={typedLocale} dict={dict} />
-      <main id="main-content" lang={typedLocale}>
+      <main id="main-content">
         {children}
       </main>
       <SiteFooter locale={typedLocale} dict={dict} />

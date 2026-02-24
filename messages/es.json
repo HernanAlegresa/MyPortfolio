@@ -22,6 +22,8 @@
     "badge": "Disponible para nuevas oportunidades",
     "headline": "Construyo productos digitales completos, con código limpio, buena UI-UX y foco en el producto.",
     "subheadline": "Desarrollador Full Stack con experiencia en frontend, backend, mobile y APIs. Me enfoco en interfaces intuitivas, arquitecturas que escalan y en que el producto funcione de verdad. Me gusta trabajar en equipo y en proyectos que tengan sentido y que sean impactantes.",
+    "roleTagline": "Desarrollador Full Stack | Product & UX-UI Focus",
+    "progressionText": "Trayectoria profesional: de contabilidad y administración hacia desarrollo full stack orientado a producto.",
     "featuredTitle": "Proyectos destacados",
     "featuredDescription": "Trabajo seleccionado en IA, e-commerce, desarrollo de aplicaciones e integraciones.",
     "experienceTitle": "Experiencia",
@@ -46,15 +48,52 @@
     "links": "Enlaces",
     "galleryPlaceholder": "Capturas y visuales del producto próximamente.",
     "liveDemo": "Ver demo",
-    "repository": "Repositorio"
+    "repository": "Repositorio",
+    "caseStudy": "Caso de estudio",
+    "demoVideoAriaLabel": "Video demo del proyecto"
   },
   "contactPage": {
     "title": "Contacto",
     "description": "Disponible para trabajo remoto, colaboraciones de producto y proyectos freelance.",
     "cta": "Escribime por email o conectemos en mis redes.",
-    "phone": "Teléfono"
+    "phone": "Teléfono",
+    "cvDownload": "Ver / Descargar CV",
+    "formTitle": "Formulario de contacto",
+    "formEnabled": "Variables de entorno de Supabase detectadas. Los envíos de formulario están habilitados."
+  },
+  "contactForm": {
+    "nameLabel": "Nombre",
+    "emailLabel": "Email",
+    "subjectLabel": "Asunto",
+    "messageLabel": "Mensaje",
+    "send": "Enviar mensaje",
+    "sending": "Enviando...",
+    "success": "¡Mensaje enviado! Me pondré en contacto pronto.",
+    "errorGeneric": "Error al enviar el mensaje. Intentá de nuevo.",
+    "errorNetwork": "Error de red. Verificá tu conexión e intentá de nuevo.",
+    "errorRateLimit": "Demasiados intentos. Intentá más tarde.",
+    "nameRequired": "El nombre es requerido",
+    "emailRequired": "El email es requerido",
+    "emailInvalid": "Ingresá un email válido",
+    "subjectRequired": "El asunto es requerido",
+    "messageRequired": "El mensaje es requerido",
+    "messageTooShort": "El mensaje debe tener al menos 10 caracteres"
+  },
+  "caseStudy": {
+    "appInProduction": "App en producción",
+    "viewLive": "Ver app en vivo"
   },
   "footer": {
     "rights": "Todos los derechos reservados."
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La página que buscás no existe.",
+    "backHome": "Ir al inicio"
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
   }
 }
