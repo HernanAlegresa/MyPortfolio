@@ -1,11 +1,109 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { MapPin, ArrowUpRight } from "lucide-react";
+import { profile } from "@/data/profile";
+import { experience } from "@/data/experience";
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/portfolio/container";
-import { Heading } from "@/components/portfolio/heading";
 import { Section } from "@/components/portfolio/section";
 import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
 import { locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+
+// ─── Contenido estático ───────────────────────────────────────────────────────
+
+const principios = [
+  {
+    titulo: "De punta a punta",
+    desc: "Sigo un problema desde la arquitectura hasta la interfaz. Me importa cómo todo conecta: el modelo de datos, el diseño de la API, la estructura de componentes y el último detalle de UI.",
+  },
+  {
+    titulo: "El producto primero",
+    desc: "Cada decisión técnica que tomo tiene en cuenta lo que el producto realmente necesita. Construyo pensando en el usuario y en el resultado, no en cerrar tickets.",
+  },
+  {
+    titulo: "La comunicación también es trabajo",
+    desc: "Dirigí onboardings con clientes internacionales y revisé repositorios en producción. Saber moverse entre lo técnico y lo humano es algo que tomo en serio y me parece muy importante.",
+  },
+  {
+    titulo: "Construir bien, mejorar con intención",
+    desc: "Los buenos sistemas no nacen perfectos. Por ejemplo, en el desarrollo de KeyCliq, pasé por multiples versiones de logica, porque medí lo que fallaba y lo arreglé con criterio. Esa forma de trabajar la aplico en todo lo que construyo.",
+  },
+];
+
+const proyectos = [
+  {
+    etiqueta: "Mobile Web App",
+    titulo: "KeyCliq",
+    slug: "keycliq",
+    nota: "Construí toda la aplicación web, de principio a fin. Una aplicación web con integración de IA, que permite reconocer llaves y gestionar inventario, fue creada por pedido de una clienta de Canada relacionada al rubro de real-estate. Keycliq fue un proyecto de aproximadamente 2 meses de desarrollo, donde yo era el unico desarrollador. Un desafio muy grande y de mucha complejidad, pero que me ayudo a crecer mucho como desarrollador.",
+  },
+  {
+    etiqueta: "Videojuego Mobile",
+    titulo: "Card Shootout",
+    slug: "card-shootout",
+    nota: "Mi proyecto favorito, aun no finalizado, ya que tiene muchisimo por agregar y hacer. Una idea que tengo desde que comence mis estudios de programacion, juntando algo que me apasiona como el futbol y la programacion. Este videojuego lo presente en mi proyecto final del bootcamp de desarrollo full stack. En aquel entonces lo habia desarrollado en flutter, pero ahora lo estoy reconstruyendo en React Native. Es un juego el cual tiene una logica de negocio y monetizacion, el cual se que puede ser un juego que rompa el mercado y le puede ir muy bien en los mercados de juegos.",
+  },
+  {
+    etiqueta: "E-commerce Shop",
+    titulo: "Oh Sh!rt",
+    slug: "oh-shirt",
+    nota: "Una arquitectura de e-commerce lista para producción. SEO como prioridad, componentes reutilizables, etc. Un sitio web de e-commerce que se adapta a la marca y a los productos que se venden. Un sitio web que se puede expandir y crecer sin un rebuild completo.",
+  },
+  {
+    etiqueta: "Trabajo con clientes Shopify",
+    titulo: "Shopify Integrations",
+    slug: "shopify-integrations-rebl",
+    nota: "Entornos de producción, clientes reales, revenue real. Aprendí a diagnosticar rápido, comunicar con claridad y ser responsable del resultado. Un rol muy interesante y desafiante, donde trabaje para clientes muy importantes como Monica + Andy, SKKN, Greyson, Vici, y UTV.",
+  },
+];
+
+const educacion = [
+  {
+    institucion: "Holberton School Uruguay",
+    titulo: "Desarrollo Full Stack",
+    periodo: "Oct 2023 – Nov 2024",
+  },
+  {
+    institucion: "FCEA — Udelar",
+    titulo: "Licenciatura en Administración (Retomada)",
+    periodo: "2021 – 2023",
+  },
+  {
+    institucion: "Stella Maris School",
+    titulo: "Educación primaria y secundaria bilingüe",
+    periodo: "",
+  },
+];
+
+const idiomas = [
+  { idioma: "Español", nivel: "Nativo" },
+  { idioma: "Inglés", nivel: "Avanzado" },
+  { idioma: "Portugués", nivel: "Bueno" },
+];
+
+// ─── Placeholder de imagen ────────────────────────────────────────────────────
+
+function ImagePlaceholder({
+  caption,
+  className = "",
+}: {
+  caption: string;
+  className?: string;
+}) {
+  return (
+    <div className={`space-y-2 ${className}`}>
+      <div className="flex h-full w-full items-center justify-center rounded-2xl border border-dashed border-border bg-muted/20 px-4 text-center text-xs text-muted-foreground">
+        {caption}
+      </div>
+      <p className="text-center text-xs text-muted-foreground/60">{caption}</p>
+    </div>
+  );
+}
+
+// ─── Página ───────────────────────────────────────────────────────────────────
 
 export async function generateMetadata({
   params,
@@ -13,7 +111,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "en";
+  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
   const dict = await getDictionary(typedLocale);
   return {
     title: dict.about.title,
@@ -27,71 +125,372 @@ export default async function AboutPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "en";
-  const dict = await getDictionary(typedLocale);
+  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
+
+  // ─── Ajustes de espaciado y tamaño ──────────────────────────────────────────
+  // Modificá estos valores para ajustar el layout sin tocar el código.
+
+  // Espacio entre secciones (padding inferior de cada sección)
+  // Opciones: "pb-4" muy poco · "pb-6" · "pb-8" · "pb-10" · "pb-12" · "pb-16" (por defecto del tema)
+  const secGap = "pb-8";
+
+  // Imágenes — unidades: "240px", "18rem", "100%" — cualquier valor CSS válido.
+
+  // Imagen 1 — Foto programando (hero, columna derecha)
+  const img1Width    = "350px";          // ancho del contenedor
+  const img1Height   = "450px";          // alto del contenedor
+  const img1Position = "center 70%";     // recorte: "center center" · "center top" · "50% 20%"
+  const img1Scale    = 1.1;                // zoom: 1 = sin zoom · 1.1 = 10% más · 0.95 = zoom out
+
+  // Imagen 2 — Contexto remoto (panorámica, ocupa todo el ancho)
+  const img2Height   = "420px";          // alto del contenedor (ancho = 100% siempre)
+  const img2Position = "center 60%";     // recorte
+  const img2Scale    = 1;                // zoom
+
+  // Imagen 3 — Lifestyle (ocupa toda la columna izquierda)
+  const img3Height   = "610px";          // alto del contenedor (ancho = 100% de la columna)
+  const img3Position = "center 15%";     // recorte
+  const img3Scale    = 1;                // zoom
+  // ────────────────────────────────────────────────────────────────────────────
 
   return (
     <>
-      <Section>
+      {/* ── Hero: texto + foto de perfil ──────────────────────────────────── */}
+      <Section className={`${secGap} pt-20 md:pt-28`}>
         <Container>
-          <Reveal>
-            <Heading title={dict.about.title} description={dict.about.intro} />
-          </Reveal>
-          <div className="mt-8 grid gap-6 md:grid-cols-[1.2fr_0.8fr]">
-            <Reveal>
-              <article className="rounded-2xl border border-border bg-card/60 p-6">
-                <p className="text-muted-foreground">{dict.about.paragraph1}</p>
-                <p className="mt-4 text-muted-foreground">{dict.about.paragraph2}</p>
-              </article>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <article className="rounded-2xl border border-border bg-card/60 p-6">
-                <h3 className="text-lg font-semibold">{dict.about.valuesTitle}</h3>
-                <ul className="mt-4 space-y-2">
-                  {dict.about.values.map((value: string) => (
-                    <li key={value}>
-                      <Badge variant="outline">{value}</Badge>
-                    </li>
+          <div className="grid items-start gap-10 md:grid-cols-[1fr_auto]">
+
+            {/* Texto */}
+            <div>
+              <Reveal>
+                <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+                  Sobre mí
+                </p>
+              </Reveal>
+              <Reveal className="mt-4">
+                <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+                  Construyo productos completos,<br className="hidden sm:block" /> no partes sueltas.
+                </h1>
+              </Reveal>
+              <Reveal className="mt-6">
+                <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+                  Desarrollador Full Stack de Uruguay. Dispuesto a desarrollarme como profesional y persona. Nadie nace sabiendo todo, siempre hay algo por aprender. <br /> Trabajo en frontend, backend, mobile y APIs,
+                  siempre de punta a punta: desde el diseño del sistema hasta lo que el usuario ve
+                  en pantalla.
+                </p>
+              </Reveal>
+              <Reveal className="mt-6">
+                <div className="flex flex-wrap items-center gap-4">
+                  <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                    <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+                    {profile.location}
+                  </span>
+                  {profile.socials.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {s.label}
+                      <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                    </a>
                   ))}
-                </ul>
-              </article>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Foto de perfil programando */}
+            <Reveal className="hidden md:block" delay={0.1}>
+              <div
+                className="relative overflow-hidden rounded-2xl border border-border"
+                style={{ width: img1Width, height: img1Height }}
+              >
+                <Image
+                  src="/about/profile_programming.jpeg"
+                  alt="Hernán Alegresa trabajando"
+                  fill
+                  sizes="(max-width: 1024px) 208px, 240px"
+                  className="object-cover"
+                  style={{ objectPosition: img1Position, transform: `scale(${img1Scale})`, transformOrigin: "center center" }}
+                />
+              </div>
+            </Reveal>
+
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── La trayectoria ────────────────────────────────────────────────────── */}
+      <Section className={`pt-8 md:pt-12 ${secGap}`}>
+        <Container>
+          <div className="grid gap-6 md:grid-cols-2">
+            <Reveal>
+              <div className="h-full rounded-2xl border border-border bg-card/60 p-8">
+                <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+                  Dónde empecé
+                </p>
+                <h2 className="mt-3 text-xl font-bold tracking-tight">
+                  De la administración al desarrollo
+                </h2>
+                <p className="mt-4 leading-relaxed text-muted-foreground">
+                  Antes de dedicarme al desarrollo, trabaje en el area de Administración y Contabilidad. <br /> No fue un desvío, fue una base. <br /> Aprendí a pensar
+                  en procesos, a entender el contexto del negocio y desarrollar habilidades de gestión administrativa y contable. Las cuales hoy en dia como desarrollador me ayudan a tener un mejor entendimiento del negocio y de la empresa, fuera de lo que es el codigo. <br /> Hoy en dia no dejé esa experiencia atrás, la traje conmigo.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <div className="h-full rounded-2xl border border-border bg-card/60 p-8">
+                <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+                  Dónde estoy hoy
+                </p>
+                <h2 className="mt-3 text-xl font-bold tracking-tight">
+                  Desarrollo Full Stack con sentido de negocio
+                </h2>
+                <p className="mt-4 leading-relaxed text-muted-foreground">
+                  Porque comence mi carrera como desarrollador? <br /> Por el avance de la tecnologia y mi curiosidad por entender la programacion y codigo, el cual parecia chino para mi y algo muy dificil de aprender. Y hoy en dia, me da esa capacidad de poder crear, que tanto me llamaba la atencion. <br /> Hoy construyo sistemas que son técnicamente sólidos y también tienen sentido
+                  desde el punto de vista del negocio. Entiendo por qué el producto tiene que
+                  funcionar, no solo cómo hacerlo funcionar.
+                </p>
+              </div>
             </Reveal>
           </div>
         </Container>
       </Section>
 
-      <Section className="pt-0">
+      {/* Foto contexto remoto */}
+      <Section className={`pt-8 md:pt-12 ${secGap}`}>
+        <Container>
+          <Reveal>
+            <div
+              className="relative w-full overflow-hidden rounded-2xl border border-border shadow-lg"
+              style={{ height: img2Height }}
+            >
+              <Image
+                src="/about/remote_context.jpeg"
+                alt="Trabajando de forma remota"
+                fill
+                sizes="100vw"
+                className="object-cover"
+                style={{ objectPosition: img2Position, transform: `scale(${img2Scale})`, transformOrigin: "center center" }}
+              />
+            </div>
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* ── Principios ────────────────────────────────────────────────────────── */}
+      <Section className={`pt-8 md:pt-12 ${secGap}`}>
+        <Container>
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+              Cómo trabajo
+            </p>
+          </Reveal>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {principios.map((item, i) => (
+              <Reveal key={item.titulo} delay={i * 0.05}>
+                <article className="h-full rounded-2xl border border-border bg-card/60 p-6">
+                  <h3 className="font-semibold">{item.titulo}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── Lo que construí ───────────────────────────────────────────────────── */}
+      <Section className={`pt-8 md:pt-12 ${secGap}`}>
+        <Container>
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+              Proyectos seleccionados
+            </p>
+            <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
+              Cuatro dominios distintos, cuatro conjuntos de problemas distintos. Cada uno me
+              enseñó algo que no podría haber aprendido de otra forma.
+            </p>
+          </Reveal>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {proyectos.map((p, i) => (
+              <Reveal key={p.slug} delay={i * 0.05}>
+                <Link
+                  href={`/${typedLocale}/projects/${p.slug}`}
+                  className="group flex h-full flex-col justify-between rounded-2xl border border-border bg-card/60 p-6 transition-colors hover:border-primary/40 hover:bg-card/80"
+                >
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <Badge variant="secondary" className="text-xs">
+                        {p.etiqueta}
+                      </Badge>
+                      <ArrowUpRight
+                        className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-foreground"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <h3 className="mt-3 font-semibold group-hover:text-primary [transition:color_200ms_ease]">
+                      {p.titulo}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.nota}</p>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── Experiencia ───────────────────────────────────────────────────────── */}
+      <Section className={`pt-8 md:pt-12 ${secGap}`}>
+        <Container>
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+              Experiencia
+            </p>
+          </Reveal>
+          <div className="mt-6 space-y-3">
+            {experience.map((item, i) => (
+              <Reveal key={item.company} delay={i * 0.05}>
+                <article className="flex flex-wrap items-start justify-between gap-4 rounded-2xl border border-border bg-card/60 p-6">
+                  <div className="min-w-0">
+                    <h3 className="font-semibold">{item.role}</h3>
+                    <p className="mt-0.5 text-sm text-foreground/70">{item.company}</p>
+                  </div>
+                  <div className="shrink-0 text-right text-xs text-muted-foreground">
+                    <p>{item.period}</p>
+                    <p>{item.location}</p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── Out Of Office ─────────────────────────────────────────────────────── */}
+      <Section className={`pt-8 md:pt-12 ${secGap}`}>
+        <Container>
+          <Reveal>
+            <div className="rounded-2xl border border-border bg-card/60 p-8 md:p-10">
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+                Un poco sobre mi vida cotidiana y mis hobbies.
+              </p>
+              <h2 className="mt-3 text-xl font-bold tracking-tight md:text-2xl">
+                Out Of Office...
+              </h2>
+              <p className="mt-4 max-w-3xl leading-relaxed text-muted-foreground">
+                  Fuera del mundo laboral y estudiantil soy una persona tranquila. Disfruto mucho estar con mi familia, mi perra &quot;Pipa&quot; y mis amigos, compartir tiempo de calidad, salir, reírnos y simplemente pasar buenos momentos.
+                  <br /><br />
+                  El deporte es una parte muy importante de mi vida. El fútbol me acompaña desde chico. Jugué a nivel profesional juvenil y hoy sigo jugando a nivel amateur, disfrutándolo con la misma pasión de siempre.
+                  <br /><br />
+                  Me encanta viajar, conocer lugares nuevos y vivir experiencias. Creo que salir de la rutina, descubrir culturas y paisajes diferentes abre la cabeza y ayuda a crecer tanto personal como profesionalmente.
+                </p>
+              </div>
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* ── Educación + Idiomas + Foto lifestyle ──────────────────────────────── */}
+      <Section className={`pt-8 md:pt-12 ${secGap}`}>
         <Container>
           <div className="grid gap-6 md:grid-cols-2">
+
+            {/* Foto lifestyle */}
             <Reveal>
-              <article className="rounded-2xl border border-border bg-card/60 p-6">
-                <h3 className="text-lg font-semibold">{dict.about.educationTitle}</h3>
-                <ul className="mt-4 space-y-4">
-                  {dict.about.education.map((item: { institution: string; degree: string; period: string }) => (
-                    <li key={item.institution}>
-                      <p className="font-medium">{item.institution}</p>
-                      <p className="text-sm text-muted-foreground">{item.degree}</p>
-                      {item.period && (
-                        <p className="mt-1 text-xs text-muted-foreground">{item.period}</p>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </article>
+              <div
+                className="relative w-full overflow-hidden rounded-2xl border border-border"
+                style={{ height: img3Height }}
+              >
+                <Image
+                  src="/about/lifestyle.jpeg"
+                  alt="Hernán Alegresa"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                  style={{ objectPosition: img3Position, transform: `scale(${img3Scale})`, transformOrigin: "center center" }}
+                />
+              </div>
             </Reveal>
-            <Reveal delay={0.08}>
-              <article className="rounded-2xl border border-border bg-card/60 p-6">
-                <h3 className="text-lg font-semibold">{dict.about.languagesTitle}</h3>
-                <ul className="mt-4 space-y-2">
-                  {dict.about.languages.map((lang: string) => (
-                    <li key={lang}>
-                      <Badge variant="secondary">{lang}</Badge>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            </Reveal>
+
+            {/* Educación + Idiomas apilados */}
+            <div className="flex flex-col gap-4">
+              <Reveal delay={0.05}>
+                <div className="rounded-2xl border border-border bg-card/60 p-6">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+                    Educación
+                  </p>
+                  <ul className="mt-5 space-y-5">
+                    {educacion.map((item) => (
+                      <li key={item.institucion}>
+                        <p className="font-medium">{item.institucion}</p>
+                        <p className="mt-0.5 text-sm text-muted-foreground">{item.titulo}</p>
+                        {item.periodo && (
+                          <p className="mt-1 text-xs text-muted-foreground/70">{item.periodo}</p>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+
+              <Reveal delay={0.08}>
+                <div className="rounded-2xl border border-border bg-card/60 p-6">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+                    Idiomas
+                  </p>
+                  <ul className="mt-5 space-y-4">
+                    {idiomas.map((l) => (
+                      <li key={l.idioma} className="flex items-center justify-between">
+                        <span className="text-sm font-medium">{l.idioma}</span>
+                        <Badge variant="secondary" className="text-xs">
+                          {l.nivel}
+                        </Badge>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-6 border-t border-border pt-5">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+                      Disponible para
+                    </p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {["Remoto", "Full-time", "Freelance", "Contrato"].map((tag) => (
+                        <Badge key={tag} variant="outline" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+
           </div>
+        </Container>
+      </Section>
+
+      {/* ── CTA ───────────────────────────────────────────────────────────────── */}
+      <Section className={`pt-0 pb-16`}>
+        <Container>
+          <Reveal>
+            <div className="rounded-2xl border border-border bg-card/70 p-8 md:p-10">
+              <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+                Construyamos algo juntos
+              </h2>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link href={`/${typedLocale}/contact`} className={buttonVariants()}>
+                  Escribime
+                </Link>
+                <Link
+                  href={`/${typedLocale}/projects`}
+                  className={buttonVariants({ variant: "outline" })}
+                >
+                  Ver mis proyectos
+                </Link>
+              </div>
+            </div>
+          </Reveal>
         </Container>
       </Section>
     </>

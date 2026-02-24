@@ -23,7 +23,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "en";
+  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
   const dict = await getDictionary(typedLocale);
   return {
     title: dict.site.title,
@@ -37,7 +37,7 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "en";
+  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
   const dict = await getDictionary(typedLocale);
   const featured = getFeaturedProjects();
   const skillCategories = getSkillCategories(typedLocale);
@@ -101,6 +101,7 @@ export default async function HomePage({
                   className="pointer-events-none absolute -inset-6 -z-10 rounded-full bg-gradient-to-br from-cyan-500/18 via-fuchsia-500/8 to-transparent blur-2xl"
                 />
                 <div className="relative aspect-square overflow-hidden rounded-full border border-border/60 shadow-xl shadow-cyan-500/10">
+                  {/* IMAGE POSITION → adjust objectPosition (e.g. "center 20%", "center top") */}
                   <Image
                     src={profile.photo ?? "/portfolio/profile-photo.svg"}
                     alt={`${profile.name} profile portrait`}
@@ -108,6 +109,7 @@ export default async function HomePage({
                     priority
                     sizes="(max-width: 768px) 72vw, 26rem"
                     className="object-cover"
+                    style={{ objectPosition: "center 0%" }}
                   />
                 </div>
               </div>
@@ -131,41 +133,73 @@ export default async function HomePage({
               eyebrow={<Badge>{dict.common.featured}</Badge>}
             />
           </Reveal>
-          {cardShootout && (
+
+          {/* ── Oh Sh!rt hero card ─────────────────────────────────────────────────
+               WIDTH  → className  →  md:max-w-[XX%]  (e.g. 80%, 90%, 100%)
+               HEIGHT → mediaClassName aspect ratio   (e.g. aspect-[21/9], aspect-[18/9])
+               IMAGE  → imagePosition                 (e.g. "center center", "center 30%")
+          ──────────────────────────────────────────────────────────────────── */}
+          {ohShirt && (
             <Reveal className="mt-10">
               <ProjectShowcaseCard
                 locale={typedLocale}
-                project={cardShootout}
-                autoPlayVideo
-                mediaClassName="aspect-[21/9]"
+                project={ohShirt}
+                className="mx-auto w-full md:max-w-[85%]"
+                mediaClassName="aspect-[20/9]"
+                imagePosition="center center"
               />
             </Reveal>
           )}
 
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
-            {keyCliq && (
-              <Reveal>
-                <ProjectShowcaseCard locale={typedLocale} project={keyCliq} mediaClassName="aspect-[16/10]" />
+          {/* ── Row 2: Card Shootout + KeyCliq ──────────────────────────────────────
+               COLUMN RATIO → grid-cols-[Xfr_Yfr]  (currently 3.1 : 1)
+          ──────────────────────────────────────────────────────────────────── */}
+          <div className="mt-6 grid gap-6 md:grid-cols-[3.1fr_1fr]">
+
+            {/* Card Shootout
+                 HEIGHT    → mediaClassName aspect ratio  (e.g. aspect-[16/7], aspect-[2/1])
+                 IMAGE     → imagePosition
+                 PUSH DOWN → mt-[Xpx] on Reveal (e.g. mt-[32px], mt-[64px])  */}
+            {cardShootout && (
+              <Reveal className="mt-[65px]">
+                <ProjectShowcaseCard
+                  locale={typedLocale}
+                  project={cardShootout}
+                  mediaClassName="aspect-[15/7]"
+                  mediaObjectFit="cover"
+                  previewImage="/projects/card-shootout/cardshootout_homescreen.png"
+                  imagePosition="center center"
+                />
               </Reveal>
             )}
-            {shopifyIntegrations && (
+
+            {/* KeyCliq
+                 HEIGHT → mediaClassName aspect ratio  (e.g. aspect-[9/16], aspect-[3/4])
+                 IMAGE  → imagePosition  ↓ move down by increasing % (e.g. "center 20%") */}
+            {keyCliq && (
               <Reveal delay={0.05}>
                 <ProjectShowcaseCard
                   locale={typedLocale}
-                  project={shopifyIntegrations}
-                  mediaClassName="aspect-[16/10]"
+                  project={keyCliq}
+                  mediaClassName="aspect-[9/16]"
+                  previewImage="/projects/keycliq/keycliq_welcome_screen.jpeg"
+                  imagePosition="center 25%"
                 />
               </Reveal>
             )}
           </div>
 
-          {ohShirt && (
+          {/* ── Row 3: Shopify closing card ─────────────────────────────────────────
+               HEIGHT → mediaClassName aspect ratio
+               IMAGE  → imagePosition */}
+          {shopifyIntegrations && (
             <Reveal className="mt-6">
               <ProjectShowcaseCard
                 locale={typedLocale}
-                project={ohShirt}
-                mediaClassName="aspect-[18/9]"
-                className="mx-auto w-full md:max-w-4xl"
+                project={shopifyIntegrations}
+                className="mx-auto w-full md:max-w-[65%]"
+                mediaClassName="aspect-[15/8]"
+                imagePosition="center center"
               />
             </Reveal>
           )}
@@ -239,10 +273,10 @@ export default async function HomePage({
       <Section className="pt-8">
         <Container>
           <Reveal>
-            <div className="rounded-2xl border border-border bg-card/70 p-8 md:p-10">
+            <div className="mx-auto max-w-lg rounded-2xl border border-border bg-card/70 p-8 text-center md:p-10">
               <h2 className="text-2xl font-semibold md:text-3xl">{dict.home.ctaTitle}</h2>
-              <p className="mt-3 max-w-2xl text-muted-foreground">{dict.home.ctaDescription}</p>
-              <div className="mt-6">
+              <p className="mt-3 text-muted-foreground">{dict.home.ctaDescription}</p>
+              <div className="mt-6 flex justify-center">
                 <Link href={`/${typedLocale}/contact`} className={buttonVariants()}>
                   {dict.common.contact}
                 </Link>

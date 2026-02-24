@@ -15,6 +15,10 @@ import { locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { generateProjectStructuredData } from "@/lib/seo";
 import type { ProjectMedia } from "@/lib/types/portfolio";
+import { OhShirtCaseStudy } from "@/components/portfolio/case-studies/oh-shirt-case-study";
+import { CardShootoutCaseStudy } from "@/components/portfolio/case-studies/card-shootout-case-study";
+import { KeyCliqCaseStudy } from "@/components/portfolio/case-studies/keycliq-case-study";
+import { ShopifyIntegrationsCaseStudy } from "@/components/portfolio/case-studies/shopify-integrations-case-study";
 
 type DetailPageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -89,7 +93,7 @@ function GalleryItem({ media }: { media: ProjectMedia }) {
 
 export default async function ProjectDetailPage({ params }: DetailPageProps) {
   const { locale, slug } = await params;
-  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "en";
+  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
   const dict = await getDictionary(typedLocale);
   const project = getProjectBySlug(slug);
 
@@ -97,16 +101,58 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
     notFound();
   }
 
-  const hasLinks = project.links?.live || project.links?.repo || project.links?.caseStudy;
   const projectJsonLd = generateProjectStructuredData(project);
+  const jsonLdScript = (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
+    />
+  );
+
+  // ── Custom case study pages ──────────────────────────────────────────────
+  if (slug === "oh-shirt") {
+    return (
+      <>
+        {jsonLdScript}
+        <OhShirtCaseStudy locale={typedLocale} />
+      </>
+    );
+  }
+
+  if (slug === "card-shootout") {
+    return (
+      <>
+        {jsonLdScript}
+        <CardShootoutCaseStudy locale={typedLocale} />
+      </>
+    );
+  }
+
+  if (slug === "keycliq") {
+    return (
+      <>
+        {jsonLdScript}
+        <KeyCliqCaseStudy locale={typedLocale} />
+      </>
+    );
+  }
+
+  if (slug === "shopify-integrations-rebl") {
+    return (
+      <>
+        {jsonLdScript}
+        <ShopifyIntegrationsCaseStudy locale={typedLocale} />
+      </>
+    );
+  }
+
+  // ── Generic fallback layout ──────────────────────────────────────────────
+  const hasLinks = project.links?.live || project.links?.repo || project.links?.caseStudy;
 
   return (
     <Section>
       <Container>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
-        />
+        {jsonLdScript}
         <Reveal>
           <Link
             href={`/${typedLocale}/projects`}

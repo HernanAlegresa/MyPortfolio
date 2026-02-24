@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Phone } from "lucide-react";
+import { FileDown } from "lucide-react";
 import { profile } from "@/data/profile";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { CopyButton } from "@/components/contact/CopyButton";
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/portfolio/container";
 import { Heading } from "@/components/portfolio/heading";
@@ -26,7 +27,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "en";
+  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
   const dict = await getDictionary(typedLocale);
   return {
     title: dict.contactPage.title,
@@ -40,29 +41,40 @@ export default async function ContactPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "en";
+  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
   const dict = await getDictionary(typedLocale);
 
   return (
     <Section>
       <Container>
         <Reveal>
-          <Heading title={dict.contactPage.title} description={dict.contactPage.description} />
+          <Heading title={dict.contactPage.title} align="center" />
         </Reveal>
         <Reveal className="mt-8">
           <article className="rounded-2xl border border-border bg-card/60 p-8">
             <p className="text-muted-foreground">{dict.contactPage.cta}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a href={`mailto:${profile.email}`} className={buttonVariants()}>
-                {profile.email}
-              </a>
-              <a
-                href="tel:+598099898342"
-                className={buttonVariants({ variant: "outline" })}
-              >
-                <Phone className="mr-2 h-4 w-4" />
-                +598 099 898 342
-              </a>
+
+            {/* Email + Teléfono con botón copiar */}
+            <div className="mt-6 space-y-3">
+              <div className="flex items-center justify-between rounded-xl border border-border bg-background/40 px-4 py-3">
+                <div>
+                  <p className="text-xs text-muted-foreground">Email</p>
+                  <p className="mt-0.5 text-sm font-medium">{profile.email}</p>
+                </div>
+                <CopyButton value={profile.email} />
+              </div>
+
+              <div className="flex items-center justify-between rounded-xl border border-border bg-background/40 px-4 py-3">
+                <div>
+                  <p className="text-xs text-muted-foreground">Teléfono</p>
+                  <p className="mt-0.5 text-sm font-medium">+598 099 898 342</p>
+                </div>
+                <CopyButton value="+598099898342" />
+              </div>
+            </div>
+
+            {/* Redes sociales */}
+            <div className="mt-4 flex flex-wrap gap-3">
               {profile.socials.map((social) => (
                 <a
                   key={social.label}
@@ -74,6 +86,20 @@ export default async function ContactPage({
                   {social.label}
                 </a>
               ))}
+            </div>
+
+            {/* Descargar CV */}
+            {/* ── Colocá tu CV en: public/cv/cv-hernan-alegresa.pdf ── */}
+            <div className="mt-6 border-t border-border pt-6">
+              <a
+                href="/api/cv"
+                target="_blank"
+                rel="noreferrer"
+                className={buttonVariants({ variant: "outline" })}
+              >
+                <FileDown className="mr-2 h-4 w-4" />
+                Ver / Descargar CV
+              </a>
             </div>
           </article>
         </Reveal>

@@ -2,7 +2,7 @@ import type { Profile } from "@/lib/types/portfolio";
 
 export const profile: Profile = {
   name: "Hernán Alegresa",
-  headline: "Full Stack Developer | Product & UX Focus",
+  headline: "Full Stack Developer | Product & UX-UI Focus",
   roles: [
     "Full Stack Developer",
     "Mobile Developer",
@@ -11,8 +11,7 @@ export const profile: Profile = {
   ],
   location: "Montevideo, Uruguay",
   email: "alegresah@gmail.com",
-  // Replace with your final professional photo when ready.
-  photo: "/portfolio/profile-photo.svg",
+  photo: "/about/perfil.jpg",
   socials: [
     { label: "GitHub", href: "https://github.com/HernanAlegresa" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/HernanAlegresa" },

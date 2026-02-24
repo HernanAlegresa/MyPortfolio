@@ -11,27 +11,19 @@ export type SkillCategory = {
 export const skillCategories: SkillCategory[] = [
   {
     category: {
-      en: "Frontend Engineering",
-      es: "Ingenieria Frontend",
+      en: "Core Stack",
+      es: "Stack Principal",
     },
     items: [
+      "Next.js",
       "React",
       "TypeScript",
-      "Next.js",
-      "Remix",
-      "JavaScript (ES6+)",
-      "HTML5",
-      "CSS3",
-      "Tailwind CSS",
-      "Framer Motion",
+      "Shopify (Native & Headless)",
+      "API Integrations",
+      "Full Stack Architecture",
+      "Flutter (Mobile)",
+      "AI Integrations (OpenAI, Claude)",
     ],
-  },
-  {
-    category: {
-      en: "Mobile Development",
-      es: "Desarrollo Mobile",
-    },
-    items: ["Flutter", "Dart", "FlutterFlow", "Bloc"],
   },
   {
     category: {
@@ -41,26 +33,41 @@ export const skillCategories: SkillCategory[] = [
     items: [
       "Node.js",
       "Python",
-      "REST APIs",
       "Prisma",
       "PostgreSQL",
-      "SQL",
       "Supabase",
       "Firebase",
-      "C",
+      "REST APIs",
+      "SQL",
     ],
   },
   {
     category: {
-      en: "AI & Advanced Integrations",
-      es: "IA e Integraciones Avanzadas",
+      en: "Mobile Development",
+      es: "Desarrollo Mobile",
     },
     items: [
-      "OpenAI API Integration",
+      "Flutter",
+      "Dart",
+      "BLoC",
+      "Capacitor",
+      "Firebase Auth / Storage",
+    ],
+  },
+  {
+    category: {
+      en: "AI & Automation",
+      es: "IA y Automatización",
+    },
+    items: [
+      "OpenAI API",
+      "Claude",
+      "Cursor",
+      "Codex",
+      "n8n",
       "AI-powered Workflows",
-      "LLM-based Features",
-      "API Integrations",
-      "Headless Commerce",
+      "Multimodal AI Integrations",
+      "Prompt Engineering",
     ],
   },
   {
@@ -68,19 +75,33 @@ export const skillCategories: SkillCategory[] = [
       en: "Commerce & Platforms",
       es: "Commerce y Plataformas",
     },
-    items: ["Shopify", "Cloudinary", "Vercel"],
+    items: [
+      "Shopify",
+      "Headless Commerce",
+      "Cloudinary",
+      "Vercel",
+      "Heroku",
+    ],
   },
   {
     category: {
-      en: "Dev Tools & Workflow",
-      es: "Herramientas de Desarrollo y Workflow",
+      en: "Dev Workflow",
+      es: "Dev Workflow",
     },
-    items: ["Git", "GitHub", "VS Code", "Trello", "Slack", "Figma", "Microsoft Office"],
+    items: [
+      "Git",
+      "GitHub",
+      "Branching Strategies",
+      "VS Code",
+      "CI/CD",
+      "Trello",
+      "Slack",
+    ],
   },
   {
     category: {
-      en: "Product & UX",
-      es: "Producto y UX",
+      en: "Product, UI & UX",
+      es: "Producto, UI y UX",
     },
     items: [
       "UI/UX Design",
@@ -97,12 +118,9 @@ export const skillCategories: SkillCategory[] = [
     },
     items: [
       "Excel",
-      "Sigma",
-      "Padi",
-      "Bkper",
-      "Magma",
       "Financial Reporting Workflows",
       "Accounting Process Management",
+      "Document Management Systems",
     ],
   },
 ];

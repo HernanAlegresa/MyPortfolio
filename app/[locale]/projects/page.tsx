@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getAllProjects } from "@/data/projects";
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/portfolio/container";
 import { Heading } from "@/components/portfolio/heading";
 import { ProjectCard } from "@/components/portfolio/project-card";
 import { Section } from "@/components/portfolio/section";
-import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
 import { locales, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { cn } from "@/lib/utils";
 
 export async function generateMetadata({
   params,
@@ -18,7 +14,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "en";
+  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
   const dict = await getDictionary(typedLocale);
   return {
     title: dict.projects.title,
@@ -28,21 +24,40 @@ export async function generateMetadata({
 
 type ProjectsPageProps = {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ tag?: string }>;
 };
 
-export default async function ProjectsPage({ params, searchParams }: ProjectsPageProps) {
+export default async function ProjectsPage({ params }: ProjectsPageProps) {
   const { locale } = await params;
-  const { tag } = await searchParams;
-  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "en";
+  const typedLocale = locales.includes(locale as Locale) ? (locale as Locale) : "es";
   const dict = await getDictionary(typedLocale);
   const projects = getAllProjects();
-  const allTags = Array.from(new Set(projects.flatMap((project) => project.tags))).sort();
-  const activeTag = tag ?? "all";
-  const filteredProjects =
-    activeTag === "all"
-      ? projects
-      : projects.filter((project) => project.tags.includes(activeTag));
+
+  // ASPECT RATIO per project — all cards uniform at 16:9
+  // Change any value to adjust that card's height (e.g. "aspect-[4/3]", "aspect-[16/10]")
+  const aspectClasses: Record<string, string> = {
+    "card-shootout":             "aspect-[16/9]",
+    "keycliq":                   "aspect-[16/9]",
+    "oh-shirt":                  "aspect-[16/9]",
+    "shopify-integrations-rebl": "aspect-[16/9]",
+  };
+
+  // IMAGE POSITION per project — adjust "X% Y%" to reposition within the card
+  // X = horizontal (0%=left, 50%=center, 100%=right)
+  // Y = vertical   (0%=top,  50%=center, 100%=bottom)
+  const imagePositions: Record<string, string> = {
+    "keycliq":                   "center 10%",   // ← move KeyCliq image down
+    "oh-shirt":                  "center center", // ← reposition Oh Sh!rt
+    "card-shootout":             "center center", // ← reposition Card Shootout
+    "shopify-integrations-rebl": "center center", // ← already fine
+  };
+
+  // IMAGE SCALE (ZOOM) per project — 1 = no zoom, 1.2 = 20% in, 0.9 = zoom out
+  const imageScales: Record<string, number> = {
+    "card-shootout":             1,    // ← adjust zoom
+    "oh-shirt":                  1.01, // ← adjust zoom
+    "keycliq":                   1,
+    "shopify-integrations-rebl": 1,
+  };
 
   return (
     <Section>
@@ -51,45 +66,18 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
           <Heading title={dict.projects.title} description={dict.projects.description} />
         </Reveal>
 
-        <Reveal className="mt-8">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs uppercase tracking-wide text-muted-foreground">{dict.common.filters}</span>
-            <Link
-              href={`/${typedLocale}/projects`}
-              className={cn(
-                buttonVariants({ variant: "ghost", size: "sm" }),
-                activeTag === "all" && "bg-muted"
-              )}
-            >
-              {dict.common.all}
-            </Link>
-            {allTags.map((currentTag) => (
-              <Link
-                key={currentTag}
-                href={`/${typedLocale}/projects?tag=${encodeURIComponent(currentTag)}`}
-                className={cn(
-                  buttonVariants({ variant: "ghost", size: "sm" }),
-                  activeTag === currentTag && "bg-muted"
-                )}
-              >
-                {currentTag}
-              </Link>
-            ))}
-          </div>
-        </Reveal>
-
         <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {filteredProjects.map((project, index) => (
+          {projects.map((project, index) => (
             <Reveal key={project.slug} delay={index * 0.06}>
-              <ProjectCard locale={typedLocale} project={project} />
+              <ProjectCard
+                locale={typedLocale}
+                project={project}
+                aspectClassName={aspectClasses[project.slug]}
+                imagePosition={imagePositions[project.slug]}
+                imageScale={imageScales[project.slug]}
+              />
             </Reveal>
           ))}
-        </div>
-        {filteredProjects.length === 0 ? (
-          <p className="mt-6 text-sm text-muted-foreground">No projects found for this filter.</p>
-        ) : null}
-        <div className="mt-8">
-          <Badge variant="outline">{filteredProjects.length} results</Badge>
         </div>
       </Container>
     </Section>

@@ -7,7 +7,6 @@ import { localeCookieName, locales, type Locale } from "@/lib/i18n/config";
 import { cn } from "@/lib/utils";
 
 const localeLabels: Record<Locale, string> = {
-  en: "EN",
   es: "ES",
 };
 
@@ -15,6 +14,9 @@ export function LanguageToggle({ currentLocale }: { currentLocale: Locale }) {
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
+
+  // Only one locale active — toggle not needed
+  if (locales.length <= 1) return null;
 
   const switchToLocale = (nextLocale: Locale) => {
     const segments = pathname.split("/");
@@ -29,7 +31,7 @@ export function LanguageToggle({ currentLocale }: { currentLocale: Locale }) {
     <div
       className="inline-flex items-center gap-1 rounded-full border border-border bg-card p-1"
       role="group"
-      aria-label="Language switcher"
+      aria-label="Selector de idioma"
     >
       <Globe className="ml-2 h-3.5 w-3.5 text-muted-foreground" aria-hidden />
       {locales.map((locale) => {
