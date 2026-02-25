@@ -206,8 +206,16 @@ export default async function AboutPage({
                 alt={about.trayectoria.remoteImageAlt}
                 fill
                 sizes="100vw"
-                className="object-cover"
+                className="hidden object-cover md:block"
                 style={{ objectPosition: img2Position, transform: `scale(${img2Scale})`, transformOrigin: "center center" }}
+              />
+              <Image
+                src="/about/profile_programming.jpeg"
+                alt={about.hero.imageAlt}
+                fill
+                sizes="100vw"
+                className="object-cover md:hidden"
+                style={{ objectPosition: img1Position, transform: `scale(${img1Scale})`, transformOrigin: "center center" }}
               />
             </div>
           </Reveal>

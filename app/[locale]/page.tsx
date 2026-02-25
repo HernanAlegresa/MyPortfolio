@@ -54,7 +54,7 @@ export default async function HomePage({
   return (
     <>
       {/* Hero */}
-      <Section className="pb-12 pt-20 md:pb-16 md:pt-28">
+      <Section className="pb-12 pt-14 md:pb-16 md:pt-28">
         <Container>
           <div className="grid items-center gap-10 md:grid-cols-[1fr_1fr] md:gap-14 lg:gap-20">
             {/* Text — first in DOM for LCP */}
@@ -160,7 +160,7 @@ export default async function HomePage({
                  IMAGE     → imagePosition
                  PUSH DOWN → mt-[Xpx] on Reveal (e.g. mt-[32px], mt-[64px])  */}
             {cardShootout && (
-              <Reveal className="mt-[65px]">
+              <Reveal className="md:mt-[65px]">
                 <ProjectShowcaseCard
                   locale={typedLocale}
                   project={cardShootout}
