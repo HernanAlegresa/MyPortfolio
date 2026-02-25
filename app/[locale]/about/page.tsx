@@ -403,11 +403,11 @@ export default async function AboutPage({
       <Section className={`pt-0 pb-16`}>
         <Container>
           <Reveal>
-            <div className="rounded-2xl border border-border bg-card/70 p-8 md:p-10">
+            <div className="mx-auto max-w-lg rounded-2xl border border-border bg-card/70 p-8 text-center md:p-10">
               <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
                 {about.cta.heading}
               </h2>
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <Link href={`/${typedLocale}/contact`} className={buttonVariants()}>
                   {about.cta.contactButton}
                 </Link>

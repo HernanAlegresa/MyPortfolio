@@ -201,7 +201,7 @@ export function OhShirtCaseStudy({ locale }: Props) {
         </Reveal>
 
         <Reveal className="mt-10 pb-4">
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap justify-center gap-3">
             <Link
               href={`/${locale}/projects`}
               className={buttonVariants({ variant: "outline" })}
