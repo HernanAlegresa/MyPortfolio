@@ -90,7 +90,7 @@ export default async function AboutPage({
   return (
     <>
       {/* ── Hero: texto + foto de perfil ──────────────────────────────────── */}
-      <Section className={`${secGap} pt-20 md:pt-28`}>
+      <Section className={`pt-4 md:pt-28 ${secGap}`}>
         <Container>
           <div className="grid items-start gap-10 md:grid-cols-[1fr_auto]">
 

@@ -24,7 +24,7 @@ export function CardShootoutCaseStudy({ locale }: Props) {
   const c = getCaseStudyContent("card-shootout", locale) as CardShootoutCaseStudyContent;
 
   return (
-    <Section>
+    <Section className="pt-4 pb-16 md:pt-28 md:pb-24">
       <Container>
         <Reveal>
           <BackToProjects locale={locale} />

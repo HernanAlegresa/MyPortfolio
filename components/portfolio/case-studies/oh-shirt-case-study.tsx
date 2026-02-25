@@ -15,7 +15,7 @@ export function OhShirtCaseStudy({ locale }: Props) {
   const c = getCaseStudyContent("oh-shirt", locale) as OhShirtCaseStudyContent;
 
   return (
-    <Section>
+    <Section className="pt-4 pb-16 md:pt-28 md:pb-24">
       <Container>
         <Reveal>
           <BackToProjects locale={locale} />

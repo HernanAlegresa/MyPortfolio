@@ -62,7 +62,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
   };
 
   return (
-    <Section>
+    <Section className="pt-4 pb-16 md:pt-28 md:pb-24">
       <Container>
         <Reveal>
           <Heading title={dict.projects.title} description={dict.projects.description} />

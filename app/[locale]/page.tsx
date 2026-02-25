@@ -54,7 +54,7 @@ export default async function HomePage({
   return (
     <>
       {/* Hero */}
-      <Section className="pb-12 pt-14 md:pb-16 md:pt-28">
+      <Section className="pb-12 pt-4 md:pb-16 md:pt-28">
         <Container>
           <div className="grid items-center gap-10 md:grid-cols-[1fr_1fr] md:gap-14 lg:gap-20">
             {/* Text — first in DOM for LCP */}
@@ -180,7 +180,7 @@ export default async function HomePage({
                 <ProjectShowcaseCard
                   locale={typedLocale}
                   project={keyCliq}
-                  mediaClassName="aspect-[9/16]"
+                  mediaClassName="aspect-[9/14]"
                   previewImage="/projects/keycliq/keycliq_welcome_screen.jpeg"
                   imagePosition="center 25%"
                 />

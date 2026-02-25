@@ -152,7 +152,7 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
   const hasLinks = project.links?.live || project.links?.repo || project.links?.caseStudy;
 
   return (
-    <Section>
+    <Section className="pt-4 pb-16 md:pt-28 md:pb-24">
       <Container>
         {jsonLdScript}
         <Reveal>

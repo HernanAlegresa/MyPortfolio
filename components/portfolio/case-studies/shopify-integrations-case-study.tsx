@@ -35,7 +35,7 @@ export function ShopifyIntegrationsCaseStudy({ locale }: Props) {
   const c = getCaseStudyContent("shopify-integrations-rebl", locale) as ShopifyCaseStudyContent;
 
   return (
-    <Section>
+    <Section className="pt-4 pb-16 md:pt-28 md:pb-24">
       <Container>
         <Reveal>
           <BackToProjects locale={locale} />
