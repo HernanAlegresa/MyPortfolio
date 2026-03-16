@@ -41,16 +41,18 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
     "keycliq":                   "aspect-[16/9]",
     "oh-shirt":                  "aspect-[16/9]",
     "shopify-integrations-rebl": "aspect-[16/9]",
+    "despensa-natural":          "aspect-[16/9]",
   };
 
   // IMAGE POSITION per project — adjust "X% Y%" to reposition within the card
   // X = horizontal (0%=left, 50%=center, 100%=right)
   // Y = vertical   (0%=top,  50%=center, 100%=bottom)
   const imagePositions: Record<string, string> = {
-    "keycliq":                   "center 10%",   // ← move KeyCliq image down
+    "keycliq":                   "center 10%",    // ← move KeyCliq image down
     "oh-shirt":                  "center center", // ← reposition Oh Sh!rt
     "card-shootout":             "center center", // ← reposition Card Shootout
     "shopify-integrations-rebl": "center center", // ← already fine
+    "despensa-natural":          "center center",
   };
 
   // IMAGE SCALE (ZOOM) per project — 1 = no zoom, 1.2 = 20% in, 0.9 = zoom out
@@ -59,6 +61,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
     "oh-shirt":                  1.01, // ← adjust zoom
     "keycliq":                   1,
     "shopify-integrations-rebl": 1,
+    "despensa-natural":          1,
   };
 
   return (

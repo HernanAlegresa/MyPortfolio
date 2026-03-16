@@ -4,6 +4,7 @@ import { join } from "node:path";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ExternalLink } from "lucide-react";
 import { getAllProjects, getProjectBySlug } from "@/data/projects";
 import { Reveal } from "@/components/motion/reveal";
 import { Container } from "@/components/portfolio/container";
@@ -19,6 +20,7 @@ import { OhShirtCaseStudy } from "@/components/portfolio/case-studies/oh-shirt-c
 import { CardShootoutCaseStudy } from "@/components/portfolio/case-studies/card-shootout-case-study";
 import { KeyCliqCaseStudy } from "@/components/portfolio/case-studies/keycliq-case-study";
 import { ShopifyIntegrationsCaseStudy } from "@/components/portfolio/case-studies/shopify-integrations-case-study";
+import { BackToProjects } from "@/components/portfolio/back-to-projects";
 
 type DetailPageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -145,6 +147,226 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
         {jsonLdScript}
         <ShopifyIntegrationsCaseStudy locale={typedLocale} />
       </>
+    );
+  }
+
+  if (slug === "despensa-natural") {
+    const hasLinks = project.links?.live || project.links?.repo || project.links?.caseStudy;
+
+    return (
+      <Section className="pt-4 pb-16 md:pt-28 md:pb-24">
+        <Container>
+          {jsonLdScript}
+
+          <Reveal>
+            <BackToProjects locale={typedLocale} />
+          </Reveal>
+
+          <Reveal className="mt-6">
+            <div className="flex flex-col items-center gap-4">
+              <div className="text-center">
+                <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+                  {project.title}
+                </h1>
+                <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+                  {project.overview}
+                </p>
+              </div>
+            </div>
+          </Reveal>
+
+          {project.links?.live && (
+            <Reveal className="mt-8">
+              <div className="relative overflow-hidden rounded-2xl border border-sky-500/30 bg-sky-500/5 p-8 text-center shadow-lg shadow-sky-500/10">
+                <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 via-transparent to-transparent" />
+                <div className="relative">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-sky-500">
+                    {typedLocale === "es" ? "Tienda en producción" : "Store in production"}
+                  </p>
+                  <h2 className="mt-2 text-xl font-bold tracking-tight">
+                    {typedLocale === "es"
+                      ? "Podés ver la tienda de Despensa Natural funcionando ahora mismo"
+                      : "You can see the Despensa Natural store running right now"}
+                  </h2>
+                  <a
+                    href={project.links.live}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-6 inline-flex items-center gap-2 rounded-xl border border-sky-500 bg-sky-500 px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-sky-500/30 transition-all duration-200 hover:bg-sky-600 hover:border-sky-600 hover:shadow-lg hover:shadow-sky-500/40"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    {typedLocale === "es" ? "Ver tienda" : "View store"}
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+          )}
+
+          <Reveal className="mt-10">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-border shadow-lg">
+              {project.heroVideo ? (
+                <video
+                  muted
+                  playsInline
+                  preload="metadata"
+                  poster={project.posterImage}
+                  controls
+                  aria-label={dict.projects.demoVideoAriaLabel}
+                  className="absolute inset-0 h-full w-full object-cover"
+                >
+                  <source src={project.heroVideo} type="video/mp4" />
+                </video>
+              ) : (
+                <Image
+                  src={project.coverImage}
+                  alt={`${project.title} hero`}
+                  fill
+                  priority
+                  sizes="100vw"
+                  className="object-cover"
+                />
+              )}
+            </div>
+          </Reveal>
+
+          <div className="mt-10 space-y-6">
+            <Reveal>
+              <article className="rounded-2xl border border-border bg-card/60 p-6">
+                <h3 className="text-lg font-semibold">
+                  {typedLocale === "es" ? "Mi rol" : "My role"}
+                </h3>
+                {typedLocale === "es" ? (
+                  <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    <p>Fui responsable del diseño y desarrollo completo del sitio web.</p>
+                    <p>
+                      El proyecto incluyó la estructuración del catálogo digital, el diseño de la experiencia
+                      de usuario y del sitio web siguiendo los patrones del negocio, la implementación del
+                      frontend y el despliegue del sitio en producción.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    <p>I was responsible for the full design and development of the website.</p>
+                    <p>
+                      The project included structuring the digital product catalog, designing the user
+                      experience and the website following the business patterns, implementing the frontend
+                      and deploying the site to production.
+                    </p>
+                  </div>
+                )}
+              </article>
+            </Reveal>
+
+            <Reveal delay={0.05}>
+              <article className="rounded-2xl border border-border bg-card/60 p-6">
+                <h3 className="text-lg font-semibold">
+                  {typedLocale === "es" ? "Problema" : "Problem"}
+                </h3>
+                {typedLocale === "es" ? (
+                  <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    <p>
+                      Antes del sitio web, el catálogo de productos se compartía principalmente a través de
+                      mensajes o documentos, lo que dificultaba que los clientes pudieran explorar fácilmente
+                      las opciones disponibles.
+                    </p>
+                    <p>
+                      El objetivo era crear un espacio digital donde los clientes pudieran descubrir los
+                      productos de forma clara y organizada.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    <p>
+                      Before the website, the product catalog was mainly shared through messages or documents,
+                      making it harder for customers to easily explore the available products.
+                    </p>
+                    <p>
+                      The goal was to create a digital space where customers could discover the products in a
+                      clear and organized way.
+                    </p>
+                  </div>
+                )}
+              </article>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <article className="rounded-2xl border border-border bg-card/60 p-6">
+                <h3 className="text-lg font-semibold">
+                  {typedLocale === "es" ? "Decisiones técnicas" : "Technical decisions"}
+                </h3>
+                {typedLocale === "es" ? (
+                  <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    <p>
+                      El sitio fue desarrollado utilizando Next.js para aprovechar generación estática, buen
+                      rendimiento y una arquitectura moderna para aplicaciones web.
+                    </p>
+                    <p>
+                      Tailwind CSS permitió construir una interfaz limpia y consistente rápidamente, mientras
+                      que el despliegue en Vercel simplifica la distribución y el rendimiento global.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    <p>
+                      The website was built using Next.js to take advantage of static generation, strong
+                      performance and a modern web architecture.
+                    </p>
+                    <p>
+                      Tailwind CSS enabled fast development of a clean and consistent interface, while
+                      deployment on Vercel provides simple and reliable hosting.
+                    </p>
+                  </div>
+                )}
+              </article>
+            </Reveal>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              <Reveal delay={0.15}>
+                <article className="rounded-2xl border border-border bg-card/60 p-6">
+                  <h3 className="text-lg font-semibold">
+                    {typedLocale === "es" ? "Tecnologías" : "Tech stack"}
+                  </h3>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {project.stack.map((item) => (
+                      <Badge key={item} variant="secondary">
+                        {item}
+                      </Badge>
+                    ))}
+                  </div>
+                </article>
+              </Reveal>
+
+              <Reveal delay={0.2}>
+                <article className="rounded-2xl border border-border bg-card/60 p-6">
+                  <h3 className="text-lg font-semibold">
+                    {typedLocale === "es" ? "Puntos clave" : "Key highlights"}
+                  </h3>
+                  <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                    {typedLocale === "es" ? (
+                      <>
+                        <li>• Catálogo digital de productos naturales para un negocio local</li>
+                        <li>• Diseño moderno y mobile-first pensado para clientes reales</li>
+                        <li>• Arquitectura rápida y ligera con Next.js y Tailwind</li>
+                        <li>• Proyecto desarrollado para un emprendimiento real en Uruguay</li>
+                        <li>• Integración con canales de contacto para coordinar pedidos</li>
+                      </>
+                    ) : (
+                      <>
+                        <li>• Digital catalog for natural food products</li>
+                        <li>• Mobile-first design optimized for real customers</li>
+                        <li>• Fast and lightweight architecture built with Next.js and Tailwind</li>
+                        <li>• Built for a real local business in Uruguay</li>
+                        <li>• Integration with messaging channels for order coordination</li>
+                      </>
+                    )}
+                  </ul>
+                </article>
+              </Reveal>
+            </div>
+          </div>
+
+        </Container>
+      </Section>
     );
   }
 

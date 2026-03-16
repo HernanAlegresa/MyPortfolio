@@ -212,6 +212,55 @@ const projectsData: Array<
     featured: true,
     year: "2024",
   },
+  {
+    slug: "despensa-natural",
+    title: "Despensa Natural",
+    oneLiner: {
+      es: "E-commerce de alimentos naturales para un negocio local en Uruguay.",
+      en: "Natural foods e-commerce website for a local business in Uruguay.",
+    },
+    overview: {
+      es: "Sitio web para una tienda de alimentos naturales en Uruguay. Presenta productos reales sin ultraprocesados y facilita explorar el catálogo y coordinar pedidos online.",
+      en: "Website for a natural food store in Uruguay. Showcases real, minimally processed products and makes it easy to explore the catalog and coordinate orders online.",
+    },
+    role: {
+      es: "Diseño y desarrollo completo del sitio web. Implementación del catálogo digital, estructura de navegación, diseño responsive y despliegue en Vercel.",
+      en: "Full design and development of the website. Implemented the digital catalog, site structure, responsive layout and deployment on Vercel.",
+    },
+    stack: {
+      es: ["Next.js 15", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+      en: ["Next.js 15", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+    },
+    tags: {
+      es: ["Web Development", "E-commerce", "Next.js", "Local Business"],
+      en: ["Web Development", "E-commerce", "Next.js", "Local Business"],
+    },
+    highlights: {
+      es: [
+        "Catálogo digital de alimentos naturales para un negocio local.",
+        "Diseño moderno y mobile-first pensado para clientes reales.",
+        "Arquitectura rápida y ligera basada en Next.js 15 y Tailwind CSS.",
+        "Proyecto creado para un negocio real en Uruguay.",
+        "Integración con canales de contacto para coordinar pedidos online.",
+      ],
+      en: [
+        "Digital catalog for natural food products for a local business.",
+        "Clean mobile-first design built for real customers.",
+        "Fast, lightweight architecture using Next.js 15 and Tailwind CSS.",
+        "Project built for a real local business in Uruguay.",
+        "Integration with messaging/contact channels to coordinate orders.",
+      ],
+    },
+    coverImage: "/projects/despensa-natural/cover.png",
+    heroVideo: undefined,
+    posterImage: "/projects/despensa-natural/cover.png",
+    gallery: [],
+    links: {
+      live: "https://despensanatural.shop",
+    },
+    featured: false,
+    year: "2025",
+  },
 ];
 
 export function getAllProjects(locale: Locale): Project[] {
