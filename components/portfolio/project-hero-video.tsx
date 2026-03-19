@@ -8,6 +8,7 @@ type ProjectHeroVideoProps = {
   ariaLabel: string;
   playbackRate?: number;
   className?: string;
+  onAspectRatio?: (ratio: number) => void;
 };
 
 export function ProjectHeroVideo({
@@ -16,6 +17,7 @@ export function ProjectHeroVideo({
   ariaLabel,
   playbackRate = 1.4,
   className,
+  onAspectRatio,
 }: ProjectHeroVideoProps) {
   const ref = React.useRef<HTMLVideoElement | null>(null);
   const [failed, setFailed] = React.useState(false);
@@ -39,6 +41,10 @@ export function ProjectHeroVideo({
           el.playbackRate = playbackRate;
           // Ensure autoplay kicks in even if the browser delays it.
           void el.play().catch(() => {});
+
+          if (typeof onAspectRatio === "function" && el.videoWidth > 0 && el.videoHeight > 0) {
+            onAspectRatio(el.videoWidth / el.videoHeight);
+          }
         }}
         onError={() => setFailed(true)}
       >
