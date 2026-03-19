@@ -445,8 +445,8 @@ const rawCardShootout = {
     heading: { es: "Algunas pantallas del juego", en: "Some game screens" } satisfies LocaleString,
     intro: { es: "Una selección de pantallas que muestran distintos momentos de la experiencia.", en: "A selection of screens showing different moments of the experience." } satisfies LocaleString,
     captions: {
-      es: ["Pantalla de inicio", "Gestión de equipo", "Vista previa pre-partida", "Tanda de penales — turno del golero", "Tanda de penales — turno del jugador", "Pantalla de resultados"],
-      en: ["Home screen", "Team management", "Pre-match preview", "Penalty shootout — keeper's turn", "Penalty shootout — player's turn", "Results screen"],
+      es: ["Pantalla de inicio", "Gestión de equipo", "Pantalla de mercado", "Tanda de penales — turno del golero", "Tanda de penales — turno del jugador", "Pantalla de resultados"],
+      en: ["Home screen", "Team management", "Market screen", "Penalty shootout — keeper's turn", "Penalty shootout — player's turn", "Results screen"],
     } satisfies LocaleStringArray,
   },
   vision: {

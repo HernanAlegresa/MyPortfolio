@@ -12,7 +12,7 @@ import type { Locale } from "@/lib/i18n/config";
 const SCREEN_IMAGES: Array<{ src: string; altKey: number }> = [
   { src: "/projects/card-shootout/cardshootout_homescreen.png", altKey: 0 },
   { src: "/projects/card-shootout/cardshootout_teammanagement_screen.png", altKey: 1 },
-  { src: "/projects/card-shootout/preview_pre-partida.png", altKey: 2 },
+  { src: "/projects/card-shootout/preview_mercado.png", altKey: 2 },
   { src: "/projects/card-shootout/tandapenales_turnogolero.png", altKey: 3 },
   { src: "/projects/card-shootout/tandapenalesturnojugador.png", altKey: 4 },
   { src: "/projects/card-shootout/pantalladeresultados.png", altKey: 5 },
@@ -94,14 +94,15 @@ export function CardShootoutCaseStudy({ locale }: Props) {
         </div>
 
         <Reveal className="mt-10">
-          <div className="relative mx-auto max-w-2xl aspect-[2/1] overflow-hidden rounded-2xl border border-border shadow-lg">
+          <div className="mx-auto max-w-2xl overflow-hidden rounded-2xl border border-border shadow-lg">
             <Image
-              src="/projects/card-shootout/cardshootout_projectpage.png"
+              src="/projects/card-shootout/cardshootout_projectpage_hero.png"
               alt={c.heroImageAlt}
-              fill
               priority
               sizes="100vw"
-              className="object-cover"
+              width={1159}
+              height={535}
+              className="h-auto w-full"
             />
           </div>
         </Reveal>
