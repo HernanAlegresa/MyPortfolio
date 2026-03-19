@@ -21,6 +21,7 @@ import { CardShootoutCaseStudy } from "@/components/portfolio/case-studies/card-
 import { KeyCliqCaseStudy } from "@/components/portfolio/case-studies/keycliq-case-study";
 import { ShopifyIntegrationsCaseStudy } from "@/components/portfolio/case-studies/shopify-integrations-case-study";
 import { BackToProjects } from "@/components/portfolio/back-to-projects";
+import { ProjectHeroVideo } from "@/components/portfolio/project-hero-video";
 
 type DetailPageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -203,20 +204,18 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
           )}
 
           <Reveal className="mt-10">
-            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-border shadow-lg">
-              {project.heroVideo ? (
-                <video
-                  muted
-                  playsInline
-                  preload="metadata"
+            {project.heroVideo ? (
+              <div className="overflow-hidden rounded-2xl border border-border shadow-lg">
+                <ProjectHeroVideo
+                  src={project.heroVideo}
                   poster={project.posterImage}
-                  controls
-                  aria-label={dict.projects.demoVideoAriaLabel}
-                  className="absolute inset-0 h-full w-full object-cover"
-                >
-                  <source src={project.heroVideo} type="video/mp4" />
-                </video>
-              ) : (
+                  ariaLabel={dict.projects.demoVideoAriaLabel}
+                  playbackRate={1.4}
+                  className="block h-auto w-full"
+                />
+              </div>
+            ) : (
+              <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-border shadow-lg">
                 <Image
                   src={project.coverImage}
                   alt={`${project.title} hero`}
@@ -225,8 +224,8 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
                   sizes="100vw"
                   className="object-cover"
                 />
-              )}
-            </div>
+              </div>
+            )}
           </Reveal>
 
           <div className="mt-10 space-y-6">
