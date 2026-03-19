@@ -204,18 +204,16 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
           )}
 
           <Reveal className="mt-10">
-            {project.heroVideo ? (
-              <div className="overflow-hidden rounded-2xl border border-border shadow-lg">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-border shadow-lg">
+              {project.heroVideo ? (
                 <ProjectHeroVideo
                   src={project.heroVideo}
                   poster={project.posterImage}
                   ariaLabel={dict.projects.demoVideoAriaLabel}
                   playbackRate={1.4}
-                  className="block h-auto w-full"
+                  className="absolute inset-0 h-full w-full object-cover"
                 />
-              </div>
-            ) : (
-              <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-border shadow-lg">
+              ) : (
                 <Image
                   src={project.coverImage}
                   alt={`${project.title} hero`}
@@ -224,8 +222,8 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
                   sizes="100vw"
                   className="object-cover"
                 />
-              </div>
-            )}
+              )}
+            </div>
           </Reveal>
 
           <div className="mt-10 space-y-6">
