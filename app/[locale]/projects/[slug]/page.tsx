@@ -237,20 +237,21 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
                 </h3>
                 {typedLocale === "es" ? (
                   <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
-                    <p>Fui responsable del diseño y desarrollo completo del sitio web.</p>
+                    <p>Fui responsable del diseño y desarrollo end-to-end del producto.</p>
                     <p>
-                      El proyecto incluyó la estructuración del catálogo digital, el diseño de la experiencia
-                      de usuario y del sitio web siguiendo los patrones del negocio, la implementación del
-                      frontend y el despliegue del sitio en producción.
+                      Definí la estructura del catálogo digital, diseñé la experiencia de usuario enfocada
+                      en conversión y desarrollé el frontend completo. También gestioné el despliegue a
+                      producción y la configuración de dominio, asegurando un entorno real listo para uso
+                      por clientes.
                     </p>
                   </div>
                 ) : (
                   <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
-                    <p>I was responsible for the full design and development of the website.</p>
+                    <p>I was responsible for the end-to-end design and development of the product.</p>
                     <p>
-                      The project included structuring the digital product catalog, designing the user
-                      experience and the website following the business patterns, implementing the frontend
-                      and deploying the site to production.
+                      I defined the structure of the digital catalog, designed a conversion-focused user
+                      experience, and built the full frontend. I also handled deployment to production and
+                      domain setup, ensuring a real environment ready for actual users.
                     </p>
                   </div>
                 )}
@@ -289,6 +290,38 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
               </article>
             </Reveal>
 
+            <Reveal delay={0.075}>
+              <article className="rounded-2xl border border-border bg-card/60 p-6">
+                <h3 className="text-lg font-semibold">
+                  {typedLocale === "es" ? "Enfoque de producto" : "Product approach"}
+                </h3>
+                {typedLocale === "es" ? (
+                  <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    <p>
+                      En lugar de implementar un checkout tradicional, se optó por un flujo de compra vía
+                      WhatsApp, alineado con el comportamiento real de los clientes y el modelo operativo del
+                      negocio.
+                    </p>
+                    <p>
+                      Esta decisión reduce fricción, simplifica el proceso de compra y permite validar el
+                      negocio con un MVP funcional en producción.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    <p>
+                      Instead of implementing a traditional checkout, a WhatsApp-based purchase flow was
+                      chosen, aligned with real user behavior and the business operational model.
+                    </p>
+                    <p>
+                      This decision reduces friction, simplifies the buying process, and enables validation
+                      of the business with a functional MVP in production.
+                    </p>
+                  </div>
+                )}
+              </article>
+            </Reveal>
+
             <Reveal delay={0.1}>
               <article className="rounded-2xl border border-border bg-card/60 p-6">
                 <h3 className="text-lg font-semibold">
@@ -297,23 +330,31 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
                 {typedLocale === "es" ? (
                   <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
                     <p>
-                      El sitio fue desarrollado utilizando Next.js para aprovechar generación estática, buen
-                      rendimiento y una arquitectura moderna para aplicaciones web.
+                      Se utilizó Next.js 15 para aprovechar generación estática, rendimiento y una arquitectura
+                      moderna orientada a producción.
                     </p>
                     <p>
-                      Tailwind CSS permitió construir una interfaz limpia y consistente rápidamente, mientras
-                      que el despliegue en Vercel simplifica la distribución y el rendimiento global.
+                      La interfaz fue construida con Tailwind CSS bajo un enfoque mobile-first, priorizando
+                      claridad y usabilidad.
+                    </p>
+                    <p>
+                      El sitio fue desplegado en Vercel con dominio personalizado, e incluye configuración SEO
+                      (sitemap, metadata, Open Graph) para asegurar visibilidad en buscadores y redes sociales.
                     </p>
                   </div>
                 ) : (
                   <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
                     <p>
-                      The website was built using Next.js to take advantage of static generation, strong
-                      performance and a modern web architecture.
+                      Next.js 15 was used to leverage static generation, performance, and a modern
+                      production-ready architecture.
                     </p>
                     <p>
-                      Tailwind CSS enabled fast development of a clean and consistent interface, while
-                      deployment on Vercel provides simple and reliable hosting.
+                      The interface was built with Tailwind CSS using a mobile-first approach, prioritizing
+                      clarity and usability.
+                    </p>
+                    <p>
+                      The site was deployed on Vercel with a custom domain and includes SEO setup (sitemap,
+                      metadata, Open Graph) to ensure visibility in search engines and social platforms.
                     </p>
                   </div>
                 )}
@@ -344,25 +385,40 @@ export default async function ProjectDetailPage({ params }: DetailPageProps) {
                   <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                     {typedLocale === "es" ? (
                       <>
-                        <li>• Catálogo digital de productos naturales para un negocio local</li>
-                        <li>• Diseño moderno y mobile-first pensado para clientes reales</li>
-                        <li>• Arquitectura rápida y ligera con Next.js y Tailwind</li>
-                        <li>• Proyecto desarrollado para un emprendimiento real en Uruguay</li>
-                        <li>• Integración con canales de contacto para coordinar pedidos</li>
+                        <li>• Catálogo digital optimizado para conversión en negocio real</li>
+                        <li>• Flujo de compra simplificado mediante integración con WhatsApp</li>
+                        <li>• Diseño mobile-first enfocado en experiencia de usuario real</li>
+                        <li>• Deploy en producción con dominio propio y SEO configurado</li>
+                        <li>• Arquitectura moderna con Next.js 15 y Tailwind CSS</li>
+                        <li>• Proyecto desarrollado para un cliente real en Uruguay</li>
                       </>
                     ) : (
                       <>
-                        <li>• Digital catalog for natural food products</li>
-                        <li>• Mobile-first design optimized for real customers</li>
-                        <li>• Fast and lightweight architecture built with Next.js and Tailwind</li>
-                        <li>• Built for a real local business in Uruguay</li>
-                        <li>• Integration with messaging channels for order coordination</li>
+                        <li>• Conversion-focused digital catalog for a real business</li>
+                        <li>• Simplified purchase flow via WhatsApp integration</li>
+                        <li>• Mobile-first design focused on real user experience</li>
+                        <li>• Production deployment with custom domain and SEO setup</li>
+                        <li>• Modern architecture with Next.js 15 and Tailwind CSS</li>
+                        <li>• Built for a real client in Uruguay</li>
                       </>
                     )}
                   </ul>
                 </article>
               </Reveal>
             </div>
+
+            <Reveal delay={0.25}>
+              <article className="rounded-2xl border border-border bg-card/60 p-6">
+                <h3 className="text-lg font-semibold">
+                  {typedLocale === "es" ? "Estado del proyecto" : "Project status"}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {typedLocale === "es"
+                    ? "El sitio se encuentra en producción y es utilizado como canal activo para la visualización del catálogo y coordinación de pedidos."
+                    : "The site is live in production and actively used as a channel for product discovery and order coordination."}
+                </p>
+              </article>
+            </Reveal>
           </div>
 
         </Container>

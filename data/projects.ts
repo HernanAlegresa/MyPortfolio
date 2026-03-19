@@ -220,8 +220,8 @@ const projectsData: Array<
       en: "Natural foods e-commerce website for a local business in Uruguay.",
     },
     overview: {
-      es: "Sitio web para una tienda de alimentos naturales en Uruguay. Presenta productos reales sin ultraprocesados y facilita explorar el catálogo y coordinar pedidos online.",
-      en: "Website for a natural food store in Uruguay. Showcases real, minimally processed products and makes it easy to explore the catalog and coordinate orders online.",
+      es: "Sitio web para una tienda de alimentos naturales en Uruguay, diseñado como un catálogo digital optimizado para conversión. El proyecto permite a los clientes explorar productos de forma clara y realizar pedidos de manera simple a través de WhatsApp, alineando la experiencia digital con el modelo real del negocio.",
+      en: "Website for a natural food store in Uruguay, designed as a conversion-focused digital catalog. The platform allows users to explore products clearly and place orders seamlessly via WhatsApp, aligning the digital experience with the real business workflow.",
     },
     role: {
       es: "Diseño y desarrollo completo del sitio web. Implementación del catálogo digital, estructura de navegación, diseño responsive y despliegue en Vercel.",
@@ -252,7 +252,7 @@ const projectsData: Array<
       ],
     },
     coverImage: "/projects/despensa-natural/cover.png",
-    heroVideo: undefined,
+    heroVideo: "/projects/despensa-natural/hero-demo.mp4",
     posterImage: "/projects/despensa-natural/cover.png",
     gallery: [],
     links: {
