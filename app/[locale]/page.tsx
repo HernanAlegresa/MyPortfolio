@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { profile } from "@/data/profile";
 import { getExperience } from "@/data/experience";
-import { getFeaturedProjects } from "@/data/projects";
+import { getFeaturedProjects, getProjectBySlug } from "@/data/projects";
 import { getSkillCategories } from "@/data/skills";
 import { Reveal } from "@/components/motion/reveal";
 import { StaggerReveal } from "@/components/motion/stagger-reveal";
@@ -50,6 +50,7 @@ export default async function HomePage({
   const keyCliq = projectsBySlug.get("keycliq");
   const shopifyIntegrations = projectsBySlug.get("shopify-integrations-rebl");
   const ohShirt = projectsBySlug.get("oh-shirt");
+  const despensaNatural = getProjectBySlug("despensa-natural", typedLocale);
 
   return (
     <>
@@ -188,20 +189,32 @@ export default async function HomePage({
             )}
           </div>
 
-          {/* ── Row 3: Shopify closing card ─────────────────────────────────────────
-               HEIGHT → mediaClassName aspect ratio
-               IMAGE  → imagePosition */}
-          {shopifyIntegrations && (
-            <Reveal className="mt-6">
-              <ProjectShowcaseCard
-                locale={typedLocale}
-                project={shopifyIntegrations}
-                className="mx-auto w-full md:max-w-[65%]"
-                mediaClassName="aspect-[15/8]"
-                imagePosition="center center"
-              />
-            </Reveal>
-          )}
+          {/* ── Row 3: Shopify Integrations + Despensa Natural (same row, equal size) ─ */}
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            {shopifyIntegrations && (
+              <Reveal>
+                <ProjectShowcaseCard
+                  locale={typedLocale}
+                  project={shopifyIntegrations}
+                  className="w-full"
+                  mediaClassName="aspect-[15/8]"
+                  imagePosition="center center"
+                />
+              </Reveal>
+            )}
+            {despensaNatural && (
+              <Reveal delay={0.05}>
+                <ProjectShowcaseCard
+                  locale={typedLocale}
+                  project={despensaNatural}
+                  className="w-full"
+                  mediaClassName="aspect-[15/8]"
+                  previewImage="/projects/despensa-natural/cover.png"
+                  imagePosition="center center"
+                />
+              </Reveal>
+            )}
+          </div>
         </Container>
       </Section>
 
